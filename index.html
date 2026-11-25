@@ -32,7 +32,7 @@
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--sans);overflow:hidden;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
 #app{position:relative;max-width:520px;height:100vh;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
-header{flex:none;margin:-16px -16px 16px;display:grid;grid-template-columns:46px 1fr 46px;align-items:center;padding:calc(env(safe-area-inset-top) + 8px) 14px 10px;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+header{flex:none;position:sticky;top:-16px;margin:-16px -16px 16px;display:grid;grid-template-columns:46px 1fr 46px;align-items:center;padding:calc(env(safe-area-inset-top) + 8px) 14px 10px;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
 .wm{font:500 19px var(--serif);letter-spacing:.34em;text-align:center;color:var(--ink);padding-left:.32em}.wm b{color:var(--gold);font-weight:600}
 .circ{width:44px;height:44px;border:1px solid var(--line);background:var(--surf);color:var(--ink);border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0}
 main{flex:1;overflow-y:auto;padding:16px 16px calc(28px + var(--kb));-webkit-overflow-scrolling:touch;scroll-padding:80px}
@@ -395,9 +395,8 @@ ${ap('riduzione acquisti','Applica riduzione acquisti')}`,'full')}
 ${blk('Formule dell\'argento',`<div class="kv"><span>Quotazione originale Gold API</span><b class="num" id="fag">${eur(R.xag)}/g</b></div>${inpS('ridAg',S.ridAg||0,'Riduzione argento sugli acquisti','%')}
 <div class="kv"><span>Argento per gli acquisti</span><b class="gold num" id="fagr">${eur(agAcq())}/g</b></div><p class="small" style="margin:4px 0 0">Vale per Argento 999 e 925/800 in bonifico e cambio merce. Fuori da questa pagina tutti vedono solo l'argento ridotto.</p>
 ${ap('riduzione argento','Applica riduzione argento')}`,'full')}
-<div class="grp">${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${v.n}</b><span class="q num" id="fq_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</span></div>
-<div class="g2" style="margin-top:6px">${inp(`coef.${m}.${v.id}.0`,c[m][v.id][0],`Coefficiente C (rif. ${v.rif})`)}${inp(`coef.${m}.${v.id}.1`,c[m][v.id][1],'Trattenuta T')}</div></div>`).join(''),'full')).join('')}
-${ap('formule '+ml,'Applica formule '+ml)}<div style="height:18px"></div></div>`};
+${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${v.n}</b><span class="q num" id="fq_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</span></div>
+<div class="g2" style="margin-top:6px">${inp(`coef.${m}.${v.id}.0`,c[m][v.id][0],`Coefficiente C (rif. ${v.rif})`)}${inp(`coef.${m}.${v.id}.1`,c[m][v.id][1],'Trattenuta T')}</div></div>`).join('')+ap('formule '+ml+' · '+g,'Applica '+l+' · '+ml),'full')).join('')}`};
 V.vendadm=()=>`<h1>Amministrazione vendita</h1><p class="sub">Prezzi di vendita: oreficeria, fedi, monete e lingotti</p><div class="jump"><button data-jump="Vendita oreficeria">Oreficeria</button><button data-jump="Prezzo Fedi">Fedi</button><button data-jump="Vendita monete">Monete</button><button data-jump="Lingotti 750">Lingotti 750</button><button data-jump="Lingotti 999">Lingotti 999</button></div>
 
 ${['oreficeria','fedi'].map(k=>{const p=S.vend[k];return blk(k==='fedi'?'Prezzo Fedi':'Vendita oreficeria',`<div class="g2">${inp(`vend.${k}.calo`,p.calo,'Calo (per mille)')}${inp(`vend.${k}.man`,p.man,'Manifattura')}${inp(`vend.${k}.utile`,p.utile,'Utile')}${inp(`vend.${k}.iva`,p.iva,'IVA %')}${inp(`vend.${k}.sconto`,p.sconto,'Sconto banconota %')}${inp(`vend.${k}.gialla`,p.gialla,'Soglia gialla €/g')}${inp(`vend.${k}.rossa`,p.rossa,'Soglia rossa €/g')}</div>
@@ -544,11 +543,11 @@ document.addEventListener('click',async e=>{const t=e.target.closest('button,[da
  if(d.rmcoin){const c=S.coins.find(x=>x.id===d.rmcoin);modal(`<div class="bh">Eliminare la moneta?</div><div class="bb"><b style="font-size:17px">${esc(c.n)}</b><p class="small">Sparisce da rivendita, formule, valutazione e vendita. I preventivi già confermati non cambiano.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-rmok="${c.id}">Elimina</button></div></div>`);return}
  if(d.rmok){const c=S.coins.find(x=>x.id===d.rmok);busy(t,true);try{await rpc('cv2_salva',{p_sezione:'moneta_elimina',p:{voce:c.id}});S.cart.righe=S.cart.righe.filter(r=>r.id!==c.id);save();unmodal();await loadA();await loadD();go0('costi');toast(c.n+' eliminata')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
  if(d.leave){unmodal();go0(d.leave);return}
- if(d.apply){const sec=t.closest('.grp')||t.closest('.blk');let ch=0;sec.querySelectorAll('[data-k]').forEach(el=>{const path=el.dataset.k.split('.');let o=S;for(let i=0;i<path.length-1;i++){if(o[path[i]]==null)o[path[i]]={};o=o[path[i]]}const v=nm(el.value);if(o[path.at(-1)]!==v){ch++;o[path.at(-1)]=v}el.value=fv(v)});
+ if(d.apply){const lab=t.textContent.trim().replace(/^Applica\s*/,'');const sec=t.closest('.grp')||t.closest('.blk');let ch=0;sec.querySelectorAll('[data-k]').forEach(el=>{const path=el.dataset.k.split('.');let o=S;for(let i=0;i<path.length-1;i++){if(o[path[i]]==null)o[path[i]]={};o=o[path[i]]}const v=nm(el.value);if(o[path.at(-1)]!==v){ch++;o[path.at(-1)]=v}el.value=fv(v)});
   const sv=sec.querySelector('.saved'),pl=payload(d.apply);if(!pl.length)return;busy(t,true);sv.hidden=false;sv.className='saved small';sv.textContent='Salvataggio in corso…';
   try{for(const[s,p]of pl)await rpc('cv2_salva',{p_sezione:s,p});await loadA();await loadD();const y=$('#main').scrollTop;go0(view);$('#main').scrollTop=y;
    const nb=[...document.querySelectorAll('[data-apply]')].find(b=>b.dataset.apply===d.apply),ns=nb&&(nb.closest('.grp')||nb.closest('.blk')).querySelector('.saved');if(ns){ns.hidden=false;ns.className='saved small ok';ns.textContent='✓ Salvato alle '+hhmm(Date.now())}
-   toast(ch?'Salvato: '+d.apply:'Salvato (nessun valore cambiato)')}
+   toast(ch?'Salvato: '+lab:'Salvato (nessun valore cambiato)')}
   catch(err){busy(t,false);sv.className='saved small';sv.textContent='Non salvato: '+err.message;toast('Errore: '+err.message);try{await loadA()}catch(e){}}return}
  if(d.fmodo){fmodo=d.fmodo;go0(view);return}
  if(d.lt){lt=d.lt;lcash=lt==='999';go('lingotti');return}
@@ -600,7 +599,7 @@ let tick=0;setInterval(()=>{const now=Date.now();tick++;const qn=$('#qn');if(qn)
 const payload=l=>{
  if(l==='riduzione acquisti')return[['riduzione',{oro:S.rid}]];
  if(l==='riduzione argento')return[['riduzione_argento',{argento:S.ridAg}]];
- if(l.startsWith('formule '))return[['formule',{modalita:fmodo,voci:VOCI.filter(v=>S.coef[fmodo]&&S.coef[fmodo][v.id]).map(v=>({voce:v.id,c:S.coef[fmodo][v.id][0],t:S.coef[fmodo][v.id][1]}))}]];
+ if(l.startsWith('formule ')){const g=l.split(' · ')[1];return[['formule',{modalita:fmodo,voci:VOCI.filter(v=>v.g===g&&S.coef[fmodo]&&S.coef[fmodo][v.id]).map(v=>({voce:v.id,c:S.coef[fmodo][v.id][0],t:S.coef[fmodo][v.id][1]}))}]]}
  if(l==='vendita oreficeria'||l==='prezzo fedi'){const k=l==='prezzo fedi'?'fedi':'oreficeria';return[['vendita',{tipo:k,...S.vend[k]}]]}
  if(l==='vendita monete')return[['monete_vendita',{voci:S.coins.map(c=>({voce:c.id,ricarico:c.ric}))}]];
  if(l==='lingotti 750')return[['l750',S.ling.l750]];
