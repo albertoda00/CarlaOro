@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>CARLAORO — Anteprima</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: elegante e pratica, da banco di gioielleria
+   IDEA: come l'app CarlaOro del video: blocchi con fascia marrone e titolo oro, fondo tortora, campi bianchi
+   PICTURE: il riquadro del prezzo marrone, centrato, con cifra dorata e tasto banconota
+   COLOUR and TYPE: beige, tortora, marrone, oro; Cormorant Garamond per i titoli, Inter per testi e numeri
+   LAYOUT: telefono a colonna con barra in basso; iPad con menu fisso a sinistra e due colonne */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbf6ee,#1f1914);--panel:light-dark(#e8dac5,#2f261e);--surf:light-dark(#fffcf7,#2a221b);--field:light-dark(#fffcf7,#1f1914);
+--ink:light-dark(#3f2d21,#f1e6d5);--mut:light-dark(#8d7a67,#a99985);--line:light-dark(#dfd2bf,#3d3228);--fbord:light-dark(#98897f,#6a5a4b);
+--band:#503629;--bandt:#dcb45c;--gold:light-dark(#a8822f,#d6b05a);--goldbtn:#c9a54f;--chipbg:light-dark(#dfcfae,#4a3b20);
+--yel:#e6bf3a;--red:#c0392b;--alarm:#d11f1f;--ok:#4b7a4b;--okbg:light-dark(#dfe8d6,#2e3b2a);--kb:0px;
+--sh:none;
+--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,-apple-system,sans-serif}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--sans);overflow:hidden;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+#app{position:relative;max-width:520px;height:100vh;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+header{flex:none;margin:-16px -16px 16px;display:grid;grid-template-columns:46px 1fr 46px;align-items:center;padding:calc(env(safe-area-inset-top) + 8px) 14px 10px;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+.wm{font:500 19px var(--serif);letter-spacing:.34em;text-align:center;color:var(--ink);padding-left:.32em}.wm b{color:var(--gold);font-weight:600}
+.circ{width:44px;height:44px;border:1px solid var(--line);background:var(--surf);color:var(--ink);border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0}
+main{flex:1;overflow-y:auto;padding:16px 16px calc(28px + var(--kb));-webkit-overflow-scrolling:touch;scroll-padding:80px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font:500 32px/1.1 var(--serif);margin:4px 2px 4px;color:var(--ink)}
+.sub{color:var(--mut);margin:0 2px 16px;font-size:14px}
+button{font-family:var(--sans)}
+button:focus-visible,input:focus-visible,select:focus-visible,[role=button]:focus-visible{outline:2px solid var(--goldbtn);outline-offset:2px}
+.blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:22px;overflow:hidden;box-shadow:var(--sh)}
+.bh{background:var(--band);color:var(--bandt);font:500 22px/1.15 var(--serif);letter-spacing:.01em;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bb{padding:16px 16px 18px}
+.row{display:flex;align-items:center;gap:12px}.sp{flex:1}
+.mut{color:var(--mut)}.small{font-size:13px;color:var(--mut)}
+.num{white-space:nowrap}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px;gap:4px;margin-bottom:18px}
+.seg button{flex:1;min-height:52px;border:0;border-radius:11px;background:none;color:var(--ink);font-weight:600;font-size:16.5px;cursor:pointer;transition:background .15s}
+.seg button.on{background:var(--band);color:var(--bandt);box-shadow:0 2px 6px rgba(45,30,20,.25)}
+.seg.serif button{font:500 23px var(--serif)}
+label.f{display:block;margin-bottom:14px}label.f span{display:block;font-size:13.5px;font-weight:600;color:var(--mut);margin:0 0 7px 2px}
+input,select{width:100%;min-height:48px;font:400 17px var(--sans);color:var(--ink);background:var(--field);border:1px solid var(--fbord);border-radius:10px;padding:10px 14px;font-variant-numeric:tabular-nums;-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--goldbtn);box-shadow:0 0 0 3px rgba(201,165,79,.25)}input::placeholder{color:var(--mut);opacity:.75}
+input.err{border-color:var(--red)}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px}
+.btn{min-height:52px;border:0;border-radius:999px;background:var(--goldbtn);color:#2b1d12;font-weight:600;font-size:16px;padding:0 22px;cursor:pointer;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
+.btn:active{transform:scale(.98)}
+.btn.out{background:none;color:var(--gold);border:1.5px solid var(--gold)}
+.btn.danger{background:var(--red);color:#fff}
+.btn.sm{min-height:40px;width:auto;font-size:14px;padding:0 16px}
+.plus{flex:none;width:44px;height:44px;border:0;border-radius:9px;background:var(--band);color:var(--bandt);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:transform .1s}
+.plus:active{transform:scale(.92)}.plus.done{background:var(--ok);color:#fff;font-size:17px}
+.kv{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0}
+.kv>span:first-child{color:var(--mut)}
+.kv b{font-weight:600}.kv b.gold{color:var(--gold);font-size:19px}
+.hr{border-top:1px solid var(--line);margin:8px 0}
+.cimg{flex:none;border-radius:50%;object-fit:cover;cursor:zoom-in;box-shadow:0 2px 8px rgba(60,40,25,.25)}
+.cimg.ph{display:grid;place-items:center;background:var(--chipbg);color:var(--gold);font:500 24px var(--serif);box-shadow:none;cursor:default}
+.zoomimg{display:block;width:min(78vw,320px);height:auto;margin:0 auto;border-radius:50%;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.bimg{flex:none;width:46px;height:68px;object-fit:contain;cursor:zoom-in;filter:drop-shadow(0 2px 4px rgba(60,40,25,.3))}
+.zoombar{display:block;width:min(60vw,220px);height:auto;margin:0 auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35))}
+.saved{text-align:center;margin-top:8px;font-weight:600;color:var(--red)}.saved.ok{color:var(--ok)}.btn.dirty{box-shadow:0 0 0 3px rgba(201,165,79,.45)}
+.suf{position:relative;display:block}.suf i{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--mut)}.suf input{padding-right:40px}
+.plus.pb{margin-left:-4px;background:none;color:var(--gold);border:1.5px solid var(--gold);font:600 20px var(--serif)}.plus.pb.on{background:var(--gold);color:#fff}
+.prop{display:flex;align-items:center;gap:12px;margin-top:10px}.prop input{flex:1;width:auto}
+.dots{display:flex;gap:7px;flex:none}.dots i{width:14px;height:14px;border-radius:50%;opacity:.22}.dots i.g{background:#3f9b4f}.dots i.y{background:var(--yel)}.dots i.r{background:var(--red)}
+.dots[data-c=g] i.g,.dots[data-c=y] i.y,.dots[data-c=r] i.r{opacity:1;box-shadow:0 0 8px rgba(0,0,0,.3)}
+.code{font:500 13px var(--sans);color:#d9c9b0;letter-spacing:.06em}
+
+.jump{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin:0 -2px 6px;scrollbar-width:none;}.jump::-webkit-scrollbar{display:none}
+.jump button{flex:none;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surf);color:var(--ink);font-size:13.5px;font-weight:600;cursor:pointer}
+.jump button:active{background:var(--chipbg)}
+.tbar{height:3px;border-radius:2px;background:rgba(224,187,98,.25);margin:8px auto 0;max-width:140px;overflow:hidden}.tbar i{display:block;height:100%;width:100%;background:#e0bb62;transform-origin:left;animation:tb 5s linear forwards}@keyframes tb{to{transform:scaleX(0)}}
+#toast{display:flex;align-items:center;gap:14px}#toast button{border:0;background:none;color:#e0bb62;font-weight:700;font-size:14px;padding:4px 2px;cursor:pointer;pointer-events:auto}
+.wrap{animation:vin .22s ease-out}@keyframes vin{from{opacity:0;transform:translateY(6px)}}
+.badge.bump{animation:bump .35s ease}@keyframes bump{40%{transform:scale(1.35)}}
+.clear{display:flex;justify-content:flex-end;margin:-6px 0 12px}.clear button{border:0;background:none;color:var(--gold);font-weight:600;font-size:14px;padding:8px 4px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.hint{display:flex;gap:10px;align-items:center;background:var(--chipbg);border-radius:10px;padding:11px 14px;font-size:14.5px;margin:0 0 10px}
+/* riquadro prezzo */
+.pbox{margin-left:26px!important;margin-right:26px!important;text-align:center;background:linear-gradient(160deg,#503629 0%,#2c2018 100%);border:1px solid #b8913e;border-radius:16px;color:#f1e6d5;padding:16px 16px 14px;margin-bottom:18px;box-shadow:0 12px 28px rgba(44,32,24,.3)}
+.pbox .k{font-size:11.5px;font-weight:600;letter-spacing:.18em;color:#c9a54f}
+.pbox .t{font:500 21px/1.15 var(--serif);color:#f1e6d5;margin-top:4px}
+.pbox .p{font-size:clamp(34px,10vw,42px);font-weight:700;color:#e0bb62;letter-spacing:-.01em;line-height:1.1;margin:6px auto 2px;cursor:pointer;user-select:none;border-radius:12px;display:inline-block;padding:0 8px}
+.pbox .u{font-size:13.5px;color:#d9c9b0;display:flex;align-items:center;justify-content:center;gap:6px}
+.pbox .hr2{border-top:1px solid rgba(224,187,98,.25);margin:10px 0}
+.cash{width:56px;height:40px;border:1.5px solid rgba(241,230,213,.45);border-radius:999px;background:transparent;color:#e9dcc5;display:inline-grid;place-items:center;cursor:pointer}
+.cash.on{background:#e0bb62;color:#2c2018;border-color:#e0bb62}
+.sqbtn{flex:none;width:52px;height:52px;border:1px solid var(--line);border-radius:14px;background:var(--surf);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.sqbtn.on{background:var(--goldbtn);border-color:var(--goldbtn);color:#2b1d12}
+.bar{height:12px;border-radius:999px;margin-top:12px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px}
+.bar.alarm i{background:var(--alarm);animation:glow 1.1s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 16px 4px #ff4a3a;opacity:.75}}
+/* scheda quotazione */
+.qcard{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:18px}
+.qcard .ic{width:46px;height:46px;border-radius:50%;background:var(--chipbg);color:var(--gold);display:grid;place-items:center;flex:none}
+.cap{font-size:11.5px;font-weight:600;letter-spacing:.12em;color:var(--mut)}
+.qv{font-size:22px;font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;background:var(--okbg);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent);white-space:nowrap}
+.pill i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.qmini{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:18px}
+.qmini .v{font-weight:700;font-size:16px}.qmini .sepv{width:1px;align-self:stretch;background:var(--line)}
+.voce{padding:12px 0;border-bottom:1px solid var(--line)}.voce:last-child{border:0;padding-bottom:0}.voce:first-child{padding-top:0}
+.voce .n{font-weight:600;font-size:16px}.voce .q{color:var(--gold);font-weight:600}
+.voce input{width:132px;min-height:46px}
+.val{text-align:right;font-size:12.5px;color:var(--mut);line-height:1.2}.val b{display:block;color:var(--ink);font-size:15px}
+.chip{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap;background:rgba(241,230,213,.14);color:#f1e6d5}
+.pvh{background:var(--band);padding:12px 14px 12px 18px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.pvh .id{font-weight:700;font-size:19px;color:var(--bandt);letter-spacing:.03em}.pvh .cl{color:#f1e6d5;font-size:16px}
+.pvh .cd{color:var(--bandt);font-weight:700;font-size:19px;display:flex;align-items:center;gap:5px;justify-content:flex-end}
+.pvh .chev{color:var(--bandt);transition:transform .2s}.pvh .chev.up{transform:rotate(180deg)}
+.xr{width:40px;height:40px;border:0;border-radius:50%;background:rgba(241,230,213,.12);color:#f1e6d5;font-size:20px;cursor:pointer;flex:none}
+nav.tab{flex:none;display:grid;grid-template-columns:repeat(4,1fr);background:var(--surf);border-top:1px solid var(--line);padding:8px 6px calc(6px + env(safe-area-inset-bottom));transition:opacity .15s;z-index:5}
+nav.tab.kbd{opacity:0;pointer-events:none;visibility:hidden;position:absolute;bottom:0;left:0;right:0}
+nav.tab button{position:relative;border:0;background:none;color:light-dark(#a3907c,#9c8b78);font-size:12px;font-weight:500;letter-spacing:.02em;padding:2px 0;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-height:56px}
+nav.tab .ic{width:58px;height:34px;border-radius:999px;display:grid;place-items:center;transition:background .2s,color .2s}
+nav.tab button.on{color:var(--ink);font-weight:600}nav.tab button.on .ic{background:light-dark(#e6d6bb,#4a3b20);color:light-dark(#6b4d3a,#e6c36e)}nav.tab button.on .ic svg{stroke-width:1.5}
+.badge{position:absolute;top:-2px;left:calc(50% + 10px);background:var(--red);color:#fff;font-size:11px;font-weight:700;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;border:2px solid var(--surf)}
+#scrim{position:absolute;inset:0;background:rgba(30,20,12,.4);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+#side{position:absolute;top:0;bottom:0;left:0;width:82%;max-width:330px;background:var(--surf);z-index:21;transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);padding:calc(env(safe-area-inset-top) + 16px) 12px 16px;display:flex;flex-direction:column;gap:4px;box-shadow:8px 0 30px rgba(0,0,0,.15);overflow-y:auto}
+#app.menu #scrim{opacity:1;pointer-events:auto}#app.menu #side{transform:none}
+#side .top{display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 8px;margin-bottom:14px}
+#side .top .wm{font-size:17px;text-align:left;padding:0}
+#side .closeX{width:40px;height:40px;border:0;background:none;color:var(--ink);font-size:24px;cursor:pointer}
+.prof{display:flex;align-items:center;gap:12px;background:var(--panel);border-radius:14px;padding:12px;margin-bottom:12px}
+.av{width:44px;height:44px;border-radius:50%;background:var(--band);color:var(--bandt);display:grid;place-items:center;font:600 17px var(--serif);flex:none}
+.prof .r{font-size:13px;color:var(--gold);font-weight:600}
+.mi{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid transparent;background:none;color:var(--ink);padding:9px 10px;border-radius:14px;min-height:56px;cursor:pointer;width:100%}
+.mi .ib{width:36px;height:36px;border-radius:10px;background:light-dark(#efe4d3,#352b22);color:light-dark(#bb9545,#d9b665);display:grid;place-items:center;flex:none}
+.mi .tt{font-weight:600;font-size:15px}.mi .st{font-size:12.5px;color:var(--mut)}
+.mi .ch{margin-left:auto;color:var(--mut)}
+.mi.on{border-color:var(--goldbtn);background:var(--panel)}
+#side .sep{font-size:11.5px;font-weight:600;letter-spacing:.12em;color:var(--mut);margin:12px 0 2px 10px}
+#side .wide{display:none}
+.modal{position:absolute;inset:0;z-index:40;background:rgba(30,20,12,.45);display:none;place-items:center;padding:24px}
+.modal.open{display:grid}.modal .blk{width:100%;max-width:380px;margin:0;animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+#toast{position:absolute;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,16px);background:var(--band);color:#f1e6d5;padding:12px 18px;border-radius:14px;font-weight:500;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:45;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#splash,#login{position:absolute;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;padding:24px;overflow-y:auto}
+.logo{width:min(240px,66vw);height:auto;display:block;margin:0 auto}
+:root[data-theme=dark] .logo{filter:invert(1) hue-rotate(180deg) brightness(1.15)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .logo{filter:invert(1) hue-rotate(180deg) brightness(1.15)}}
+#splash .logo{animation:fade 1s ease both}@keyframes fade{from{opacity:0;transform:scale(.97)}}
+#login{display:flex;flex-direction:column;background:radial-gradient(120% 70% at 50% 0%,light-dark(#fffdf8,#2a221b) 0%,var(--bg) 65%)}
+#login .box{width:100%;max-width:390px;margin:auto;padding:8px 0}
+#login .logo{width:min(180px,50vw);margin:0 auto 26px}
+.ltabs{display:flex;gap:4px;padding:5px;border:1px solid light-dark(#d6c3a6,#4a3b2c);border-radius:14px;background:light-dark(#e8dac5,rgba(255,255,255,.03));margin-bottom:16px}
+.ltabs button{flex:1;min-height:46px;border:0;border-radius:10px;background:none;color:var(--mut);font:500 20px var(--serif);letter-spacing:.04em;cursor:pointer;transition:background .2s,color .2s}
+.ltabs button.on{background:#654734;color:#e6c36e;box-shadow:0 3px 10px rgba(60,40,25,.25)}
+.lcard{background:light-dark(#efe4d3,#2a221b);border:1px solid light-dark(#ddcbb0,#3d3228);border-radius:18px;padding:26px 22px 22px;box-shadow:0 18px 40px -22px rgba(60,40,25,.35)}
+.lt{font:500 31px/1.1 var(--serif);text-align:center;margin:0;color:var(--ink)}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0 8px;color:#b8913e}.orn i{display:block;width:44px;height:1px;background:currentColor;opacity:.6}
+.ls{color:var(--mut);margin:0 0 22px;font-size:14px;text-align:center;line-height:1.5}
+.lcard label.f span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--mut)}
+.lcard input{min-height:50px;border-color:light-dark(#c9b597,#5a4a3b);background:light-dark(#fffbf6,#1f1914)}
+.lcard input:focus{border-color:#b8913e;box-shadow:0 0 0 3px rgba(184,145,62,.18)}
+.lbtn{width:100%;min-height:52px;border:0;border-radius:12px;background:#654734;color:#ecd394;font:600 13.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;cursor:pointer;margin-top:6px;transition:transform .1s,filter .15s}
+.lbtn:active{transform:scale(.985)}.lbtn:hover{filter:brightness(1.08)}
+.lbtn.ghost{background:none;color:var(--ink);border:1px solid light-dark(#cdb998,#5a4a3b)}
+.pw{position:relative;display:block}.pw input{padding-right:52px}.eyeb{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:46px;height:46px;border:0;background:none;color:var(--mut);display:grid;place-items:center;cursor:pointer}
+.lerr{background:light-dark(#f8e4df,#4a2520);color:light-dark(#8a2a1e,#f3c1b8);border-radius:10px;padding:10px 12px;font-size:13.5px;margin:-2px 0 14px;display:flex;gap:8px;align-items:flex-start}
+.lnk{display:block;margin:16px auto 0;border:0;background:none;color:var(--gold);font:italic 500 17px var(--serif);padding:6px;cursor:pointer}
+.demo{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;align-items:center;margin-top:22px;font-size:12px;color:var(--mut)}.demo button{border:0;background:none;color:var(--mut);text-decoration:underline;text-underline-offset:3px;font-size:12.5px;padding:6px 2px;cursor:pointer}
+.foot{text-align:center;font:500 13px var(--serif);color:var(--mut);margin:20px 0 0;letter-spacing:.18em;text-transform:uppercase}
+.okc{width:64px;height:64px;border-radius:50%;border:1px solid #b8913e;color:#b8913e;display:grid;place-items:center;margin:2px auto 16px}
+.hintpw{font-size:12.5px;color:var(--mut);margin:-6px 0 14px 2px}
+.note{font-size:12.5px;color:var(--mut);text-align:center;margin:12px 0 4px}
+.empty{text-align:center;padding:40px 16px}
+.empty .ei{width:64px;height:64px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center;margin:0 auto 16px}
+.empty h3{font:600 24px var(--serif);margin:0 0 6px}
+.lrow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.lrow:last-child{border:0;padding-bottom:0}.lrow:first-child{padding-top:0}
+.lbadge{width:46px;height:46px;border-radius:10px;background:var(--chipbg);color:var(--gold);display:flex;align-items:baseline;justify-content:center;padding-top:13px;gap:1px;font-weight:700;font-size:15px;flex:none}
+.lbadge small{font-size:10px;font-weight:600}
+.lrow .tot{font-weight:700;font-size:17px;white-space:nowrap}
+.urow{padding:12px 0;border-bottom:1px solid var(--line)}.urow:last-child{border:0;padding-bottom:0}.urow:first-child{padding-top:0}
+.ev{padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}.ev:last-child{border:0}
+/* iPad e schermi larghi */
+/* rifinitura gioielleria: pesi leggeri, maiuscoletti spaziati, niente di pesante */
+.bar{height:6px;margin-top:14px}.bar.alarm i{height:6px}
+body{letter-spacing:.005em}
+h1{font:500 33px/1.1 var(--serif);letter-spacing:.01em}
+.sub{font-size:13.5px}
+.bh{font:500 21px/1.2 var(--serif);letter-spacing:.035em;padding:11px 16px}
+label.f span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.voce>.small{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.val{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}.val b{font-size:15px;font-weight:500;letter-spacing:0;text-transform:none}
+.voce .n{font-weight:500;letter-spacing:.01em}.voce .q{font-weight:500}
+.kv>span:first-child{font-size:14px}.kv b{font-weight:500}.kv b.gold{font-weight:600}
+.btn{font:600 12px var(--sans);letter-spacing:.2em;text-transform:uppercase;background:#654734;color:#ecd394;border-radius:12px;min-height:50px;box-shadow:none}
+.btn.out{background:none;color:var(--ink);border:1px solid light-dark(#c9b597,#5a4a3b)}
+.btn.danger{background:#9e3a2c;color:#fff}
+.btn.sm{font-size:10.5px;letter-spacing:.14em;min-height:38px;border-radius:10px;padding:0 14px}
+.btn svg{width:15px;height:15px}
+.plus{font-weight:300;font-size:22px}.plus.pb{font:500 19px var(--serif)}
+.seg button{font-weight:500}
+nav.tab button{font-size:10.5px;letter-spacing:.06em}
+nav.tab button.on{font-weight:600}
+.pbox .k{letter-spacing:.26em;font-weight:500;font-size:10.5px}
+.pbox .p{font-weight:500;letter-spacing:-.005em}
+.pbox .u{font-size:12.5px;letter-spacing:.02em}
+.qv{font-weight:500}.cap{font-size:10px;letter-spacing:.18em}
+.pill,.chip{font-weight:500;letter-spacing:.02em}
+.hint{font-size:13.5px}
+.empty h3{font-weight:500;letter-spacing:.01em}
+.pvh .id{font-weight:500;letter-spacing:.1em;font-size:17px}.pvh .cd{font-weight:500}
+.mi .tt{font-weight:500}.prof b{font-weight:500}
+#side .sep{letter-spacing:.2em;font-size:10.5px}
+.lrow .tot{font-weight:500}
+.lbadge{font-weight:500}
+#toast{font-size:13px;letter-spacing:.02em;border-radius:12px}
+.jump button{font-weight:500;font-size:12.5px;letter-spacing:.04em}
+.code{letter-spacing:.12em;font-weight:400}
+@media (min-width:800px){
+ #app{max-width:none;display:grid;grid-template-columns:290px minmax(0,1fr);grid-template-rows:auto 1fr}
+ header{display:none}
+ #side{position:relative;grid-row:1/3;grid-column:1;transform:none;width:auto;max-width:none;box-shadow:none;border-right:1px solid var(--line);z-index:1}
+ #side .wide{display:flex}#side .closeX{display:none}#scrim{display:none}
+ main{grid-column:2;grid-row:1/3;padding:22px 32px calc(32px + var(--kb))}
+ nav.tab{display:none}
+ .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;align-items:start}
+ .wrap>*{grid-column:1/-1}.wrap>section.blk{grid-column:auto}.wrap>section.blk.full,.wrap>section.blk:nth-of-type(odd):last-of-type{grid-column:1/-1}
+ #alist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;align-items:start}
+ .pbox .p{font-size:48px}.pbox{max-width:460px;margin-left:auto!important;margin-right:auto!important}
+ #toast{bottom:28px;left:calc(50% + 145px)}
+}
+@media (prefers-reduced-motion:reduce){#side,#scrim,#toast{transition:none}.wrap,.tbar i,.badge.bump{animation:none}.bar.alarm i,#splash .logo,.modal .blk{animation:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="splash"><img class="logo" src="logo.png" alt="CARLAORO"></div>
+  <div id="login" hidden><div class="box" id="lbox"></div></div>
+  <header>
+    <button class="circ" id="menuBtn" aria-label="Apri menu"></button>
+    <div class="wm">CARLA<b>ORO</b></div><span></span>
+  </header>
+  <main id="main"></main>
+  <nav class="tab" id="tab"></nav>
+  <div id="scrim"></div>
+  <aside id="side"></aside>
+  <div class="modal" id="modal"><div class="blk" id="modalBody"></div></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const p2=n=>{const neg=n<0,[i,d]=Math.abs(n).toFixed(2).split('.');return(neg?'-':'')+i.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d};
+const eur=n=>isFinite(n)?p2(n)+' €':'—';
+const nm=v=>{const s=String(v).trim();const x=parseFloat(/,/.test(s)?s.replace(/\./g,'').replace(',','.'):/\.\d{3}$/.test(s)?s.replace(/\./g,''):s);return isFinite(x)?x:0};
+const hhmm=t=>new Date(t).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+const dt=t=>new Date(t).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
+const pv=n=>'PV-'+String(n).padStart(4,'0');
+const svg=(d,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">${d}</svg>`;
+const blk=(t,b,cls='')=>`<section class="blk ${cls}"><div class="bh">${t}</div><div class="bb">${b}</div></section>`;
+const OZ=31.1034768,CICLO=5*60*1000;
+const I={coin:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.5"/><path d="M12 9.5v5M10.5 10.5h2.2a1 1 0 010 2h-1.4a1 1 0 000 2H13.5"/>',gem:'<path d="M7 4.5h10l3.5 4.6L12 19.5 3.5 9.1z"/><path d="M3.5 9.1h17M9.6 4.5 8.4 9.1 12 19.5l3.6-10.4-1.2-4.6"/>',bal:'<path d="M12 4.2v15.3M8.5 19.5h7M5.2 7.4h13.6"/><circle cx="12" cy="4.2" r=".9"/><path d="M5.2 7.4 2.7 13.2M5.2 7.4l2.5 5.8M2.4 13.2h5.6a2.8 2.8 0 01-5.6 0zM18.8 7.4l-2.5 5.8M18.8 7.4l2.5 5.8M16 13.2h5.6a2.8 2.8 0 01-5.6 0z"/>',bag:'<path d="M5.2 8.2h13.6l-.9 11.3H6.1z"/><path d="M9 10.5V7a3 3 0 016 0v3.5"/>',book:'<path d="M6.8 3.8h10.7a1.3 1.3 0 011.3 1.3v13.1H7a1.8 1.8 0 00-1.8 1.8V5.4a1.6 1.6 0 011.6-1.6z"/><path d="M5.2 20a1.8 1.8 0 011.8-1.8h11.8M9.3 8.2h5.6M9.3 11.2h3.8"/>',dots:'<circle cx="12" cy="5" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/>',back:'<path d="M15 5l-7 7 7 7"/>',
+ cash:'<path d="M5 5.5h15a1.5 1.5 0 011.5 1.5v9" opacity=".55"/><rect x="2.5" y="8" width="16.5" height="11" rx="2"/><text x="10.75" y="16.4" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Inter,system-ui,sans-serif" fill="currentColor" stroke="none">€</text>',eyeoff:'<path d="M3 3l18 18M10.6 6.1A10 10 0 0112 6c6.5 0 10 6 10 6a17 17 0 01-3.2 3.9M6.2 7.6C3.6 9.4 2 12 2 12s3.5 6.5 10 6.5c1.6 0 3-.4 4.2-1"/><path d="M9.9 10a2.5 2.5 0 003.6 3.5"/>',eye:'<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/>',
+ trend:'<path d="M3 17l6-6 4 4 7-7M15 8h5v5"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>',clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',chev:'<path d="M6 9l6 6 6-6"/>',right:'<path d="M9 6l6 6-6 6"/>',
+ tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',scale:'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 9.5a5 5 0 018 0l-2 1.5h-4z"/>',cart:'<path d="M3 4h2l2.5 11h11L21 7H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',arch:'<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v11h14V9M10 13h4"/>',
+ box:'<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/>',user:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18.5c1.3-2 3.2-3 5.5-3s4.2 1 5.5 3"/>',sliders:'<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',users:'<circle cx="9" cy="8.5" r="3.2"/><path d="M3 19c1-3.2 3.3-5 6-5s5 1.8 6 5M16 5.5a3 3 0 010 6M17.5 14c1.8.6 3 2.2 3.5 5"/>',card:'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="2.5"/><path d="M8.5 16.5c.8-1.6 2-2.4 3.5-2.4s2.7.8 3.5 2.4"/>',save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>',out:'<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>'};
+
+const SB_URL='https://yovimxjkfdqvcaepefex.supabase.co',SB_KEY='sb_publishable_wxS96yrJYj_n0ifbvXPz_w_ciHUpyEi';
+const sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const T999=[1,5,10,20,50,100,250],T750=[1,2,3,5,10];
+const G={oro:'oro',argento:'arg',sterline:'mon'};
+let D=null,A=null,VOCI=[];
+const S={rid:0,ridAg:0,coef:{bonifico:{},cambio:{}},vend:{},ling:{l750:{},l999:{iva:0,t:{}}},riv:{},sem:{oro:[0,0],arg:[0,0],mon:[0,0]},coins:[],cart:{modo:'bonifico',righe:[]},prev:[],users:[],ev:[]};
+const evTxt=d=>d==null?'':typeof d!=='object'?String(d):Object.entries(d).filter(([k,v])=>v!=null&&typeof v!=='object'&&k!=='id').map(([k,v])=>String(v)).join(' · ');
+const applyD=d=>{D=d;VOCI=(d.voci||[]).map(v=>({id:v.voce,n:v.titolo,g:G[v.metallo]||'mon',u:v.unita,fino:v.fino,rif:String(v.rif).replace('.',','),b:+v.bonifico||0,c:+v.cambio||0}));
+ S.coins=(d.monete||[]).map(m=>({id:m.voce,n:m.nome,fino:m.fino,img:m.foto||'',prezzo:+m.prezzo||0,ric:A&&A.ricarichi?(A.ricarichi[m.voce]??0):0}));
+ const ids=new Set(VOCI.map(v=>v.id));const n=S.cart.righe.length;S.cart.righe=S.cart.righe.filter(r=>ids.has(r.id));if(n!==S.cart.righe.length)save()};
+const applyA=a=>{A=a;if(!a)return;S.rid=+a.riduzione?.oro||0;S.ridAg=+a.riduzione?.argento||0;S.coef=a.formule||{bonifico:{},cambio:{}};S.vend=a.vendita||{};
+ const l7=(a.lingotti||{})['750']||{},l9=(a.lingotti||{})['999']||{};S.ling.l750={man:+l7.man||0,utile:+l7.utile||0,iva:+l7.iva||0};
+ S.ling.l999={iva:+l9.iva||0,t:Object.fromEntries(T999.map(t=>[t,[+((l9.mt||{})[t])||0,+((l9.ut||{})[t])||0]]))};
+ S.riv=Object.fromEntries(Object.entries(a.rivendita||{}).map(([k,v])=>[k,[+v.c,+v.t]]));
+ const sm=a.semaforo||{};S.sem={oro:sm.oro||[0,0],arg:sm.argento||[0,0],mon:sm.sterline||[0,0]};
+ S.coins.forEach(c=>c.ric=(a.ricarichi||{})[c.id]??0);
+ S.users=(a.utenti||[]).map(u=>({id:u.id,n:u.nome||u.email,e:u.email,r:u.ruolo,s:u.stato}));
+ S.ev=(a.eventi||[]).map(e=>({t:e.t,o:e.o||'',a:e.a||'',d:evTxt(e.d)}))};
+const mapP=p=>({n:p.id,num:p.numero||pv(p.id),cliente:((p.cliente_nome||'')+' '+(p.cliente_cognome||'')).trim(),collab:p.collaboratore_nome||'',modo:p.modalita,creato:Date.parse(p.creato_il),scad:Date.parse(p.scade_il),stato:p.stato,chiuso:p.chiuso_il?Date.parse(p.chiuso_il):null,
+ righe:(p.voci_preventivo||[]).sort((a,b)=>a.id-b.id).map(x=>({n:x.titolo,qty:+x.quantita,u:x.unita,q:+x.quotazione,val:+x.valore,g:G[x.metallo]||'mon'})),tot:{oro:+p.totale_oro||0,arg:+p.totale_argento||0,mon:+p.totale_sterline||0}});
+const rpc=async(f,args)=>{const{data,error}=await sb.rpc(f,args||{});if(error)throw new Error(error.message);return data};
+const loadD=async()=>applyD(await rpc('cv2_dati'));
+const loadA=async()=>{if(isAdm())applyA(await rpc('cv2_admin'))};
+const loadP=async()=>{const{data,error}=await sb.from('preventivi').select('*,voci_preventivo(*)').order('creato_il',{ascending:false});if(error)throw new Error(error.message);S.prev=(data||[]).map(mapP)};
+const cartKey=()=>'carlaoro_cart_'+(me.id||'');
+const loadCart=()=>{let c=null;try{c=JSON.parse(localStorage.getItem(cartKey()))}catch(e){}S.cart=c&&Array.isArray(c.righe)?c:{modo:'bonifico',righe:[]}};
+const save=()=>{try{localStorage.setItem(cartKey(),JSON.stringify(S.cart))}catch(e){}};
+const R={get xau(){return A?+A.quot.oro_full:0},get xag(){return A?+A.quot.ag_full:0},get ts(){const t=D&&Date.parse(D.quot.ts);return t||Date.now()}};
+const me={id:'',n:'',r:'',e:''};let view='vendita',last='vendita',cat='oreficeria',vmodo=null,lt='750',lcash=false,mcash=true,vcash=false,afilt='in_attesa',hideT=null,open=null;
+const isAdm=()=>me.r==='amministratore';
+const log=()=>{};
+const MAIN=['vendita','valutazione','carrello','archivio'];
+
+// tutti i prezzi arrivano già calcolati dal server: i collaboratori non ricevono mai quotazione piena, utile o rivendita
+const puroAcq=()=>D?+D.quot.oro:0;
+const agAcq=()=>D?+D.quot.argento:0;
+const stato=()=>{const s=D&&D.quot.stato;return s==='aggiornata'?'Aggiornata':s==='mercato_chiuso'?'Mercato chiuso':'Obsoleta'};
+const vend=c=>{const x=(D&&D.vendita&&D.vendita[c])||{};return{iva:+x.listino||0,cash:+x.banconota||0,p:S.vend[c]||{}}};
+let fasciaK='ok',fKey='',fT=null;
+const reqFascia=(g,c)=>{const k=[cat,g,c,vcash].join('|');if(k===fKey)return;fKey=k;fasciaK='ok';clearTimeout(fT);if(!(g>0&&c>0))return;
+ fT=setTimeout(async()=>{try{const r=await rpc('cv2_fascia',{p_tipo:cat,p_grammi:g,p_concordato:c,p_banconota:vcash});if(fKey===k){fasciaK=r||'ok';upd()}}catch(e){}},220)};
+const quot=(modo,id)=>{const v=VOCI.find(x=>x.id===id);return v?(modo==='cambio'?v.c:v.b):0};
+const coinPrice=c=>+c.prezzo||0;
+const riv=id=>A&&A.rivendita&&A.rivendita[id]?+A.rivendita[id].valore:0;
+const propC={};let propT=null;
+const reqProp=(id,q,p)=>{const k=id+'|'+q+'|'+p;if(propC[k]!==undefined)return propC[k];propC[k]=null;clearTimeout(propT);
+ propT=setTimeout(async()=>{try{propC[k]=await rpc('cv2_proposta',{p_voce:id,p_quantita:q,p_importo:p});upd()}catch(e){delete propC[k]}},200);return null};
+const lastP={};
+const l750v=c=>D&&D.l750?+(c?D.l750.senza:D.l750.iva):0;
+const l999v=(t,c)=>{const x=D&&D.l999&&D.l999[t];return x?+(c?x.senza:x.iva):0};
+const l750=()=>l750v(lcash),l999=t=>l999v(t,lcash);
+const nextIn=()=>{let s=Math.max(0,Math.ceil((R.ts+CICLO-Date.now())/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+const qcard=()=>{const v=puroAcq();return`<div class="qcard"><div class="row"><span class="ic">${svg(I.trend)}</span><div class="sp"><div class="cap">ORO PURO</div><div class="qv num" id="qp">${eur(v)}/g</div></div><span class="pill" id="qs"><i></i>${stato()}</span></div>
+<div class="hr" style="margin:12px 0 10px"></div><div class="row"><div class="sp"><div class="cap">ULTIMO</div><div id="qt">${dt(R.ts)}</div></div><div style="text-align:right"><div class="cap">PROSSIMO TRA</div><div id="qn" style="font-weight:600">${nextIn()}</div></div></div></div>`;};
+
+// ---------- schermate ----------
+const V={};
+const coinImg=(c,sz)=>c.img?`<img class="cimg" src="${esc(c.img)}" alt="${esc(c.n)}" width="${sz}" height="${sz}" data-zoom="${c.id}">`:`<span class="cimg ph" style="width:${sz}px;height:${sz}px">${esc(c.n[0]||'?')}</span>`;
+const coinShow=c=>mcash?coinPrice(c):coinPrice(c)*1.22;
+V.monete=()=>`<h1>Monete</h1><p class="sub">Prezzi al pubblico</p><div class="row" style="margin-bottom:18px;justify-content:flex-end"><button class="sqbtn ${mcash?'on':''}" id="mcash" aria-label="Prezzo per pagamento con banconote" aria-pressed="${mcash}" style="width:58px;border-radius:16px">${svg(I.cash,24)}</button></div>${blk('Prezzo al pubblico',S.coins.length?S.coins.map(c=>`<div class="voce"><div class="row" style="align-items:center">${coinImg(c,60)}<div class="sp"><div class="n">${esc(c.n)}</div><div class="small">${String(c.fino).replace('.',',')} g di oro fino</div></div><b class="gold num" id="mp_${c.id}" style="font-size:19px">${eur(coinShow(c))}</b></div>
+<div class="row" style="margin-top:8px"><input id="mq_${c.id}" data-mq="${c.id}" inputmode="numeric" placeholder="Pezzi" aria-label="Pezzi ${esc(c.n)}" style="width:112px"><span class="sp"></span><div class="val">Totale<b class="num" id="mt_${c.id}">—</b></div></div></div>`).join(''):'<p class="mut" style="margin:0">Nessuna moneta. Aggiungile da Amministrazione rivendita.</p>','full')}${qcard()}`;
+const TABV=()=>`<div class="seg serif">${[['oreficeria','Oreficeria'],['fedi','Fedi']].map(([c,l])=>`<button data-cat="${c}" class="${cat===c?'on':''}">${l}</button>`).join('')}</div>`;
+V.vendita=()=>`${TABV()}
+<div class="pbox"><div class="k">PREZZO SCONTATO</div><div class="t">${cat==='fedi'?'Fedi':'Oreficeria'} 18 KT</div>
+<div class="p num" id="vbig" role="button" tabindex="0" aria-label="Mostra il prezzo">••••,•• €</div><div class="u"><span id="veye" style="display:inline-flex">${svg(I.eye,16)}</span><span id="vhint">Tocca per vedere</span></div><div id="vtb"></div>
+<div class="hr2"></div><button class="cash ${vcash?'on':''}" id="vcash" aria-label="Prezzo per pagamento con banconote" aria-pressed="${vcash}">${svg(I.cash,28)}</button></div>
+${blk('Calcola il prezzo',`<label class="f"><span>Grammi</span><input id="vg" inputmode="decimal" placeholder="0,00"></label><div class="kv"><span>Importo totale <span id="vtc" style="color:var(--gold);vertical-align:-3px" ${vcash?'':'hidden'}>${svg(I.cash,18)}</span></span><b class="gold num" id="vtot">—</b></div>`)}
+${blk('Prezzo concordato',`<label class="f"><span id="vcl">Importo concordato</span><input id="vc" inputmode="decimal" placeholder="0,00"></label>
+<div class="hint" id="vhintg">${svg(I.info,18)}Scrivi prima i grammi nel riquadro sopra.</div>
+<div class="kv"><span>Prezzo al grammo risultante</span><b class="num" id="vcg">—</b></div><div class="kv"><span id="vdl">Variazione al grammo</span><b class="num" id="vdiff">—</b></div>
+<div class="bar" id="vfa" hidden><i></i></div>`)}
+${qcard()}`;
+V.valutazione=()=>{const m=vmodo||S.cart.modo;return`<div class="seg">${[['bonifico','Bonifico'],['cambio','Cambio merce']].map(([k,l])=>`<button data-modo="${k}" class="${m===k?'on':''}">${l}</button>`).join('')}</div>
+<div class="qmini"><div><div class="cap">ORO</div><div class="v num" id="qo">${eur(puroAcq())}/g</div></div><span class="sepv"></span><div><div class="cap">ARGENTO</div><div class="v num" id="qa">${eur(agAcq())}/g</div></div><span class="sp"></span><span class="pill"><i></i>${stato()}</span></div>
+<div class="clear"><button id="azzera">${svg('<path d="M4 4v6h6M20 20v-6h-6"/><path d="M5.5 15a7 7 0 0011.9 2.4M18.5 9A7 7 0 006.6 6.6"/>',16)}Azzera campi</button></div>
+${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l+`<span class="code num" id="code_${g}"></span>`,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><div class="n sp">${v.n}</div><div class="q num" id="q_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</div></div>
+<div class="small" style="margin:2px 0 6px">${v.u==='pz'?'Quantità':'Grammi'}</div><div class="row"><input id="n_${v.id}" data-val="${v.id}" inputmode="${v.u==='pz'?'numeric':'decimal'}" placeholder="${v.u==='pz'?'0':'0,00'}" aria-label="${v.u==='pz'?'Quantità':'Grammi'} ${v.n}">
+<span class="sp"></span><div class="val">Valore<b class="num" id="v_${v.id}">—</b></div><button class="plus" data-add="${v.id}" aria-label="Aggiungi ${v.n} al carrello">+</button><button class="plus pb" data-p="${v.id}" aria-label="P">P</button></div>
+<div class="prop" id="pp_${v.id}" hidden><input id="pv_${v.id}" data-prop="${v.id}" data-g="${v.g}" inputmode="decimal" placeholder="0,00" aria-label="P ${v.n}"><span class="dots" id="pd_${v.id}"><i class="g"></i><i class="y"></i><i class="r"></i></span></div></div>`).join(''))).join('')}`};
+const cartCalc=()=>{const m=S.cart.modo;const r=S.cart.righe.map(x=>{const v=VOCI.find(y=>y.id===x.id),q=quot(m,x.id);return{...x,n:v.n,u:v.u,g:v.g,q,val:q*x.qty}});
+ const tot={oro:0,arg:0,mon:0};r.forEach(x=>tot[x.g]+=x.val);return{r,tot}};
+V.carrello=()=>{const{r,tot}=cartCalc();if(!r.length)return`<div class="empty"><div class="ei">${svg(I.bag,28)}</div><h3>Il carrello è vuoto</h3><p class="mut" style="margin:0 0 18px">Aggiungi le voci dalla pagina Valutazione con il pulsante +.</p><button class="btn" data-go="valutazione" style="width:auto">${svg(I.scale,18)}Vai a Valutazione</button></div>`;
+ return`${blk(`<span>Voci</span><span style="font:500 14px var(--sans);color:#e9dcc5">${S.cart.modo==='cambio'?'Cambio merce':'Bonifico'}</span>`,r.map((x,i)=>`<div class="row voce"><div class="sp"><div class="n">${x.n}</div><div class="small num">${p2(x.qty)} ${x.u==='g'?'g':'pz'} × ${eur(x.q)}</div></div><b class="num">${eur(x.val)}</b><button class="plus" style="background:none;color:var(--mut);font-size:20px" data-del="${i}" aria-label="Rimuovi">×</button></div>`).join(''))}
+${blk('Totali',[['oro','Totale oro'],['arg','Totale argento'],['mon','Totale monete']].filter(([k])=>tot[k]).map(([k,l])=>`<div class="kv"><span>${l}</span><b class="gold num">${eur(tot[k])}</b></div>`).join(''))}
+${blk('Cliente',`<div class="g2"><label class="f"><span>Nome</span><input id="cn" autocomplete="off"></label><label class="f"><span>Cognome</span><input id="cc" autocomplete="off"></label></div>
+<button class="btn" id="conf">Conferma preventivo</button><button class="btn out" id="svuota" style="margin-top:10px">Svuota carrello</button><p class="note">Alla conferma i prezzi restano bloccati. Validità 24 ore.</p>`,'full')}`};
+const stLab={in_attesa:'In attesa',chiuso:'Chiuso',scaduto:'Scaduto'};
+const cd=t=>{let s=Math.max(0,Math.floor((t-Date.now())/1000));const h=Math.floor(s/3600);s%=3600;return`${String(h).padStart(2,'0')}:${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`};
+V.archivio=()=>{const c=k=>S.prev.filter(p=>p.stato===k).length;return`<div class="seg" id="aseg">${[['in_attesa','In attesa'],['chiuso','Chiusi'],['scaduto','Scaduti']].map(([k,l])=>`<button data-af="${k}" class="${afilt===k?'on':''}">${l} (${c(k)})</button>`).join('')}</div><label class="f" style="margin-bottom:16px"><input id="asrch" type="search" placeholder="Cerca cliente o numero PV" value="${esc(aq)}" autocomplete="off" aria-label="Cerca preventivo"></label><div id="alist"></div><p class="note">I preventivi chiusi o scaduti da oltre 5 giorni vengono eliminati in automatico.</p>`};
+let aq='';
+const drawA=()=>{const q=aq.trim().toLowerCase();const L=S.prev.filter(p=>p.stato===afilt&&(!q||p.cliente.toLowerCase().includes(q)||p.num.toLowerCase().includes(q)));
+ $('#alist').innerHTML=L.length?L.map(p=>`<section class="blk"><div class="pvh" data-open="${p.n}"><div class="sp"><div class="id">${p.num}</div><div class="cl">${esc(p.cliente)}</div></div>
+<div style="text-align:right">${p.stato==='in_attesa'?`<div class="cd num">${svg(I.clock,16)}<span data-cd="${p.n}">${cd(p.scad)}</span></div>`:''}<span class="chip">${stLab[p.stato]}</span></div>
+<span class="chev ${open===p.n?'up':''}">${svg(I.chev,20)}</span><button class="xr" data-x="${p.n}" aria-label="Elimina ${p.num}">×</button></div><div class="bb">
+<div class="kv"><span>Collaboratore</span><b>${esc(p.collab)}</b></div><div class="kv"><span>Data e ora</span><b class="num">${dt(p.creato)}</b></div><div class="kv"><span>Modalità</span><b>${p.modo==='cambio'?'Cambio merce':'Bonifico'}</b></div>
+${p.stato==='chiuso'?`<div class="kv"><span>Chiuso il</span><b class="num">${dt(p.chiuso)}</b></div>`:''}
+${open===p.n?`<div class="hr"></div>${p.righe.map(x=>`<div class="kv small"><span>${esc(x.n)} · ${p2(x.qty)} ${x.u==='g'?'g':'pz'} × ${eur(x.q)}</span><span class="num" style="color:var(--ink)">${eur(x.val)}</span></div>`).join('')}<div class="hr"></div>`:''}
+${[['oro','Totale oro'],['arg','Totale argento'],['mon','Totale monete']].filter(([k])=>p.tot[k]).map(([k,l])=>`<div class="kv" style="padding-top:12px"><span>${l}</span><b class="gold num">${eur(p.tot[k])}</b></div>`).join('')}
+${p.stato==='in_attesa'?`<button class="btn out" style="margin-top:12px" data-close="${p.n}">Chiudi preventivo</button>`:''}</div></section>`).join(''):`<div class="empty"><div class="ei">${svg(I.book,28)}</div><h3>Nessun preventivo</h3><p class="mut" style="margin:0">Nessun preventivo in questo stato negli ultimi 5 giorni.</p></div>`};
+V.lingotti=()=>`<h1>Lingotti</h1><p class="sub">Prezzi aggiornati con la quotazione dell'oro puro</p>
+<div class="row" style="margin-bottom:18px;align-items:stretch"><div class="seg serif sp" style="margin:0">${['750','999'].map(k=>`<button data-lt="${k}" class="${lt===k?'on':''}">${k}</button>`).join('')}</div>
+<button class="sqbtn ${lcash?'on':''}" id="lcash" aria-label="Prezzo per pagamento con banconote" aria-pressed="${lcash}" style="height:auto;width:58px;border-radius:16px">${svg(I.cash,24)}</button></div>
+${blk('Grammature',`<div id="ltb"></div>`,'full')}${qcard()}`;
+V.personale=()=>{const[nn,...cc]=me.n.split(' ');return`<h1>Area personale</h1><p class="sub">Il tuo profilo e le preferenze</p>
+${blk('Il tuo account',`<div class="kv"><span>Nome</span><b>${esc(nn)}</b></div><div class="kv"><span>Cognome</span><b>${esc(cc.join(' '))}</b></div><div class="kv"><span>Email</span><b>${esc(me.e||'')}</b></div><div class="kv"><span>Ruolo</span><b>${me.r==='amministratore'?'Amministratore':'Collaboratore'}</b></div><div class="kv"><span>Stato account</span><b style="color:var(--ok)">Attivo</b></div>`)}
+${blk('Aspetto',`<div class="seg" style="margin:0">${[['','Automatico'],['light','Chiaro'],['dark','Scuro']].map(([k,l])=>`<button data-th="${k}" class="${(document.documentElement.dataset.theme||'')===k?'on':''}">${l}</button>`).join('')}</div>`)}
+<button class="btn out" id="logout">${svg(I.out,18)}Esci</button>`};
+const fv=v=>String(v).replace('.',',');
+const inp=(k,v,lab)=>`<label class="f"><span>${lab}</span><input data-k="${k}" inputmode="decimal" value="${fv(v)}"></label>`;
+let fmodo='bonifico';
+const ap=(l,txt)=>`<button class="btn" data-apply="${l}" style="margin-top:14px">${svg(I.save,18)}${txt}</button><div class="saved small" hidden></div>`;
+const inpS=(k,v,lab,suf)=>`<label class="f"><span>${lab}</span><span class="suf"><input data-k="${k}" inputmode="decimal" value="${fv(v)}"><i>${suf}</i></span></label>`;
+V.formule=()=>{const c=S.coef,m=fmodo,ml=m==='cambio'?'Cambio merce':'Bonifico';return`<h1>Amministrazione formule</h1><div style="height:12px"></div><div class="jump"><button data-jump="Formule del Puro">Puro</button><button data-jump="Formule dell\'argento">Argento</button><button data-jump="Oro">Usato</button><button data-jump="Vendita oreficeria">Oreficeria</button><button data-jump="Prezzo Fedi">Fedi</button><button data-jump="Vendita monete">Monete</button><button data-jump="Lingotti 750">Lingotti 750</button><button data-jump="Lingotti 999">Lingotti 999</button></div>
+<div class="seg">${[['bonifico','Bonifico'],['cambio','Cambio merce']].map(([k,l])=>`<button data-fmodo="${k}" class="${m===k?'on':''}">${l}</button>`).join('')}</div>
+${blk('Formule del Puro',`<div class="kv"><span>Quotazione originale Gold API</span><b class="num" id="fraw">${eur(R.xau)}/g</b></div>${inpS('rid',S.rid,'Riduzione sugli acquisti','%')}
+<div class="kv"><span>Puro per gli acquisti</span><b class="gold num" id="fpur">${eur(puroAcq())}/g</b></div><p class="small" style="margin:4px 0 0">La riduzione entra nei calcoli solo per l'oro usato e le monete (bonifico e cambio merce); vendita oro e lingotti calcolano con la quotazione piena. Fuori da questa pagina tutti vedono solo l'oro ridotto.</p>
+${ap('riduzione acquisti','Applica riduzione acquisti')}`,'full')}
+${blk('Formule dell\'argento',`<div class="kv"><span>Quotazione originale Gold API</span><b class="num" id="fag">${eur(R.xag)}/g</b></div>${inpS('ridAg',S.ridAg||0,'Riduzione argento sugli acquisti','%')}
+<div class="kv"><span>Argento per gli acquisti</span><b class="gold num" id="fagr">${eur(agAcq())}/g</b></div><p class="small" style="margin:4px 0 0">Vale per Argento 999 e 925/800 in bonifico e cambio merce. Fuori da questa pagina tutti vedono solo l'argento ridotto.</p>
+${ap('riduzione argento','Applica riduzione argento')}`,'full')}
+<div class="grp">${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${v.n}</b><span class="q num" id="fq_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</span></div>
+<div class="g2" style="margin-top:6px">${inp(`coef.${m}.${v.id}.0`,c[m][v.id][0],`Coefficiente C (rif. ${v.rif})`)}${inp(`coef.${m}.${v.id}.1`,c[m][v.id][1],'Trattenuta T')}</div></div>`).join(''),'full')).join('')}
+${ap('formule '+ml,'Applica formule '+ml)}<div style="height:18px"></div></div>
+
+${['oreficeria','fedi'].map(k=>{const p=S.vend[k];return blk(k==='fedi'?'Prezzo Fedi':'Vendita oreficeria',`<div class="g2">${inp(`vend.${k}.calo`,p.calo,'Calo (per mille)')}${inp(`vend.${k}.man`,p.man,'Manifattura')}${inp(`vend.${k}.utile`,p.utile,'Utile')}${inp(`vend.${k}.iva`,p.iva,'IVA %')}${inp(`vend.${k}.sconto`,p.sconto,'Sconto banconota %')}${inp(`vend.${k}.gialla`,p.gialla,'Soglia gialla €/g')}${inp(`vend.${k}.rossa`,p.rossa,'Soglia rossa €/g')}</div>
+<div class="kv"><span>Prezzo di listino</span><b class="gold num" id="fv_${k}">${eur(vend(k).iva)}/g</b></div><div class="kv"><span>Prezzo con banconota</span><b class="num" id="fc_${k}">${eur(vend(k).cash)}/g</b></div>
+<p class="small" style="margin:4px 0 0">(oro puro × calo + manifattura + utile) × (1 + IVA). Con la banconota: prezzo meno lo sconto %.</p>${ap(k==='fedi'?'prezzo fedi':'vendita oreficeria',k==='fedi'?'Applica Prezzo Fedi':'Applica Vendita oreficeria')}`,'full')}).join('')}
+${blk('Vendita monete',`<p class="small" style="margin-top:0">Prezzo al pubblico = quotazione piena × grammi di oro fino + ricarico. Senza IVA.</p>
+${S.coins.map((c,i)=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(c.n)}</b><span class="q num" id="fm_${c.id}">${eur(coinPrice(c))}</span></div>${inp(`coins.${i}.ric`,c.ric,'Ricarico € al pezzo')}</div>`).join('')}
+${ap('vendita monete','Applica Vendita monete')}`,'full')}
+${blk('Lingotti 750',`<div class="g2">${inp('ling.l750.man',S.ling.l750.man,'Manifattura')}${inp('ling.l750.utile',S.ling.l750.utile,'Utile')}${inpS('ling.l750.iva',S.ling.l750.iva,'IVA','%')}</div>
+<div class="kv"><span>Prezzo al grammo</span><b class="gold num" id="fl750">${eur(l750v(false))}/g</b></div><div class="kv"><span>Prezzo al grammo con banconota</span><b class="num" id="fl750c">${eur(l750v(true))}/g</b></div>
+<p class="small" style="margin:4px 0 0">Oro puro × 0,800 + manifattura + utile, più IVA. Con la banconota il prezzo si divide per (1 + IVA).</p>${ap('lingotti 750','Applica Lingotti 750')}`,'full')}
+${blk('Lingotti 999',`<div class="g2">${inpS('ling.l999.iva',S.ling.l999.iva,'IVA','%')}</div><b style="display:block;margin:4px 0 8px">Manifattura e utile per taglio (€/g)</b>
+${T999.map(t=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp" style="color:var(--gold)">Lingotto ${t} g</b><span class="small num" id="fl999_${t}">${eur(l999v(t,false))}/g</span></div><div class="g2" style="margin-top:6px">${inp(`ling.l999.t.${t}.0`,S.ling.l999.t[t][0],'Manifattura')}${inp(`ling.l999.t.${t}.1`,S.ling.l999.t[t][1],'Utile')}</div></div>`).join('')}
+<p class="small" style="margin:8px 0 0">Oro puro × 0,999 + manifattura del taglio + utile del taglio, più IVA. Con la banconota il prezzo si divide per (1 + IVA).</p>${ap('lingotti 999','Applica Lingotti 999')}`,'full')}
+`};
+V.costi=()=>{const m=fmodo,ml=m==='cambio'?'Cambio merce':'Bonifico';return`<h1>Amministrazione rivendita</h1><p class="sub">Quanto pagano a te ogni voce e i colori della proposta P</p>
+${blk('Metalli',`<p class="small" style="margin-top:0">Quanto pagano a te = quotazione piena × calo − trattenuta. Uguale per bonifico e cambio merce.</p>
+${VOCI.filter(v=>v.g!=='mon').map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(v.n)}</b><span class="q num" id="fr_${v.id}">${eur(riv(v.id))}/${v.u==='g'?'g':'pz'}</span></div><div class="g2" style="margin-top:6px">${inp(`riv.${v.id}.0`,S.riv[v.id][0],'Calo (coefficiente)')}${inp(`riv.${v.id}.1`,S.riv[v.id][1],v.u==='g'?'Trattenuta €/g':'Trattenuta €/pezzo')}</div></div>`).join('')}
+${ap('rivendita metalli','Applica Metalli')}`,'full')}
+${blk('Monete',`<p class="small" style="margin-top:0">Quanto pagano a te = quotazione piena × oro fino × calo − trattenuta al pezzo.</p>
+${VOCI.filter(v=>v.g==='mon').map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(v.n)}</b><span class="q num" id="fr_${v.id}">${eur(riv(v.id))}/${v.u==='g'?'g':'pz'}</span></div><div class="g2" style="margin-top:6px">${inp(`riv.${v.id}.0`,S.riv[v.id][0],'Calo (coefficiente)')}${inp(`riv.${v.id}.1`,S.riv[v.id][1],v.u==='g'?'Trattenuta €/g':'Trattenuta €/pezzo')}</div><div class="small" style="text-transform:none;letter-spacing:0;font-weight:400;margin-top:4px">${String(v.fino).replace('.',',')} g di oro fino · <label class="lnk" style="display:inline;margin:0;padding:0;font-size:15px;cursor:pointer">Cambia foto<input type="file" accept="image/*" data-cimg="${v.id}" hidden></label> · <button class="lnk" style="display:inline;margin:0;padding:0;font-size:15px" data-rmcoin="${v.id}">Elimina moneta</button></div></div>`).join('')}
+${ap('rivendita monete','Applica Monete')}
+<div class="hr" style="margin:20px 0 14px"></div><b style="display:block;margin-bottom:10px">Aggiungi moneta</b>
+<div class="g2"><label class="f"><span>Nome</span><input id="ncN" autocomplete="off" placeholder="Es. Krugerrand"></label><label class="f"><span>Oro fino (g)</span><input id="ncF" inputmode="decimal" placeholder="0,000"></label></div>
+<label class="f"><span>Foto (facoltativa)</span><input type="file" id="ncP" accept="image/*" style="padding:10px;font-size:14px"></label>
+<button class="btn out" id="addCoin">+ Aggiungi moneta</button>`,'full')}
+${blk('Semaforo proposte',`<p class="small" style="margin-top:0">Utile che resta = quanto lo pagano a te − quanto lo paghi al cliente. Verde da "Giallo sotto" in su, giallo tra le due soglie, rosso sotto "Rosso sotto".</p>
+${[['oro','Oro (€/g)'],['arg','Argento (€/g)'],['mon','Monete (€/pezzo)']].map(([g,l])=>`<div class="voce"><b>${l}</b><div class="g2" style="margin-top:6px">${inp(`sem.${g}.0`,S.sem[g][0],'Giallo sotto')}${inp(`sem.${g}.1`,S.sem[g][1],'Rosso sotto')}</div></div>`).join('')}
+${ap('semaforo','Applica semaforo')}`,'full')}
+`};
+const sLab={in_attesa:'In attesa',attivo:'Attivo',rifiutato:'Rifiutato',revocato:'Revocato'};
+V.utenti=()=>{const att=S.users.map((u,i)=>[u,i]).filter(([u])=>u.s==='in_attesa'),ok=S.users.map((u,i)=>[u,i]).filter(([u])=>u.s==='attivo'),alt=S.users.map((u,i)=>[u,i]).filter(([u])=>u.s==='revocato'||u.s==='rifiutato');
+ const ur=([u,i],btns)=>`<div class="urow"><b>${esc(u.n)}</b><div class="small">${esc(u.e)}</div><div class="small" style="color:var(--gold);font-weight:600">${u.r==='amministratore'?'Amministratore':'Collaboratore'}</div>${btns?`<div class="row" style="margin-top:10px;flex-wrap:wrap;gap:8px">${btns}</div>`:''}</div>`;
+ return`<h1>Amministrazione utenti</h1><div style="height:12px"></div>
+${blk(`Richieste in attesa (${att.length})`,att.length?att.map(x=>ur(x,`<button class="btn sm" data-us="${x[1]}:attivo">Autorizza</button><button class="btn sm out" data-auth="${x[1]}">Promuovi ad amministratore</button><button class="btn sm danger" data-us="${x[1]}:rifiutato">Rifiuta</button>`)).join(''):'<p class="mut" style="margin:0">Nessuna richiesta in attesa.</p>')}
+${blk(`Collaboratori attivi (${ok.length})`,ok.map(x=>ur(x,x[0].id===me.id?'':`${x[0].r==='collaboratore'?`<button class="btn sm out" data-role="${x[1]}:amministratore">Promuovi ad amministratore</button>`:`<button class="btn sm out" data-role="${x[1]}:collaboratore">Rendi collaboratore</button>`}<button class="btn sm danger" data-us="${x[1]}:revocato">Revoca</button>`)).join(''))}
+${alt.length?blk(`Revocati o rifiutati (${alt.length})`,alt.map(x=>ur(x,`<button class="btn sm out" data-us="${x[1]}:attivo">Riattiva</button>`)).join('')):''}
+${blk('Registro eventi',S.ev.length?S.ev.slice(0,25).map(e=>`<div class="ev"><b>${esc(e.a)}</b><div>${esc(e.d)}</div><div class="small">${esc(e.o)} · ${dt(e.t)}</div></div>`).join(''):'<p class="mut" style="margin:0">Nessun evento.</p>','full')}`};
+V.collab=()=>{const L=S.users.filter(u=>u.s==='attivo');return`<h1>Profili collaboratori</h1><div style="height:12px"></div>${blk(`Team (${L.length})`,L.map(u=>{const n=S.prev.filter(p=>p.collab===u.n).length;return`<div class="lrow"><div class="sp"><b>${esc(u.n)}</b><div class="small">${u.r==='amministratore'?'Amministratore':'Collaboratore'}</div></div><div style="text-align:right"><div style="font-weight:700;font-size:18px;color:var(--gold)">${n}</div><div class="cap" style="font-size:10px">PREVENTIVI</div></div></div>`}).join(''),'full')}`};
+
+// ---------- aggiornamenti mirati (i campi non perdono il focus) ----------
+const upd=()=>{const qp=$('#qp');if(qp){qp.textContent=eur(puroAcq())+'/g';$('#qs').innerHTML='<i></i>'+stato();$('#qt').textContent=dt(R.ts);$('#qn').textContent=nextIn()}
+ if(view==='monete')S.coins.forEach(c=>{const pr=coinShow(c);$('#mp_'+c.id).textContent=eur(pr);const q=Math.round(nm($('#mq_'+c.id).value));$('#mt_'+c.id).textContent=q>0?eur(pr*q):'—'});
+ if(view==='vendita'){const v=vend(cat),pr=vcash?v.cash:v.iva;if($('#vbig').dataset.show)$('#vbig').textContent=eur(pr);
+  const g=nm($('#vg').value),c=nm($('#vc').value),cg=g&&c?c/g:0;$('#vtot').textContent=g?eur(g*pr):'—';
+  $('#vcl').textContent=g?'Importo per '+p2(g).replace(/,00$/,'')+' g':'Importo concordato';$('#vhintg').hidden=!!g;
+  $('#vcg').textContent=cg?eur(cg)+'/g':'—';const d=cg-pr;
+  $('#vdl').textContent=cg?(d<0?'Il prezzo al grammo scende di':'Il prezzo al grammo sale di'):'Variazione al grammo';$('#vdiff').textContent=cg?eur(Math.abs(d))+'/g':'—';
+  const fa=$('#vfa'),k=(reqFascia(g,c),cg?fasciaK:'ok');fa.className='bar';const bi=fa.firstChild;
+  if(k==='gialla'||k==='rossa'||k==='alarm'){fa.hidden=false;if(k==='alarm')fa.classList.add('alarm');bi.style.width=k==='gialla'?'40%':'100%';bi.style.background=k==='gialla'?'var(--yel)':k==='rossa'?'var(--red)':''}else fa.hidden=true}
+ if(view==='valutazione'){const m=vmodo||S.cart.modo;$('#qo').textContent=eur(puroAcq())+'/g';$('#qa').textContent=eur(agAcq())+'/g';VOCI.forEach(v=>{const q=quot(m,v.id);$('#q_'+v.id).textContent=eur(q)+'/'+(v.u==='g'?'g':'pz');const n=nm($('#n_'+v.id).value);$('#v_'+v.id).textContent=n?eur(q*(v.u==='pz'?Math.round(n):n)):'—';
+  const qty=v.u==='pz'?Math.round(n):n,pr=nm($('#pv_'+v.id).value),d=$('#pd_'+v.id);d.dataset.c='';v.code='';if(qty>0&&pr>0){const r=reqProp(v.id,qty,pr);if(r){d.dataset.c=r.colore;v.code=r.codice}}});
+  ['oro','arg','mon'].forEach(g=>{const id=lastP[g],v=id&&VOCI.find(x=>x.id===id),el=$('#code_'+g);el.textContent=v&&v.code?v.code:''})}
+ if(view==='lingotti'){const T=lt==='750'?T750:T999;$('#ltb').innerHTML=T.map(t=>{const g=lt==='750'?l750():l999(t);return`<div class="lrow">${lt==='999'?`<img class="bimg" src="bar_${t}.webp" alt="Lingotto ${t} g" data-zoombar="${t}">`:`<span class="lbadge">${t}<small>g</small></span>`}<div class="sp"><b>Lingotto ${t} g</b><div class="small num">${eur(g)}/g</div></div><span class="tot num">${eur(g*t)}</span></div>`}).join('')}
+ if(view==='formule')S.coins.forEach(c=>{const e=$('#fm_'+c.id);if(e)e.textContent=eur(coinPrice(c))});
+ if(view==='costi')VOCI.forEach(v=>{$('#fr_'+v.id).textContent=eur(riv(v.id))+'/'+(v.u==='g'?'g':'pz')});
+ if(view==='formule'){$('#fraw').textContent=eur(R.xau)+'/g';$('#fpur').textContent=eur(puroAcq())+'/g';$('#fag').textContent=eur(R.xag)+'/g';$('#fagr').textContent=eur(agAcq())+'/g';VOCI.forEach(v=>{$('#fq_'+v.id).textContent=eur(quot(fmodo,v.id))+'/'+(v.u==='g'?'g':'pz')});['oreficeria','fedi'].forEach(k=>{$('#fv_'+k).textContent=eur(vend(k).iva)+'/g';$('#fc_'+k).textContent=eur(vend(k).cash)+'/g'});$('#fl750').textContent=eur(l750v(false))+'/g';$('#fl750c').textContent=eur(l750v(true))+'/g';T999.forEach(t=>$('#fl999_'+t).textContent=eur(l999v(t,false))+'/g')}};
+const hide=()=>{clearTimeout(hideT);const b=$('#vbig');if(b){$('#vtb').innerHTML='';b.textContent='••••,•• €';delete b.dataset.show;$('#vhint').textContent='Tocca per vedere';$('#veye').innerHTML=svg(I.eye,16)}};
+
+const TABS=[['vendita','Vendita oro',I.gem],['valutazione','Valutazione',I.bal],['carrello','Carrello',I.bag],['archivio','Archivio',I.book]];
+const drawTab=()=>{const n=S.cart.righe.length;$('#tab').innerHTML=TABS.map(([k,l,ic])=>`<button data-go="${k}" class="${view===k?'on':''}"><span class="ic">${svg(ic,25).replace('stroke-width="1.7"','stroke-width="1.25"')}</span>${l}${k==='carrello'&&n?`<span class="badge">${n}</span>`:''}</button>`).join('')};
+const mi=(k,t,st,ic,cls='')=>`<button class="mi ${cls} ${view===k?'on':''}" data-go="${k}"><span class="ib">${svg(ic,19)}</span><span><div class="tt">${t}</div>${st?`<div class="st">${st}</div>`:''}</span><span class="ch">${svg(I.right,16)}</span></button>`;
+const drawSide=()=>{const n=S.cart.righe.length,ini=me.n.split(' ').map(w=>w[0]).join('').slice(0,2);
+ $('#side').innerHTML=`<div class="top"><div class="wm">CARLA<b>ORO</b></div><button class="closeX" id="closeX" aria-label="Chiudi menu">×</button></div>
+<div class="prof"><span class="av">${esc(ini)}</span><div><b>${esc(me.n)}</b><div class="r">${me.r==='amministratore'?'Amministratore':'Collaboratore'}</div></div></div>
+${mi('vendita','Vendita oro','Prezzo al grammo',I.gem,'wide')}${mi('valutazione','Valutazione','Oro usato, argento e monete',I.bal,'wide')}${mi('carrello','Carrello',n?n+(n===1?' voce':' voci'):'Vuoto',I.bag,'wide')}${mi('archivio','Archivio','Preventivi',I.book,'wide')}
+${mi('lingotti','Lingotti','Prezzi 750 e 999',I.box)}${mi('monete','Monete','Prezzi al pubblico',I.coin)}
+${isAdm()?'<div class="sep">AMMINISTRAZIONE</div>'+mi('formule','Amministrazione formule','',I.sliders)+mi('costi','Amministrazione rivendita','Quanto pagano a te',I.tag)+mi('utenti','Amministrazione utenti',(k=>k?(k===1?'1 richiesta in attesa':k+' richieste in attesa'):'')(S.users.filter(x=>x.s==='in_attesa').length),I.users)+mi('collab','Profili collaboratori','',I.card):''}
+<div class="sep">ACCOUNT</div>${mi('personale','Area personale','Profilo e preferenze',I.user)}
+<div class="sp"></div><button class="mi" id="logout2"><span class="ib" style="background:none;color:var(--mut)">${svg(I.out,19)}</span><span class="tt" style="font-weight:500">Esci</span></button>`};
+const drawHead=()=>{const sub=!MAIN.includes(view);$('#menuBtn').innerHTML=svg(sub?I.back:I.dots,20);$('#menuBtn').setAttribute('aria-label',sub?'Indietro':'Apri menu');$('#menuBtn').dataset.back=sub?1:''};
+const HEAD=document.querySelector('header');
+const go0=k=>{if(['formule','costi','utenti','collab'].includes(k)&&!isAdm())k='vendita';if(MAIN.includes(k))last=k;view=k;hide();$('#app').classList.remove('menu');$('#main').innerHTML='<div class="wrap">'+V[k]()+'</div>';$('#main').prepend(HEAD);if(k==='archivio')drawA();$('#main').scrollTop=0;document.querySelectorAll('main input').forEach(i=>{i.enterKeyHint='done'});drawTab();drawSide();drawHead();upd()};
+const go=k=>{const dirty=document.querySelector('.btn.dirty');if(dirty&&k!==view){modal(`<div class="bh">Modifiche non salvate</div><div class="bb"><p style="margin-top:0">Hai cambiato dei valori senza premere <b>Applica</b>. Se esci, le modifiche si perdono.</p><div class="g2"><button class="btn out" id="mno">Resta</button><button class="btn danger" data-leave="${k}">Esci senza salvare</button></div></div>`);return}go0(k)};
+const modal=h=>{$('#modalBody').innerHTML=h;$('#modal').classList.add('open')};const unmodal=()=>$('#modal').classList.remove('open');
+let lmode='in',lname='';
+const eyeI='<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/>';
+const pwf=(id,lab,ac,ph)=>`<label class="f"><span>${lab}</span><span class="pw"><input id="${id}" type="password" autocomplete="${ac}" placeholder="${ph}"><button type="button" class="eyeb" data-eye="${id}" aria-label="Mostra password">${svg(eyeI,20)}</button></span></label>`;
+const drawLogin=()=>{const L=$('#lbox');const seg='';const tabs=`<div class="ltabs" role="tablist"><button data-lm="in" role="tab" aria-selected="${lmode==='in'}" class="${lmode==='in'?'on':''}">Accedi</button><button data-lm="reg" role="tab" aria-selected="${lmode==='reg'}" class="${lmode==='reg'?'on':''}">Registrati</button></div>`;const orn=`<div class="orn"><i></i>${svg('<path d="M7 6h10l3 4-8 9-8-9z"/><path d="M4 10h16"/>',14)}<i></i></div>`;
+ let body='';
+ if(lmode==='in')body=`${seg}<div class="lt">Bentornato</div>${orn}<p class="ls">Accedi con la tua email e la tua password</p>
+<label class="f"><span>Email</span><input id="le" type="email" inputmode="email" autocomplete="username" autocapitalize="off" placeholder="nome@esempio.it"></label>
+${pwf('lp','Password','current-password','La tua password')}<div class="lerr" id="lerr" hidden></div>
+<button class="lbtn" id="doLogin">Accedi</button><button class="lnk" id="forgot">Password dimenticata?</button>`;
+ else if(lmode==='reg')body=`${seg}<div class="lt">Crea il tuo account</div>${orn}<p class="ls">La richiesta arriva all'amministratore,<br>che la autorizza</p>
+<div class="g2"><label class="f"><span>Nome</span><input id="rn" autocomplete="given-name" autocapitalize="words"></label><label class="f"><span>Cognome</span><input id="rc" autocomplete="family-name" autocapitalize="words"></label></div>
+<label class="f"><span>Email</span><input id="re" type="email" inputmode="email" autocomplete="email" autocapitalize="off" placeholder="nome@esempio.it"></label>
+${pwf('rp','Password','new-password','Almeno 8 caratteri')}${pwf('rp2','Conferma password','new-password','Ripeti la password')}
+<div class="lerr" id="lerr" hidden></div><button class="lbtn" id="doReg">Invia richiesta</button>`;
+ else body=`<div style="text-align:center"><div class="okc">${svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>',32)}</div><div class="lt">Richiesta inviata</div>${orn}
+<p class="ls" style="margin:6px 0 22px">Grazie ${esc(lname)}. Potrai accedere appena un amministratore avrà autorizzato il tuo account.</p><button class="lbtn ghost" data-lm="in">Torna all'accesso</button></div>`;
+ L.innerHTML=`<img class="logo" src="logo.png" alt="CARLAORO">${lmode!=='sent'?tabs:''}<div class="lcard">${body}</div>
+<p class="foot">D'A Gioielli D'Angelo</p>`};
+const lerr=m=>{const e=$('#lerr');e.hidden=false;e.innerHTML=svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/>',18)+'<span></span>';e.lastChild.textContent=m};
+const emailOk=e=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+const showLogin=()=>{lmode='in';drawLogin();$('#login').hidden=false};
+const enter=()=>{$('#login').hidden=true;go0('vendita');const k=S.users.filter(x=>x.s==='in_attesa').length;if(me.r==='amministratore'&&k)toast(k===1?'1 nuova richiesta di accesso':k+' nuove richieste di accesso',['Vedi','utenti'])};
+const afterAuth=async()=>{const{data:{user}}=await sb.auth.getUser();if(!user){showLogin();return}
+ const{data:p,error}=await sb.from('profili').select('*').eq('id',user.id).maybeSingle();
+ if(error||!p){await sb.auth.signOut();showLogin();lerr('Profilo non trovato. Contatta l\'amministratore.');return}
+ if(p.stato!=='attivo'||!['collaboratore','amministratore'].includes(p.ruolo)){await sb.auth.signOut();showLogin();lerr(p.stato==='in_attesa'?'Il tuo account è in attesa di autorizzazione da parte dell\'amministratore.':'Accesso non autorizzato. Contatta l\'amministratore.');return}
+ me.id=p.id;me.n=((p.nome||'')+' '+(p.cognome||'')).trim()||p.email;me.r=p.ruolo;me.e=p.email||user.email;loadCart();
+ try{await loadA();await loadD();await loadP()}catch(err){await sb.auth.signOut();showLogin();lerr('Impossibile caricare i dati: '+err.message);return}
+ enter()};
+const refresh=async()=>{if(!me.id)return;try{await loadA();await loadD();upd();if(view==='archivio'){await loadP();const s=document.querySelectorAll('[data-af]');if(s.length){go0('archivio')}}}catch(e){}};
+const busy=(b,on)=>{if(!b)return;b.disabled=on;b.style.opacity=on?.6:''};
+let pendingImg='';
+const readImg=(file,cb)=>{if(!file)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const d=Math.min(im.width,im.height),cv=document.createElement('canvas');cv.width=cv.height=240;cv.getContext('2d').drawImage(im,(im.width-d)/2,(im.height-d)/2,d,d,0,0,240,240);let u;try{u=cv.toDataURL('image/webp',.85)}catch(e){u=cv.toDataURL('image/jpeg',.85)}cb(u)};im.src=fr.result};fr.readAsDataURL(file)};
+const toast=(m,act)=>{const t=$('#toast');t.innerHTML='';const sp=document.createElement('span');sp.textContent=m;t.append(sp);if(act){const b=document.createElement('button');b.textContent=act[0];b.dataset.go=act[1];t.append(b)}t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),act?3200:1800)};
+const buzz=()=>{try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}};
+
+// ---------- eventi ----------
+document.addEventListener('click',async e=>{const t=e.target.closest('button,[data-open],#vbig,[data-zoom],[data-zoombar]');if(!t)return;const d=t.dataset;
+ if(d.x){const p=S.prev.find(x=>x.n===+d.x);modal(`<div class="bh">Eliminare il preventivo?</div><div class="bb"><b style="font-size:17px">${p.num} · ${esc(p.cliente)}</b><p class="small">L'eliminazione è definitiva, voci comprese.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-delp="${p.n}">Elimina</button></div></div>`);return}
+ if(d.jump){const h=[...document.querySelectorAll('main .bh')].find(x=>x.textContent.trim().startsWith(d.jump));if(h)h.scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(d.go)return go(d.go);
+ if(t.id==='menuBtn'){if(d.back)return go(last);$('#app').classList.add('menu');return}
+ if(t.id==='closeX'){$('#app').classList.remove('menu');return}
+ if(t.id==='vbig'){if(d.show)return hide();d.show=1;$('#vhint').textContent='al grammo · tocca per coprire';$('#vtb').innerHTML='<div class="tbar"><i></i></div>';$('#veye').innerHTML=svg(I.eyeoff,16);upd();clearTimeout(hideT);hideT=setTimeout(hide,5000);return}
+ if(t.id==='vcash'){vcash=!vcash;$('#vtc').hidden=!vcash;t.classList.toggle('on',vcash);t.setAttribute('aria-pressed',vcash);upd();return}
+ if(d.cat){cat=d.cat;go('vendita');return}
+ if(d.modo){vmodo=d.modo;S.cart.modo=d.modo;save();go('valutazione');return}
+ if(d.add){const v=VOCI.find(x=>x.id===d.add),el=$('#n_'+d.add),q=v.u==='pz'?Math.round(nm(el.value)):nm(el.value);
+  if(!(q>0)){el.classList.add('err');el.focus();return}S.cart.modo=vmodo||S.cart.modo;S.cart.righe.push({id:v.id,qty:q});save();el.value='';el.classList.remove('err');drawTab();drawSide();upd();toast(v.n+' aggiunto',['Vedi carrello','carrello']);buzz();const bg=document.querySelector('#tab .badge');if(bg)bg.classList.add('bump');
+  t.classList.add('done');t.textContent='✓';setTimeout(()=>{t.classList.remove('done');t.textContent='+'},1100);return}
+ if(d.p){const pp=$('#pp_'+d.p);pp.hidden=!pp.hidden;t.classList.toggle('on',!pp.hidden);if(!pp.hidden)$('#pv_'+d.p).focus();return}
+ if(t.id==='azzera'){document.querySelectorAll('main input').forEach(i=>i.value='');document.querySelectorAll('.prop').forEach(x=>x.hidden=true);document.querySelectorAll('.pb').forEach(x=>x.classList.remove('on'));for(const k in lastP)delete lastP[k];upd();toast('Campi azzerati');return}
+ if(d.del!==undefined){S.cart.righe.splice(+d.del,1);save();go('carrello');return}
+ if(t.id==='svuota'){S.cart.righe=[];save();go('carrello');toast('Carrello svuotato');return}
+ if(t.id==='conf'){const n=$('#cn').value.trim(),c=$('#cc').value.trim();if(!n||!c){(!n?$('#cn'):$('#cc')).classList.add('err');return}
+  busy(t,true);try{const num=await rpc('cv2_conferma',{p_modalita:S.cart.modo,p_righe:S.cart.righe.map(x=>({voce:x.id,quantita:x.qty})),p_nome:n,p_cognome:c});
+  S.cart.righe=[];save();await loadP();afilt='in_attesa';const np=S.prev.find(p=>p.num===num);open=np?np.n:null;go('archivio');toast('Preventivo '+num+' confermato')}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.af){afilt=d.af;document.querySelectorAll('[data-af]').forEach(b=>b.classList.toggle('on',b===t));drawA();return}
+ if(d.open){open=open===+d.open?null:+d.open;drawA();return}
+ if(d.close){const p=S.prev.find(x=>x.n===+d.close);busy(t,true);try{await rpc('chiudi_preventivo',{p_id:p.n});await loadP();go('archivio');toast(p.num+' chiuso')}catch(err){busy(t,false);toast(err.message);await loadP().catch(()=>{});go('archivio')}return}
+ if(d.delp){const p=S.prev.find(x=>x.n===+d.delp);busy(t,true);try{await rpc('elimina_preventivo',{p_id:p.n});unmodal();await loadP();go('archivio');toast(p.num+' eliminato')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
+ if(t.id==='mno')return unmodal();
+ if(d.zoombar){modal(`<div class="bh">Lingotto ${d.zoombar} g · 999,9</div><div class="bb" style="text-align:center"><img class="zoombar" src="bar_${d.zoombar}.webp" alt="Lingotto ${d.zoombar} g"><div style="height:12px"></div><button class="btn out" id="mno">Chiudi</button></div>`);return}
+ if(d.zoom){const c=S.coins.find(x=>x.id===d.zoom);modal(`<div class="bh">${esc(c.n)}</div><div class="bb" style="text-align:center"><img class="zoomimg" src="${esc(c.img)}" alt="${esc(c.n)}"><p class="small">${String(c.fino).replace('.',',')} g di oro fino</p><button class="btn out" id="mno">Chiudi</button></div>`);return}
+ if(t.id==='addCoin'){const n=$('#ncN').value.trim(),f=nm($('#ncF').value);if(!n){$('#ncN').classList.add('err');return}if(!(f>0)){$('#ncF').classList.add('err');return}
+  if(S.coins.some(c=>c.n.toLowerCase()===n.toLowerCase())){toast('Esiste già una moneta con questo nome');return}
+  busy(t,true);try{await rpc('cv2_salva',{p_sezione:'moneta_aggiungi',p:{nome:n,fino:f,foto:pendingImg||''}});pendingImg='';await loadA();await loadD();go0('costi');toast(n+' aggiunta: ora imposta calo, formule e ricarico')}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.rmcoin){const c=S.coins.find(x=>x.id===d.rmcoin);modal(`<div class="bh">Eliminare la moneta?</div><div class="bb"><b style="font-size:17px">${esc(c.n)}</b><p class="small">Sparisce da rivendita, formule, valutazione e vendita. I preventivi già confermati non cambiano.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-rmok="${c.id}">Elimina</button></div></div>`);return}
+ if(d.rmok){const c=S.coins.find(x=>x.id===d.rmok);busy(t,true);try{await rpc('cv2_salva',{p_sezione:'moneta_elimina',p:{voce:c.id}});S.cart.righe=S.cart.righe.filter(r=>r.id!==c.id);save();unmodal();await loadA();await loadD();go0('costi');toast(c.n+' eliminata')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
+ if(d.leave){unmodal();go0(d.leave);return}
+ if(d.apply){const sec=t.closest('.grp')||t.closest('.blk');let ch=0;sec.querySelectorAll('[data-k]').forEach(el=>{const path=el.dataset.k.split('.');let o=S;for(let i=0;i<path.length-1;i++){if(o[path[i]]==null)o[path[i]]={};o=o[path[i]]}const v=nm(el.value);if(o[path.at(-1)]!==v){ch++;o[path.at(-1)]=v}el.value=fv(v)});
+  const sv=sec.querySelector('.saved'),pl=payload(d.apply);if(!pl.length)return;busy(t,true);sv.hidden=false;sv.className='saved small';sv.textContent='Salvataggio in corso…';
+  try{for(const[s,p]of pl)await rpc('cv2_salva',{p_sezione:s,p});await loadA();await loadD();const y=$('#main').scrollTop;go0(view);$('#main').scrollTop=y;
+   const nb=[...document.querySelectorAll('[data-apply]')].find(b=>b.dataset.apply===d.apply),ns=nb&&(nb.closest('.grp')||nb.closest('.blk')).querySelector('.saved');if(ns){ns.hidden=false;ns.className='saved small ok';ns.textContent='✓ Salvato alle '+hhmm(Date.now())}
+   toast(ch?'Salvato: '+d.apply:'Salvato (nessun valore cambiato)')}
+  catch(err){busy(t,false);sv.className='saved small';sv.textContent='Non salvato: '+err.message;toast('Errore: '+err.message);try{await loadA()}catch(e){}}return}
+ if(d.fmodo){fmodo=d.fmodo;go0(view);return}
+ if(d.lt){lt=d.lt;lcash=lt==='999';go('lingotti');return}
+ if(t.id==='mcash'){mcash=!mcash;t.classList.toggle('on',mcash);t.setAttribute('aria-pressed',mcash);upd();return}
+ if(t.id==='lcash'){lcash=!lcash;t.classList.toggle('on',lcash);t.setAttribute('aria-pressed',lcash);upd();return}
+ if(d.th!==undefined){if(d.th)document.documentElement.dataset.theme=d.th;else delete document.documentElement.dataset.theme;go('personale');return}
+ if(t.id==='logout'||t.id==='logout2'){$('#app').classList.remove('menu');try{await sb.auth.signOut()}catch(e){}me.id='';me.n='';me.r='';A=null;D=null;S.prev=[];S.users=[];showLogin();return}
+ if(d.lm){lmode=d.lm;drawLogin();return}
+ if(d.eye){const i=$('#'+d.eye);i.type=i.type==='password'?'text':'password';t.style.color=i.type==='text'?'var(--gold)':'';return}
+ if(t.id==='forgot'){const em=($('#le')&&$('#le').value.trim())||'';modal(`<div class="bh">Password dimenticata</div><div class="bb"><p style="margin-top:0">Scrivi la tua email: ti arriva un link per scegliere una nuova password.</p><label class="f"><span>Email</span><input id="fe" type="email" inputmode="email" autocapitalize="off" value="${esc(em)}"></label><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn" id="fsend">Invia link</button></div></div>`);return}
+ if(t.id==='fsend'){const em=$('#fe').value.trim().toLowerCase();if(!emailOk(em)){$('#fe').classList.add('err');return}busy(t,true);const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});unmodal();toast(error?'Invio non riuscito: '+error.message:'Se l\'email è registrata, ti arriva il link');return}
+ if(t.id==='npsave'){const a=$('#np1').value,b=$('#np2').value;if(a.length<8){toast('Almeno 8 caratteri');return}if(a!==b){toast('Le due password non coincidono');return}busy(t,true);const{error}=await sb.auth.updateUser({password:a});if(error){busy(t,false);toast(error.message);return}unmodal();toast('Password aggiornata');history.replaceState(null,'',location.pathname);afterAuth();return}
+ if(t.id==='doLogin'){const e=$('#le').value.trim().toLowerCase(),pw=$('#lp').value;if(!emailOk(e))return lerr('Scrivi un\'email valida.');if(!pw)return lerr('Scrivi la password.');
+  busy(t,true);const{error}=await sb.auth.signInWithPassword({email:e,password:pw});busy(t,false);
+  if(error){const m=error.message||'';return lerr(/invalid login/i.test(m)?'Email o password non corretti.':/not confirmed/i.test(m)?'Devi prima confermare l\'email: apri il link che ti è arrivato.':'Accesso non riuscito: '+m)}
+  await afterAuth();return}
+ if(t.id==='doReg'){const n=$('#rn').value.trim(),c=$('#rc').value.trim(),e=$('#re').value.trim().toLowerCase(),p1=$('#rp').value,p2=$('#rp2').value;
+  if(!n||!c)return lerr('Scrivi nome e cognome.');if(!emailOk(e))return lerr('Scrivi un\'email valida.');
+  if(p1.length<8)return lerr('La password deve avere almeno 8 caratteri.');if(p1!==p2)return lerr('Le due password non coincidono.');
+  busy(t,true);const{data,error}=await sb.auth.signUp({email:e,password:p1,options:{data:{nome:n,cognome:c,ruolo_richiesto:'collaboratore'},emailRedirectTo:location.origin+location.pathname}});busy(t,false);
+  if(error)return lerr(/already|registered/i.test(error.message)?'Esiste già un account con questa email.':'Registrazione non riuscita: '+error.message);
+  if(data&&data.user&&Array.isArray(data.user.identities)&&!data.user.identities.length)return lerr('Esiste già un account con questa email.');
+  if(data&&data.session)await sb.auth.signOut();lname=n;lmode='sent';drawLogin();return}
+ if(d.us||d.auth||d.role){busy(t,true);try{if(d.us){const[i,s]=d.us.split(':');const u=S.users[+i];await rpc('gestisci_utente',{p_id:u.id,p_azione:s==='attivo'?'autorizza':s==='rifiutato'?'rifiuta':'revoca'});toast(u.n+': '+sLab[s].toLowerCase())}
+  else if(d.auth){const u=S.users[+d.auth];await rpc('gestisci_utente',{p_id:u.id,p_azione:'autorizza'});await rpc('gestisci_utente',{p_id:u.id,p_azione:'promuovi'});toast('Accesso autorizzato: '+u.n+' (amministratore)')}
+  else{const[i,r]=d.role.split(':');const u=S.users[+i];if(r==='amministratore')await rpc('gestisci_utente',{p_id:u.id,p_azione:'promuovi'});else await rpc('cv2_salva',{p_sezione:'declassa',p:{id:u.id}});toast(u.n+' ora è '+r)}
+  await loadA();go0(view)}catch(err){busy(t,false);toast(err.message)}return}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.closest('#login')&&e.target.tagName==='INPUT'){e.preventDefault();($('#doLogin')||$('#doReg'))?.click();return}if(e.key==='Enter'&&e.target.matches('main input')){e.target.blur();return}if((e.key==='Enter'||e.key===' ')&&e.target.id==='vbig'){e.preventDefault();e.target.click()}});
+$('#scrim').addEventListener('click',()=>$('#app').classList.remove('menu'));
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')unmodal()});
+document.addEventListener('input',e=>{const t=e.target;t.classList.remove('err');if(t.dataset.k){const sec=t.closest('.grp')||t.closest('.blk'),b=sec.querySelector('[data-apply]'),sv=sec.querySelector('.saved');b.classList.add('dirty');sv.hidden=false;sv.className='saved small';sv.textContent='Modifiche non ancora salvate';return}
+ if(t.id==='asrch'){aq=t.value;drawA();return}
+ if(t.dataset.prop)lastP[t.dataset.g]=t.dataset.prop;
+ if(t.id==='vg'||t.id==='vc'||t.dataset.val||t.dataset.prop||t.dataset.mq)upd()});
+
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='ncP'){readImg(t.files[0],u=>{pendingImg=u;toast('Foto pronta')});return}if(t.dataset.cimg){const c=S.coins.find(x=>x.id===t.dataset.cimg);readImg(t.files[0],async u=>{try{await rpc('cv2_salva',{p_sezione:'moneta_foto',p:{voce:c.id,foto:u}});await loadD();go0('costi');toast('Foto di '+c.n+' aggiornata')}catch(err){toast(err.message)}})}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hide()});
+
+// ---------- tastiera su web mobile ----------
+const vv=window.visualViewport;let focT=null;
+if(vv){const onR=()=>{const kb=Math.max(0,window.innerHeight-vv.height-vv.offsetTop);document.documentElement.style.setProperty('--kb',kb+'px');$('#tab').classList.toggle('kbd',kb>120)};vv.addEventListener('resize',onR);vv.addEventListener('scroll',onR)}
+document.addEventListener('focusin',e=>{if(!e.target.matches('main input'))return;if(e.target.type!=='search'&&e.target.value)setTimeout(()=>{try{e.target.select()}catch(_){}},0);clearTimeout(focT);const el=e.target;focT=setTimeout(()=>{if(document.activeElement===el)el.scrollIntoView({block:'center',behavior:'smooth'})},300)});
+
+// ---------- processi automatici simulati ----------
+let tick=0;setInterval(()=>{const now=Date.now();tick++;const qn=$('#qn');if(qn)qn.textContent=nextIn();
+ if(me.id&&tick%60===0)refresh();
+ if(view==='archivio'){let ch=false;S.prev.forEach(p=>{if(p.stato==='in_attesa'&&p.scad<now){p.stato='scaduto';ch=true}});if(ch)go0('archivio');document.querySelectorAll('[data-cd]').forEach(el=>{const p=S.prev.find(x=>x.n===+el.dataset.cd);if(p)el.textContent=cd(p.scad)})}},1000);
+const payload=l=>{
+ if(l==='riduzione acquisti')return[['riduzione',{oro:S.rid}]];
+ if(l==='riduzione argento')return[['riduzione_argento',{argento:S.ridAg}]];
+ if(l.startsWith('formule '))return[['formule',{modalita:fmodo,voci:VOCI.filter(v=>S.coef[fmodo]&&S.coef[fmodo][v.id]).map(v=>({voce:v.id,c:S.coef[fmodo][v.id][0],t:S.coef[fmodo][v.id][1]}))}]];
+ if(l==='vendita oreficeria'||l==='prezzo fedi'){const k=l==='prezzo fedi'?'fedi':'oreficeria';return[['vendita',{tipo:k,...S.vend[k]}]]}
+ if(l==='vendita monete')return[['monete_vendita',{voci:S.coins.map(c=>({voce:c.id,ricarico:c.ric}))}]];
+ if(l==='lingotti 750')return[['l750',S.ling.l750]];
+ if(l==='lingotti 999'){const t=S.ling.l999.t;return[['l999',{iva:S.ling.l999.iva,mt:Object.fromEntries(T999.map(x=>[x,t[x][0]])),ut:Object.fromEntries(T999.map(x=>[x,t[x][1]]))}]]}
+ if(l==='rivendita metalli'||l==='rivendita monete'){const mon=l==='rivendita monete';return[['rivendita',{voci:VOCI.filter(v=>(v.g==='mon')===mon&&S.riv[v.id]).map(v=>({voce:v.id,c:S.riv[v.id][0],t:S.riv[v.id][1]}))}]]}
+ if(l==='semaforo')return[['semaforo',{oro:S.sem.oro,argento:S.sem.arg,sterline:S.sem.mon}]];
+ return[]};
+sb.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY')setTimeout(()=>{$('#login').hidden=true;modal(`<div class="bh">Nuova password</div><div class="bb">${pwf('np1','Nuova password','new-password','Almeno 8 caratteri')}${pwf('np2','Conferma password','new-password','Ripeti la password')}<button class="btn" id="npsave">Salva password</button></div>`)},1500)});
+
+setTimeout(async()=>{$('#splash').style.display='none';if(/type=recovery/.test(location.hash))return;let s=null;try{s=(await sb.auth.getSession()).data.session}catch(e){}if(s)await afterAuth();else showLogin()},1200);
+}
+</script>
+</body>
+</html>
