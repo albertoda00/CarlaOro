@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE: elegante e pratica, da banco di gioielleria
+/* VOICE: elegante e pratica, essenziale
    IDEA: come l'app CarlaOro del video: blocchi con fascia marrone e titolo oro, fondo tortora, campi bianchi
    PICTURE: il riquadro del prezzo marrone, centrato, con cifra dorata e tasto banconota
    COLOUR and TYPE: beige, tortora, marrone, oro; Cormorant Garamond per i titoli, Inter per testi e numeri
@@ -189,7 +189,7 @@ nav.tab button.on{color:var(--ink);font-weight:600}nav.tab button.on .ic{backgro
 .urow{padding:12px 0;border-bottom:1px solid var(--line)}.urow:last-child{border:0;padding-bottom:0}.urow:first-child{padding-top:0}
 .ev{padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}.ev:last-child{border:0}
 /* iPad e schermi larghi */
-/* rifinitura gioielleria: pesi leggeri, maiuscoletti spaziati, niente di pesante */
+/* rifinitura: pesi leggeri, maiuscoletti spaziati, niente di pesante */
 .bar{height:6px;margin-top:14px}.bar.alarm i{height:6px}
 body{letter-spacing:.005em}
 h1{font:500 33px/1.1 var(--serif);letter-spacing:.01em}
@@ -486,7 +486,7 @@ ${pwf('rp','Password','new-password','Almeno 8 caratteri')}${pwf('rp2','Conferma
  else body=`<div style="text-align:center"><div class="okc">${svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>',32)}</div><div class="lt">Richiesta inviata</div>${orn}
 <p class="ls" style="margin:6px 0 22px">Grazie ${esc(lname)}. Potrai accedere appena un amministratore avrà autorizzato il tuo account.</p><button class="lbtn ghost" data-lm="in">Torna all'accesso</button></div>`;
  L.innerHTML=`<img class="logo" src="logo.png" alt="CARLAORO">${lmode!=='sent'?tabs:''}<div class="lcard">${body}</div>
-<p class="foot">D'A Gioielli D'Angelo</p>`};
+<p class="foot">CarlaOro</p>`};
 const lerr=m=>{const e=$('#lerr');e.hidden=false;e.innerHTML=svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/>',18)+'<span></span>';e.lastChild.textContent=m};
 const emailOk=e=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 const showLogin=()=>{lmode='in';drawLogin();$('#login').hidden=false};
