@@ -221,6 +221,7 @@ nav.tab button.on{font-weight:600}
 .azl b{display:block;font-weight:600}.azl small{color:var(--mut);font-size:12.5px}.azl .new{color:var(--gold);font-weight:600}
 .azsel{display:flex;align-items:center;gap:10px;border:1px solid #c9a35c;background:light-dark(#fbf3e4,#30261c);border-radius:12px;padding:10px 12px;margin-bottom:14px}
 .azsel .sp b{display:block}.azsel small{color:var(--mut)}.azsel button{border:0;background:none;color:var(--gold);font:600 14px var(--sans,inherit);cursor:pointer}
+#vtop{grid-column:1/-1;display:flex;align-items:center;gap:10px;margin-top:10px;background:#2b1d15;color:#f0d48e;border:1px solid #c9a35c;border-radius:12px;padding:9px 10px 9px 14px}#vtop[hidden]{display:none}#vtop .vt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}#vtop .vt b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#vtop small{font-size:11px;letter-spacing:.06em;opacity:.8}#vtop button{flex:none;border:0;background:#c9a35c;color:#2b1d15;border-radius:9px;padding:10px 12px;font:700 13px inherit;cursor:pointer}
 .vbar{display:flex;align-items:center;gap:10px;background:#2b1d15;color:#f0d48e;border-radius:12px;padding:10px 14px;margin:0 0 14px;font-size:14px}.vbar .sp{flex:1}.vbar button{border:1px solid #c9a35c;background:none;color:#f0d48e;border-radius:8px;padding:6px 10px;font:600 13px inherit;cursor:pointer}
 .mtog{display:flex;align-items:center;gap:10px;border:0;background:none;padding:8px 0;font:600 15px inherit;color:var(--mut);cursor:pointer}.mtog .sw{width:44px;height:26px;border-radius:13px;background:#d8c8ae;position:relative;transition:background .15s}.mtog .sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .15s}.mtog.on{color:var(--gold)}.mtog.on .sw{background:#8a6a2e}.mtog.on .sw::after{left:21px}.voce.off b{opacity:.6}
 .thumb{width:46px;height:46px;border-radius:10px;object-fit:cover;flex:none;background:#efe3d0;border:1px solid var(--line,#e3d3b8)}
@@ -259,6 +260,7 @@ nav.tab button.on{font-weight:600}
   <header>
     <button class="circ" id="menuBtn" aria-label="Apri menu"></button>
     <div class="wm">CARLA<b>ORO</b></div><span></span>
+    <div id="vtop" hidden></div>
   </header>
   <main id="main"></main>
   <nav class="tab" id="tab"></nav>
@@ -495,7 +497,8 @@ ${me.creator?'<div class="sep">CREATOR</div>'+mi('creator','Creator Console',(k=
 <div class="sp"></div><button class="mi" id="logout2"><span class="ib" style="background:none;color:var(--mut)">${svg(I.out,19)}</span><span class="tt" style="font-weight:500">Esci</span></button>`};
 const drawHead=()=>{const sub=!MAIN.includes(view);$('#menuBtn').innerHTML=svg(sub?I.back:I.dots,20);$('#menuBtn').setAttribute('aria-label',sub?'Indietro':'Apri menu');$('#menuBtn').dataset.back=sub?1:''};
 const HEAD=document.querySelector('header');
-const go0=k=>{if(['formule','vendadm','costi','utenti','collab'].includes(k)&&!isAdm())k='vendita';if(k==='creator'&&!me.creator)k='vendita';if(MAIN.includes(k))last=k;view=k;hide();$('#app').classList.remove('menu');$('#main').innerHTML='<div class="wrap">'+(D&&D.vista?`<div class="vbar"><span class="sp">Viewing <b>${esc(D.azienda.nome)}</b> · ${esc(D.azienda.codice)}</span><button data-crout="1">Exit</button></div>`:'')+V[k]()+'</div>';$('#main').prepend(HEAD);if(k==='archivio')drawA();$('#main').scrollTop=0;document.querySelectorAll('main input').forEach(i=>{i.enterKeyHint='done'});drawTab();drawSide();drawHead();upd()};
+const vTop=()=>{const e=$('#vtop');if(!e)return;const on=!!(D&&D.vista);e.hidden=!on;e.innerHTML=on?`<span class="vt"><small>Creator · stai visualizzando</small><b>${esc(D.azienda.nome)}</b><small>${esc(D.azienda.codice)}${D.azienda.citta?' · '+esc(D.azienda.citta):''}</small></span><button data-crout="1">Esci da questa app</button>`:''};
+const go0=k=>{if(['formule','vendadm','costi','utenti','collab'].includes(k)&&!isAdm())k='vendita';if(k==='creator'&&!me.creator)k='vendita';if(MAIN.includes(k))last=k;view=k;hide();$('#app').classList.remove('menu');$('#main').innerHTML=(vTop(),'<div class="wrap">')+V[k]()+'</div>';$('#main').prepend(HEAD);if(k==='archivio')drawA();$('#main').scrollTop=0;document.querySelectorAll('main input').forEach(i=>{i.enterKeyHint='done'});drawTab();drawSide();drawHead();upd()};
 const go=k=>{const dirty=document.querySelector('.btn.dirty');if(dirty&&k!==view){modal(`<div class="bh">Modifiche non salvate</div><div class="bb"><p style="margin-top:0">Hai cambiato dei valori senza premere <b>Applica</b>. Se esci, le modifiche si perdono.</p><div class="g2"><button class="btn out" id="mno">Resta</button><button class="btn danger" data-leave="${k}">Esci senza salvare</button></div></div>`);return}go0(k)};
 const modal=h=>{$('#modalBody').innerHTML=h;$('#modal').classList.add('open')};const unmodal=()=>$('#modal').classList.remove('open');
 let lmode='in',lname='',lnew=false;
@@ -580,8 +583,8 @@ document.addEventListener('click',async e=>{const t=e.target.closest('button,[da
   busy(t,true);try{await rpc('c3_salva',{p_sezione:'lingotto_aggiungi',p:{tipo:tp,grammi:gr,man:mn,utile:ut,foto:newImg['l_'+tp]||''}});delete newImg['l_'+tp];await loadA();await loadD();go0(view);toast('Lingotto '+tp+' da '+fv(gr)+' g aggiunto')}catch(err){busy(t,false);toast(err.message)}return}
  if(d.rmling){const l=LING.find(x=>x.id===d.rmling);modal(`<div class="bh">Eliminare il lingotto?</div><div class="bb"><b style="font-size:17px">Lingotto ${l.tipo} da ${fv(l.grammi)} g</b><p class="small">Sparisce dalla pagina Lingotti.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-rmlok="${l.id}">Elimina</button></div></div>`);return}
  if(d.rmlok){busy(t,true);try{await rpc('c3_salva',{p_sezione:'lingotto_elimina',p:{id:d.rmlok}});unmodal();await loadA();await loadD();go0(view);toast('Lingotto eliminato')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
- if(d.crin){busy(t,true);try{await rpc('c3_cr_vista',{p_id:d.crin});S.cart.righe=[];await loadA();await loadD();await loadP();go0('vendita');toast('Viewing '+D.azienda.nome)}catch(err){busy(t,false);toast(err.message)}return}
- if(d.crout){try{await rpc('c3_cr_vista',{p_id:null});loadCart();await loadA();await loadD();await loadP();await loadCR();go0('creator')}catch(err){toast(err.message)}return}
+ if(d.crin){busy(t,true);try{await rpc('c3_cr_vista',{p_id:d.crin});S.cart.righe=[];await loadA();await loadD();await loadP();go0('vendita');toast('Sei dentro '+D.azienda.nome)}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.crout){busy(t,true);try{await rpc('c3_cr_vista',{p_id:null});loadCart();await loadA();await loadD();await loadP();await loadCR();go0('creator')}catch(err){busy(t,false);toast(err.message)}return}
  if(d.cract){const[id,az]=d.cract.split(':');busy(t,true);try{await rpc('c3_cr_azione',{p_id:id,p_azione:az});await loadCR();go0('creator');toast({attiva:'Approved',riattiva:'Reactivated',sospendi:'Suspended',rifiuta:'Rejected'}[az])}catch(err){busy(t,false);toast(err.message)}return}
  if(d.azpick){const a=JSON.parse(decodeURIComponent(d.azpick));selAz=a;regNew=false;try{localStorage.setItem('carlaoro_az',JSON.stringify(a))}catch(e){}drawLogin();return}
  if(d.aznew){selAz=null;regNew=true;drawLogin();return}
