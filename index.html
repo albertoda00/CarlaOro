@@ -76,7 +76,8 @@ input.err{border-color:var(--red)}
 .saved{text-align:center;margin-top:8px;font-weight:600;color:var(--red)}.saved.ok{color:var(--ok)}.btn.dirty{box-shadow:0 0 0 3px rgba(201,165,79,.45)}
 .suf{position:relative;display:block}.suf i{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--mut)}.suf input{padding-right:40px}
 .plus.pb{margin-left:-4px;background:none;color:var(--gold);border:1.5px solid var(--gold);font:600 20px var(--serif)}.plus.pb.on{background:var(--gold);color:#fff}
-.prop{display:flex;align-items:center;gap:12px;margin-top:10px}.prop input{flex:1;width:auto}
+.prop{display:flex;align-items:center;gap:12px;margin-top:10px}.prop input{flex:1;width:auto;min-width:0}
+.prop .pg{flex:none;font-size:14px;font-weight:600;color:var(--gold);white-space:nowrap}.prop .pg:empty{display:none}
 .dots{display:flex;gap:7px;flex:none}.dots i{width:14px;height:14px;border-radius:50%;opacity:.22}.dots i.g{background:#3f9b4f}.dots i.y{background:var(--yel)}.dots i.r{background:var(--red)}
 .dots[data-c=g] i.g,.dots[data-c=y] i.y,.dots[data-c=r] i.r{opacity:1;box-shadow:0 0 8px rgba(0,0,0,.3)}
 .code{font:500 13px var(--sans);color:#d9c9b0;letter-spacing:.06em}
@@ -366,7 +367,7 @@ V.valutazione=()=>{const m=vmodo||S.cart.modo;return`<div class="seg">${[['bonif
 ${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l+`<span class="code num" id="code_${g}"></span>`,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:center;gap:10px">${v.g==='mon'?(v.img?`<img class="thumb" src="${esc(v.img)}" alt="${esc(v.n)}" data-zoom="${v.id}" style="cursor:zoom-in">`:vImg(v)):''}<div class="n sp">${v.n}</div><div class="q num" id="q_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</div></div>
 <div class="small" style="margin:2px 0 6px">${v.u==='pz'?'Quantità':'Grammi'}</div><div class="row"><input id="n_${v.id}" data-val="${v.id}" inputmode="${v.u==='pz'?'numeric':'decimal'}" placeholder="${v.u==='pz'?'0':'0,00'}" aria-label="${v.u==='pz'?'Quantità':'Grammi'} ${v.n}">
 <span class="sp"></span><div class="val">Valore<b class="num" id="v_${v.id}">—</b></div><button class="plus" data-add="${v.id}" aria-label="Aggiungi ${v.n} al carrello">+</button><button class="plus pb" data-p="${v.id}" aria-label="P">P</button></div>
-<div class="prop" id="pp_${v.id}" hidden><input id="pv_${v.id}" data-prop="${v.id}" data-g="${v.g}" inputmode="decimal" placeholder="0,00" aria-label="P ${v.n}"><span class="dots" id="pd_${v.id}"><i class="g"></i><i class="y"></i><i class="r"></i></span></div></div>`).join(''))).join('')}`};
+<div class="prop" id="pp_${v.id}" hidden><input id="pv_${v.id}" data-prop="${v.id}" data-g="${v.g}" inputmode="decimal" placeholder="0,00" aria-label="P ${v.n}"><span class="pg num" id="pg_${v.id}"></span><span class="dots" id="pd_${v.id}"><i class="g"></i><i class="y"></i><i class="r"></i></span></div></div>`).join(''))).join('')}`};
 const cartCalc=()=>{const m=S.cart.modo;const r=S.cart.righe.map(x=>{const v=VOCI.find(y=>y.id===x.id),q=quot(m,x.id);return{...x,n:v.n,u:v.u,g:v.g,q,val:q*x.qty}});
  const tot={oro:0,arg:0,mon:0};r.forEach(x=>tot[x.g]+=x.val);return{r,tot}};
 V.carrello=()=>{const{r,tot}=cartCalc();if(!r.length)return`<div class="empty"><div class="ei">${svg(I.bag,28)}</div><h3>Il carrello è vuoto</h3><p class="mut" style="margin:0 0 18px">Aggiungi le voci dalla pagina Valutazione con il pulsante +.</p><button class="btn" data-go="valutazione" style="width:auto">${svg(I.scale,18)}Vai a Valutazione</button></div>`;
@@ -472,7 +473,7 @@ const upd=()=>{const qp=$('#qp');if(qp){qp.textContent=eur(puroAcq())+'/g';$('#q
   const fa=$('#vfa'),k=(reqFascia(g,c),cg?fasciaK:'ok');fa.className='bar';const bi=fa.firstChild;
   if(k==='gialla'||k==='rossa'||k==='alarm'){fa.hidden=false;if(k==='alarm')fa.classList.add('alarm');bi.style.width=k==='gialla'?'40%':'100%';bi.style.background=k==='gialla'?'var(--yel)':k==='rossa'?'var(--red)':''}else fa.hidden=true}
  if(view==='valutazione'){const m=vmodo||S.cart.modo;$('#qo').textContent=eur(puroAcq())+'/g';$('#qa').textContent=eur(agAcq())+'/g';VOCI.forEach(v=>{const q=quot(m,v.id);$('#q_'+v.id).textContent=eur(q)+'/'+(v.u==='g'?'g':'pz');const n=nm($('#n_'+v.id).value);$('#v_'+v.id).textContent=n?eur(q*(v.u==='pz'?Math.round(n):n)):'—';
-  const qty=v.u==='pz'?Math.round(n):n,pr=nm($('#pv_'+v.id).value),d=$('#pd_'+v.id);d.dataset.c='';v.code='';if(qty>0&&pr>0){const r=reqProp(v.id,qty,pr);if(r){d.dataset.c=r.colore;v.code=r.codice}}});
+  const qty=v.u==='pz'?Math.round(n):n,pr=nm($('#pv_'+v.id).value),d=$('#pd_'+v.id),pg=$('#pg_'+v.id);if(pg)pg.textContent=qty>0&&pr>0?eur(pr/qty)+(v.u==='pz'?'/pz':'/g'):'';d.dataset.c='';v.code='';if(qty>0&&pr>0){const r=reqProp(v.id,qty,pr);if(r){d.dataset.c=r.colore;v.code=r.codice}}});
   ['oro','arg','mon'].forEach(g=>{const id=lastP[g],v=id&&VOCI.find(x=>x.id===id),el=$('#code_'+g);el.textContent=v&&v.code?v.code:''})}
  if(view==='lingotti'){const L=LING.filter(l=>l.tipo===lt);$('#ltb').innerHTML=L.length?L.map(l=>{const g=lingP(l);return`<div class="lrow">${lingImg(l)}<div class="sp"><b>Lingotto ${fv(l.grammi)} g</b><div class="small num">${eur(g)}/g</div></div><span class="tot num">${eur(g*l.grammi)}</span></div>`}).join(''):'<p class="mut" style="margin:0">Nessun lingotto.</p>'}
  if(view==='vendadm')(S.cadm||[]).forEach(c=>{const e=$('#fm_'+c.id);if(e&&c.on)e.textContent=eur(cadmPrice(c))});
