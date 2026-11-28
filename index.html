@@ -51,6 +51,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,[role=button]:focu
 .seg button{flex:1;min-height:52px;border:0;border-radius:11px;background:none;color:var(--ink);font-weight:600;font-size:16.5px;cursor:pointer;transition:background .15s}
 .seg button.on{background:var(--band);color:var(--bandt);box-shadow:0 2px 6px rgba(45,30,20,.25)}
 .seg.serif button{font:500 23px var(--serif)}
+.seg.rs button{min-height:46px;font-size:15px}
 label.f{display:block;margin-bottom:14px}label.f span{display:block;font-size:13.5px;font-weight:600;color:var(--mut);margin:0 0 7px 2px}
 input,select{width:100%;min-height:48px;font:400 17px var(--sans);color:var(--ink);background:var(--field);border:1px solid var(--fbord);border-radius:10px;padding:10px 14px;font-variant-numeric:tabular-nums;-webkit-appearance:none;appearance:none}
 input:focus,select:focus{outline:none;border-color:var(--goldbtn);box-shadow:0 0 0 3px rgba(201,165,79,.25)}input::placeholder{color:var(--mut);opacity:.75}
@@ -214,6 +215,21 @@ nav.tab button.on{font-weight:600}
 .pbox .u{font-size:12.5px;letter-spacing:.02em}
 .qv{font-weight:500}.cap{font-size:10px;letter-spacing:.18em}
 .pill,.chip{font-weight:500;letter-spacing:.02em}
+.azp{position:relative}.azl{position:absolute;left:0;right:0;top:100%;z-index:5;margin-top:4px;background:var(--card,#fffaf3);border:1px solid var(--line,#ddcbb0);border-radius:12px;box-shadow:0 12px 28px rgba(60,40,25,.18);overflow:hidden}
+.azl button{display:block;width:100%;text-align:left;border:0;background:none;padding:12px 14px;font:inherit;color:inherit;border-bottom:1px solid var(--line,#eadcc6);cursor:pointer}.azl button:last-child{border-bottom:0}
+.azl b{display:block;font-weight:600}.azl small{color:var(--mut);font-size:12.5px}.azl .new{color:var(--gold);font-weight:600}
+.azsel{display:flex;align-items:center;gap:10px;border:1px solid #c9a35c;background:light-dark(#fbf3e4,#30261c);border-radius:12px;padding:10px 12px;margin-bottom:14px}
+.azsel .sp b{display:block}.azsel small{color:var(--mut)}.azsel button{border:0;background:none;color:var(--gold);font:600 14px var(--sans,inherit);cursor:pointer}
+.vbar{display:flex;align-items:center;gap:10px;background:#2b1d15;color:#f0d48e;border-radius:12px;padding:10px 14px;margin:0 0 14px;font-size:14px}.vbar .sp{flex:1}.vbar button{border:1px solid #c9a35c;background:none;color:#f0d48e;border-radius:8px;padding:6px 10px;font:600 13px inherit;cursor:pointer}
+.mtog{display:flex;align-items:center;gap:10px;border:0;background:none;padding:8px 0;font:600 15px inherit;color:var(--mut);cursor:pointer}.mtog .sw{width:44px;height:26px;border-radius:13px;background:#d8c8ae;position:relative;transition:background .15s}.mtog .sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .15s}.mtog.on{color:var(--gold)}.mtog.on .sw{background:#8a6a2e}.mtog.on .sw::after{left:21px}.voce.off b{opacity:.6}
+.thumb{width:46px;height:46px;border-radius:10px;object-fit:cover;flex:none;background:#efe3d0;border:1px solid var(--line,#e3d3b8)}
+.thumb.ph{display:inline-flex;align-items:center;justify-content:center;font:600 16px var(--serif);color:#a8823f}
+.vact{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:14px}.vact label,.vact button{color:var(--gold);font:600 14px inherit;background:none;border:0;padding:0;cursor:pointer}.vact .del{color:#a0402e}
+.addf{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line,#d9c7a8)}
+.crrow{border:1px solid var(--line,#e3d3b8);border-radius:14px;padding:14px;margin-bottom:12px;background:light-dark(#fffaf2,#2a221b)}
+.crrow .top{display:flex;gap:10px;align-items:flex-start}.crrow .top .sp{flex:1}.crrow h3{margin:0;font:600 19px var(--serif)}
+.crst{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}.crst.attiva{background:#e2efdc;color:#3d6b2f}.crst.in_attesa{background:#f6ead0;color:#8a6420}.crst.sospesa,.crst.rifiutata{background:#f4dcd6;color:#8a2a1e}
+.crnum{display:flex;gap:18px;margin:10px 0 4px;font-size:13px;color:var(--mut)}.crnum b{display:block;font-size:17px;color:var(--gold)}
 .hint{font-size:13.5px}
 .empty h3{font-weight:500;letter-spacing:.01em}
 .pvh .id{font-weight:500;letter-spacing:.1em;font-size:17px}.pvh .cd{font-weight:500}
@@ -273,34 +289,34 @@ const I={coin:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.5"/
 const SB_URL='https://yovimxjkfdqvcaepefex.supabase.co',SB_KEY='sb_publishable_wxS96yrJYj_n0ifbvXPz_w_ciHUpyEi';
 const URLH=location.hash+'&'+location.search,RECOVERY=/type=recovery/.test(URLH),LINKERR=/error_code=([^&]+)/.exec(URLH);
 const sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const T999=[1,5,10,20,50,100,250],T750=[1,2,3,5,10];
-const G={oro:'oro',argento:'arg',sterline:'mon'};
-let D=null,A=null,VOCI=[];
-const S={rid:0,ridAg:0,coef:{bonifico:{},cambio:{}},vend:{},ling:{l750:{},l999:{iva:0,t:{}}},riv:{},sem:{oro:[0,0],arg:[0,0],mon:[0,0]},coins:[],cart:{modo:'bonifico',righe:[]},prev:[],users:[],ev:[]};
+const G={oro:'oro',argento:'arg',moneta:'mon',sterline:'mon'},GM={oro:'oro',arg:'argento',mon:'moneta'};
+let D=null,A=null,VOCI=[],LING=[],AV={},CR=[],crq='',selAz=null,regNew=false,azT=null;
+const S={rid:0,ridAg:0,coef:{bonifico:{},cambio:{}},vend:{},ling:{'750':{iva:22,t:{}},'999':{iva:22,t:{}}},riv:{},sem:{oro:[0,0],arg:[0,0],mon:[0,0]},coins:[],cart:{modo:'bonifico',righe:[]},prev:[],users:[],ev:[]};
 const evTxt=d=>d==null?'':typeof d!=='object'?String(d):Object.entries(d).filter(([k,v])=>v!=null&&typeof v!=='object'&&k!=='id').map(([k,v])=>String(v)).join(' · ');
-const applyD=d=>{D=d;VOCI=(d.voci||[]).map(v=>({id:v.voce,n:v.titolo,g:G[v.metallo]||'mon',u:v.unita,fino:v.fino,rif:String(v.rif).replace('.',','),b:+v.bonifico||0,c:+v.cambio||0}));
- S.coins=(d.monete||[]).map(m=>({id:m.voce,n:m.nome,fino:m.fino,img:m.foto||'',prezzo:+m.prezzo||0,ric:A&&A.ricarichi?(A.ricarichi[m.voce]??0):0}));
+const applyD=d=>{D=d;VOCI=(d.voci||[]).map(v=>({id:v.voce,n:v.titolo,g:G[v.metallo]||'mon',u:v.unita,fino:v.fino,img:v.foto||'',rif:String(v.rif).replace('.',','),b:+v.bonifico||0,c:+v.cambio||0}));LING=d.lingotti||[];
+ S.coins=(d.monete||[]).map(m=>({id:m.voce,n:m.nome,fino:m.fino,img:m.foto||'',prezzo:+m.prezzo||0,ric:AV[m.voce]?+AV[m.voce].ricarico:0}));
  const ids=new Set(VOCI.map(v=>v.id));const n=S.cart.righe.length;S.cart.righe=S.cart.righe.filter(r=>ids.has(r.id));if(n!==S.cart.righe.length)save()};
-const applyA=a=>{A=a;if(!a)return;S.rid=+a.riduzione?.oro||0;S.ridAg=+a.riduzione?.argento||0;S.coef=a.formule||{bonifico:{},cambio:{}};S.vend=a.vendita||{};
- const l7=(a.lingotti||{})['750']||{},l9=(a.lingotti||{})['999']||{};S.ling.l750={man:+l7.man||0,utile:+l7.utile||0,iva:+l7.iva||0};
- S.ling.l999={iva:+l9.iva||0,t:Object.fromEntries(T999.map(t=>[t,[+((l9.mt||{})[t])||0,+((l9.ut||{})[t])||0]]))};
- S.riv=Object.fromEntries(Object.entries(a.rivendita||{}).map(([k,v])=>[k,[+v.c,+v.t]]));
- const sm=a.semaforo||{};S.sem={oro:sm.oro||[0,0],arg:sm.argento||[0,0],mon:sm.sterline||[0,0]};
- S.coins.forEach(c=>c.ric=(a.ricarichi||{})[c.id]??0);
+const applyA=a=>{A=a;if(!a)return;const cf=a.config||{};S.rid=+cf.rid_oro||0;S.ridAg=+cf.rid_ag||0;S.vend=a.vendita||{};
+ AV={};S.coef={bonifico:{},cambio:{}};S.riv={};(a.voci||[]).forEach(v=>{AV[v.id]=v;S.coef.bonifico[v.id]=[+v.bon[0],+v.bon[1]];S.coef.cambio[v.id]=[+v.cam[0],+v.cam[1]];S.riv[v.id]=[+v.riv[0],+v.riv[1]]});
+ S.ling={'750':{iva:+cf.iva750||0,t:{}},'999':{iva:+cf.iva999||0,t:{}}};(a.lingotti||[]).forEach(l=>{S.ling[l.tipo].t[l.id]=[+l.man,+l.utile]});
+ const sm=a.semaforo||{};S.sem={oro:sm.oro||[0,0],arg:sm.argento||[0,0],mon:sm.moneta||[0,0]};
+ S.coins.forEach(c=>c.ric=AV[c.id]?+AV[c.id].ricarico:0);
+ S.cadm=(a.voci||[]).filter(v=>v.metallo==='moneta'&&v.in_vendita).map(v=>({id:v.id,n:v.titolo,fino:+v.fino||0,img:v.foto||'',ric:+v.ricarico||0,on:true,acq:!!v.in_acquisto}));
  S.users=(a.utenti||[]).map(u=>({id:u.id,n:u.nome||u.email,e:u.email,r:u.ruolo,s:u.stato}));
  S.ev=(a.eventi||[]).map(e=>({t:e.t,o:e.o||'',a:e.a||'',d:evTxt(e.d)}))};
 const mapP=p=>({n:p.id,num:p.numero||pv(p.id),cliente:((p.cliente_nome||'')+' '+(p.cliente_cognome||'')).trim(),collab:p.collaboratore_nome||'',modo:p.modalita,creato:Date.parse(p.creato_il),scad:Date.parse(p.scade_il),stato:p.stato,chiuso:p.chiuso_il?Date.parse(p.chiuso_il):null,
  righe:(p.voci_preventivo||[]).sort((a,b)=>a.id-b.id).map(x=>({n:x.titolo,qty:+x.quantita,u:x.unita,q:+x.quotazione,val:+x.valore,g:G[x.metallo]||'mon'})),tot:{oro:+p.totale_oro||0,arg:+p.totale_argento||0,mon:+p.totale_sterline||0}});
 const rpc=async(f,args)=>{const{data,error}=await sb.rpc(f,args||{});if(error)throw new Error(error.message);return data};
-const loadD=async()=>applyD(await rpc('cv2_dati'));
-const loadA=async()=>{if(isAdm())applyA(await rpc('cv2_admin'))};
+const loadD=async()=>applyD(await rpc('c3_dati'));
+const loadA=async()=>{if(isAdm())applyA(await rpc('c3_admin_dati'));else{A=null;AV={}}};
+const loadCR=async()=>{if(me.creator)CR=await rpc('c3_cr_lista',{q:''})||[]};
 const loadP=async()=>{const{data,error}=await sb.from('preventivi').select('*,voci_preventivo(*)').order('creato_il',{ascending:false});if(error)throw new Error(error.message);S.prev=(data||[]).map(mapP)};
 const cartKey=()=>'carlaoro_cart_'+(me.id||'');
 const loadCart=()=>{let c=null;try{c=JSON.parse(localStorage.getItem(cartKey()))}catch(e){}S.cart=c&&Array.isArray(c.righe)?c:{modo:'bonifico',righe:[]}};
 const save=()=>{try{localStorage.setItem(cartKey(),JSON.stringify(S.cart))}catch(e){}};
 const R={get xau(){return A?+A.quot.oro_full:0},get xag(){return A?+A.quot.ag_full:0},get ts(){const t=D&&Date.parse(D.quot.ts);return t||Date.now()}};
-const me={id:'',n:'',r:'',e:''};let view='vendita',last='vendita',cat='oreficeria',vmodo=null,lt='750',lcash=false,mcash=true,vcash=false,afilt='in_attesa',hideT=null,open=null;
-const isAdm=()=>me.r==='amministratore';
+const me={id:'',n:'',r:'',e:'',creator:false};let view='vendita',last='vendita',cat='oreficeria',vmodo=null,lt='750',lcash=false,mcash=true,vcash=false,afilt='in_attesa',hideT=null,open=null;
+const isAdm=()=>me.r==='amministratore'||me.creator;
 const log=()=>{};
 const MAIN=['vendita','valutazione','carrello','archivio'];
 
@@ -311,17 +327,16 @@ const stato=()=>{const s=D&&D.quot.stato;return s==='aggiornata'?'Aggiornata':s=
 const vend=c=>{const x=(D&&D.vendita&&D.vendita[c])||{};return{iva:+x.listino||0,cash:+x.banconota||0,p:S.vend[c]||{}}};
 let fasciaK='ok',fKey='',fT=null;
 const reqFascia=(g,c)=>{const k=[cat,g,c,vcash].join('|');if(k===fKey)return;fKey=k;fasciaK='ok';clearTimeout(fT);if(!(g>0&&c>0))return;
- fT=setTimeout(async()=>{try{const r=await rpc('cv2_fascia',{p_tipo:cat,p_grammi:g,p_concordato:c,p_banconota:vcash});if(fKey===k){fasciaK=r||'ok';upd()}}catch(e){}},220)};
+ fT=setTimeout(async()=>{try{const r=await rpc('c3_fascia',{p_tipo:cat,p_grammi:g,p_concordato:c,p_banconota:vcash});if(fKey===k){fasciaK=r||'ok';upd()}}catch(e){}},220)};
 const quot=(modo,id)=>{const v=VOCI.find(x=>x.id===id);return v?(modo==='cambio'?v.c:v.b):0};
 const coinPrice=c=>+c.prezzo||0;
-const riv=id=>A&&A.rivendita&&A.rivendita[id]?+A.rivendita[id].valore:0;
+const cadmPrice=c=>(A&&A.quot?+A.quot.oro_full||0:0)*c.fino+(+c.ric||0);
+const riv=id=>AV[id]?+AV[id].riv_val:0;
 const propC={};let propT=null;
 const reqProp=(id,q,p)=>{const k=id+'|'+q+'|'+p;if(propC[k]!==undefined)return propC[k];propC[k]=null;clearTimeout(propT);
- propT=setTimeout(async()=>{try{propC[k]=await rpc('cv2_proposta',{p_voce:id,p_quantita:q,p_importo:p});upd()}catch(e){delete propC[k]}},200);return null};
+ propT=setTimeout(async()=>{try{propC[k]=await rpc('c3_proposta',{p_voce:id,p_quantita:q,p_importo:p});upd()}catch(e){delete propC[k]}},200);return null};
 const lastP={};
-const l750v=c=>D&&D.l750?+(c?D.l750.senza:D.l750.iva):0;
-const l999v=(t,c)=>{const x=D&&D.l999&&D.l999[t];return x?+(c?x.senza:x.iva):0};
-const l750=()=>l750v(lcash),l999=t=>l999v(t,lcash);
+const lingP=l=>+(lcash?l.senza:l.iva)||0;
 const nextIn=()=>{let s=Math.max(0,Math.ceil((R.ts+CICLO-Date.now())/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 const qcard=()=>{const v=puroAcq();return`<div class="qcard"><div class="row"><span class="ic">${svg(I.trend)}</span><div class="sp"><div class="cap">ORO PURO</div><div class="qv num" id="qp">${eur(v)}/g</div></div><span class="pill" id="qs"><i></i>${stato()}</span></div>
 <div class="hr" style="margin:12px 0 10px"></div><div class="row"><div class="sp"><div class="cap">ULTIMO</div><div id="qt">${dt(R.ts)}</div></div><div style="text-align:right"><div class="cap">PROSSIMO TRA</div><div id="qn" style="font-weight:600">${nextIn()}</div></div></div></div>`;};
@@ -329,9 +344,11 @@ const qcard=()=>{const v=puroAcq();return`<div class="qcard"><div class="row"><s
 // ---------- schermate ----------
 const V={};
 const coinImg=(c,sz)=>c.img?`<img class="cimg" src="${esc(c.img)}" alt="${esc(c.n)}" width="${sz}" height="${sz}" data-zoom="${c.id}">`:`<span class="cimg ph" style="width:${sz}px;height:${sz}px">${esc(c.n[0]||'?')}</span>`;
+const vImg=(v,sz=46)=>v.img?`<img class="thumb" src="${esc(v.img)}" alt="" width="${sz}" height="${sz}" style="width:${sz}px;height:${sz}px">`:`<span class="thumb ph" style="width:${sz}px;height:${sz}px">${esc((v.n||'?')[0])}</span>`;
+const lingImg=l=>l.foto?`<img class="bimg" src="${esc(l.foto)}" alt="Lingotto ${fv(l.grammi)} g" data-zoombar="${l.id}">`:`<span class="thumb ph" style="width:56px;height:56px">${fv(l.grammi)}</span>`;
 const coinShow=c=>mcash?coinPrice(c):coinPrice(c)*1.22;
 V.monete=()=>`<h1>Monete</h1><p class="sub">Prezzi al pubblico</p><div class="row" style="margin-bottom:18px;justify-content:flex-end"><button class="sqbtn ${mcash?'on':''}" id="mcash" aria-label="Prezzo per pagamento con banconote" aria-pressed="${mcash}" style="width:58px;border-radius:16px">${svg(I.cash,24)}</button></div>${blk('Prezzo al pubblico',S.coins.length?S.coins.map(c=>`<div class="voce"><div class="row" style="align-items:center">${coinImg(c,60)}<div class="sp"><div class="n">${esc(c.n)}</div><div class="small">${String(c.fino).replace('.',',')} g di oro fino</div></div><b class="gold num" id="mp_${c.id}" style="font-size:19px">${eur(coinShow(c))}</b></div>
-<div class="row" style="margin-top:8px"><input id="mq_${c.id}" data-mq="${c.id}" inputmode="numeric" placeholder="Pezzi" aria-label="Pezzi ${esc(c.n)}" style="width:112px"><span class="sp"></span><div class="val">Totale<b class="num" id="mt_${c.id}">—</b></div></div></div>`).join(''):'<p class="mut" style="margin:0">Nessuna moneta. Aggiungile da Amministrazione rivendita.</p>','full')}${qcard()}`;
+<div class="row" style="margin-top:8px"><input id="mq_${c.id}" data-mq="${c.id}" inputmode="numeric" placeholder="Pezzi" aria-label="Pezzi ${esc(c.n)}" style="width:112px"><span class="sp"></span><div class="val">Totale<b class="num" id="mt_${c.id}">—</b></div></div></div>`).join(''):'<p class="mut" style="margin:0">Nessuna moneta. L\'amministratore può aggiungerle da Amministrazione acquisto.</p>','full')}${qcard()}`;
 const TABV=()=>`<div class="seg serif">${[['oreficeria','Oreficeria'],['fedi','Fedi']].map(([c,l])=>`<button data-cat="${c}" class="${cat===c?'on':''}">${l}</button>`).join('')}</div>`;
 V.vendita=()=>`${TABV()}
 <div class="pbox"><div class="k">PREZZO SCONTATO</div><div class="t">${cat==='fedi'?'Fedi':'Oreficeria'} 18 KT</div>
@@ -346,7 +363,7 @@ ${qcard()}`;
 V.valutazione=()=>{const m=vmodo||S.cart.modo;return`<div class="seg">${[['bonifico','Bonifico'],['cambio','Cambio merce']].map(([k,l])=>`<button data-modo="${k}" class="${m===k?'on':''}">${l}</button>`).join('')}</div>
 <div class="qmini"><div><div class="cap">ORO</div><div class="v num" id="qo">${eur(puroAcq())}/g</div></div><span class="sepv"></span><div><div class="cap">ARGENTO</div><div class="v num" id="qa">${eur(agAcq())}/g</div></div><span class="sp"></span><span class="pill"><i></i>${stato()}</span></div>
 <div class="clear"><button id="azzera">${svg('<path d="M4 4v6h6M20 20v-6h-6"/><path d="M5.5 15a7 7 0 0011.9 2.4M18.5 9A7 7 0 006.6 6.6"/>',16)}Azzera campi</button></div>
-${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l+`<span class="code num" id="code_${g}"></span>`,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><div class="n sp">${v.n}</div><div class="q num" id="q_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</div></div>
+${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l+`<span class="code num" id="code_${g}"></span>`,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:center;gap:10px">${v.g==='mon'?(v.img?`<img class="thumb" src="${esc(v.img)}" alt="${esc(v.n)}" data-zoom="${v.id}" style="cursor:zoom-in">`:vImg(v)):''}<div class="n sp">${v.n}</div><div class="q num" id="q_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</div></div>
 <div class="small" style="margin:2px 0 6px">${v.u==='pz'?'Quantità':'Grammi'}</div><div class="row"><input id="n_${v.id}" data-val="${v.id}" inputmode="${v.u==='pz'?'numeric':'decimal'}" placeholder="${v.u==='pz'?'0':'0,00'}" aria-label="${v.u==='pz'?'Quantità':'Grammi'} ${v.n}">
 <span class="sp"></span><div class="val">Valore<b class="num" id="v_${v.id}">—</b></div><button class="plus" data-add="${v.id}" aria-label="Aggiungi ${v.n} al carrello">+</button><button class="plus pb" data-p="${v.id}" aria-label="P">P</button></div>
 <div class="prop" id="pp_${v.id}" hidden><input id="pv_${v.id}" data-prop="${v.id}" data-g="${v.g}" inputmode="decimal" placeholder="0,00" aria-label="P ${v.n}"><span class="dots" id="pd_${v.id}"><i class="g"></i><i class="y"></i><i class="r"></i></span></div></div>`).join(''))).join('')}`};
@@ -382,6 +399,9 @@ const fv=v=>String(v).replace('.',',');
 const inp=(k,v,lab)=>`<label class="f"><span>${lab}</span><input data-k="${k}" inputmode="decimal" value="${fv(v)}"></label>`;
 let fmodo='bonifico';
 const ap=(l,txt)=>`<button class="btn" data-apply="${l}" style="margin-top:14px">${svg(I.save,18)}${txt}</button><div class="saved small" hidden></div>`;
+const addVoce=g=>{const L={oro:['Aggiungi caratura','Es. Oro 14 KT','Titolo (es. 0,585)','rif'],arg:['Aggiungi argento','Es. Argento 800','Titolo (es. 0,800)','rif'],mon:['Aggiungi moneta','Es. Krugerrand','Oro fino (g)','fino']}[g];
+ return`<div class="addf"><b style="display:block;margin-bottom:10px">${L[0]}</b><div class="g2"><label class="f"><span>Nome</span><input id="nv_n_${g}" autocomplete="off" placeholder="${L[1]}"></label><label class="f"><span>${L[2]}</span><input id="nv_x_${g}" inputmode="decimal" placeholder="0,000"></label></div>
+${g==='mon'?`<label class="f"><span>Foto (facoltativa)</span><input type="file" accept="image/*" data-newimg="v_${g}" style="padding:10px;font-size:14px"></label>`:''}<button class="btn out" data-addvoce="${g}">+ ${L[0]}</button></div>`};
 const inpS=(k,v,lab,suf)=>`<label class="f"><span>${lab}</span><span class="suf"><input data-k="${k}" inputmode="decimal" value="${fv(v)}"><i>${suf}</i></span></label>`;
 V.formule=()=>{const c=S.coef,m=fmodo,ml=m==='cambio'?'Cambio merce':'Bonifico';return`<h1>Amministrazione acquisto</h1><p class="sub">Riduzioni e formule per l'oro usato, l'argento e le monete</p><div class="jump"><button data-jump="Formule del Puro">Puro</button><button data-jump="Formule dell\'argento">Argento</button><button data-jump="Oro">Usato</button></div>
 <div class="seg">${[['bonifico','Bonifico'],['cambio','Cambio merce']].map(([k,l])=>`<button data-fmodo="${k}" class="${m===k?'on':''}">${l}</button>`).join('')}</div>
@@ -391,38 +411,46 @@ ${ap('riduzione acquisti','Applica riduzione acquisti')}`,'full')}
 ${blk('Formule dell\'argento',`<div class="kv"><span>Quotazione originale Gold API</span><b class="num" id="fag">${eur(R.xag)}/g</b></div>${inpS('ridAg',S.ridAg||0,'Riduzione argento sugli acquisti','%')}
 <div class="kv"><span>Argento per gli acquisti</span><b class="gold num" id="fagr">${eur(agAcq())}/g</b></div><p class="small" style="margin:4px 0 0">Vale per Argento 999 e 925/800 in bonifico e cambio merce. Fuori da questa pagina tutti vedono solo l'argento ridotto.</p>
 ${ap('riduzione argento','Applica riduzione argento')}`,'full')}
-${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${v.n}</b><span class="q num" id="fq_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</span></div>
-<div class="g2" style="margin-top:6px">${inp(`coef.${m}.${v.id}.0`,c[m][v.id][0],`Coefficiente C (rif. ${v.rif})`)}${inp(`coef.${m}.${v.id}.1`,c[m][v.id][1],'Trattenuta T')}</div></div>`).join('')+ap('formule '+ml+' · '+g,'Applica '+l+' · '+ml),'full')).join('')}`};
+${[['oro','Oro'],['arg','Argento'],['mon','Monete d\'oro']].map(([g,l])=>blk(l,VOCI.filter(v=>v.g===g).map(v=>`<div class="voce"><div class="row" style="align-items:center;gap:10px">${v.g==='mon'?vImg(v):''}<div class="sp"><b>${esc(v.n)}</b><div class="small">${v.g==='mon'?String(v.fino).replace('.',',')+' g di oro fino':'titolo '+v.rif}</div></div><span class="q num" id="fq_${v.id}">${eur(quot(m,v.id))}/${v.u==='g'?'g':'pz'}</span></div>
+<div class="g2" style="margin-top:6px">${inp(`coef.${m}.${v.id}.0`,c[m][v.id][0],`Coefficiente C`)}${inp(`coef.${m}.${v.id}.1`,c[m][v.id][1],'Trattenuta T')}</div>
+<div class="vact">${v.g==='mon'?`<label>${v.img?'Cambia foto':'Aggiungi foto'}<input type="file" accept="image/*" data-vimg="${v.id}" hidden></label>`:''}<button class="del" data-rmvoce="${v.id}">Elimina</button></div></div>`).join('')+ap('formule '+ml+' · '+g,'Applica '+l+' · '+ml)+addVoce(g),'full')).join('')}`};
 V.vendadm=()=>`<h1>Amministrazione vendita</h1><p class="sub">Prezzi di vendita: oreficeria, fedi, monete e lingotti</p><div class="jump"><button data-jump="Vendita oreficeria">Oreficeria</button><button data-jump="Prezzo Fedi">Fedi</button><button data-jump="Vendita monete">Monete</button><button data-jump="Lingotti 750">Lingotti 750</button><button data-jump="Lingotti 999">Lingotti 999</button></div>
 
 ${['oreficeria','fedi'].map(k=>{const p=S.vend[k];return blk(k==='fedi'?'Prezzo Fedi':'Vendita oreficeria',`<div class="g2">${inp(`vend.${k}.calo`,p.calo,'Calo (per mille)')}${inp(`vend.${k}.man`,p.man,'Manifattura')}${inp(`vend.${k}.utile`,p.utile,'Utile')}${inp(`vend.${k}.iva`,p.iva,'IVA %')}${inp(`vend.${k}.sconto`,p.sconto,'Sconto banconota %')}${inp(`vend.${k}.gialla`,p.gialla,'Soglia gialla €/g')}${inp(`vend.${k}.rossa`,p.rossa,'Soglia rossa €/g')}</div>
 <div class="kv"><span>Prezzo di listino</span><b class="gold num" id="fv_${k}">${eur(vend(k).iva)}/g</b></div><div class="kv"><span>Prezzo con banconota</span><b class="num" id="fc_${k}">${eur(vend(k).cash)}/g</b></div>
 <p class="small" style="margin:4px 0 0">(oro puro × calo + manifattura + utile) × (1 + IVA). Con la banconota: prezzo meno lo sconto %.</p>${ap(k==='fedi'?'prezzo fedi':'vendita oreficeria',k==='fedi'?'Applica Prezzo Fedi':'Applica Vendita oreficeria')}`,'full')}).join('')}
-${blk('Vendita monete',`<p class="small" style="margin-top:0">Prezzo al pubblico = quotazione piena × grammi di oro fino + ricarico. Senza IVA.</p>
-${S.coins.map((c,i)=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(c.n)}</b><span class="q num" id="fm_${c.id}">${eur(coinPrice(c))}</span></div>${inp(`coins.${i}.ric`,c.ric,'Ricarico € al pezzo')}</div>`).join('')}
-${ap('vendita monete','Applica Vendita monete')}`,'full')}
-${blk('Lingotti 750',`<div class="g2">${inp('ling.l750.man',S.ling.l750.man,'Manifattura')}${inp('ling.l750.utile',S.ling.l750.utile,'Utile')}${inpS('ling.l750.iva',S.ling.l750.iva,'IVA','%')}</div>
-<div class="kv"><span>Prezzo al grammo</span><b class="gold num" id="fl750">${eur(l750v(false))}/g</b></div><div class="kv"><span>Prezzo al grammo con banconota</span><b class="num" id="fl750c">${eur(l750v(true))}/g</b></div>
-<p class="small" style="margin:4px 0 0">Oro puro × 0,800 + manifattura + utile, più IVA. Con la banconota il prezzo si divide per (1 + IVA).</p>${ap('lingotti 750','Applica Lingotti 750')}`,'full')}
-${blk('Lingotti 999',`<div class="g2">${inpS('ling.l999.iva',S.ling.l999.iva,'IVA','%')}</div><b style="display:block;margin:4px 0 8px">Manifattura e utile per taglio (€/g)</b>
-${T999.map(t=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp" style="color:var(--gold)">Lingotto ${t} g</b><span class="small num" id="fl999_${t}">${eur(l999v(t,false))}/g</span></div><div class="g2" style="margin-top:6px">${inp(`ling.l999.t.${t}.0`,S.ling.l999.t[t][0],'Manifattura')}${inp(`ling.l999.t.${t}.1`,S.ling.l999.t[t][1],'Utile')}</div></div>`).join('')}
-<p class="small" style="margin:8px 0 0">Oro puro × 0,999 + manifattura del taglio + utile del taglio, più IVA. Con la banconota il prezzo si divide per (1 + IVA).</p>${ap('lingotti 999','Applica Lingotti 999')}`,'full')}
+${blk('Vendita monete',`<p class="small" style="margin-top:0">Prezzo al pubblico = quotazione piena × grammi di oro fino + ricarico. Senza IVA. Una moneta aggiunta o eliminata qui vale anche per Amministrazione acquisto e Valutazione, e viceversa. La foto è unica.</p>
+${(S.cadm||[]).map((c,i)=>`<div class="voce${c.on?'':' off'}"><div class="row" style="align-items:center;gap:10px">${vImg(c)}<div class="sp"><b>${esc(c.n)}</b><div class="small">${String(c.fino).replace('.',',')} g di oro fino</div></div><span class="q num" id="fm_${c.id}">${c.on?eur(cadmPrice(c)):''}</span></div>
+${inp(`cadm.${i}.ric`,c.ric,'Ricarico € al pezzo')}
+<div class="vact"><label>${c.img?'Cambia foto':'Aggiungi foto'}<input type="file" accept="image/*" data-vimg="${c.id}" hidden></label><button class="del" data-rmvoce="${c.id}">Elimina</button></div></div>`).join('')||'<p class="mut">Nessuna moneta in vendita.</p>'}
+${ap('vendita monete','Applica Vendita monete')}<div class="addf"><b style="display:block;margin-bottom:10px">Aggiungi moneta</b><div class="g2"><label class="f"><span>Nome</span><input id="nv_n_monv" autocomplete="off" placeholder="Es. Krugerrand"></label><label class="f"><span>Oro fino (g)</span><input id="nv_x_monv" inputmode="decimal" placeholder="0,000"></label></div><label class="f"><span>Foto (facoltativa)</span><input type="file" accept="image/*" data-newimg="v_monv" style="padding:10px;font-size:14px"></label><button class="btn out" data-addvoce="monv">+ Aggiungi moneta</button></div>`,'full')}
+${['750','999'].map(tp=>{const L=LING.filter(l=>l.tipo===tp),fin=tp==='750'?'0,800':'0,999';return blk('Lingotti '+tp,`<div class="g2">${inpS(`ling.${tp}.iva`,S.ling[tp].iva,'IVA','%')}</div><b style="display:block;margin:4px 0 8px">Manifattura e utile per taglio (€/g)</b>
+${L.map(l=>`<div class="voce"><div class="row" style="align-items:center;gap:10px">${l.foto?`<img class="thumb" src="${esc(l.foto)}" alt="">`:`<span class="thumb ph">${fv(l.grammi)}</span>`}<b class="sp" style="color:var(--gold)">Lingotto ${fv(l.grammi)} g</b><span class="small num" id="fl_${l.id}">${eur(l.iva)}/g</span></div>
+<div class="g2" style="margin-top:6px">${inp(`ling.${tp}.t.${l.id}.0`,(S.ling[tp].t[l.id]||[0,0])[0],'Manifattura')}${inp(`ling.${tp}.t.${l.id}.1`,(S.ling[tp].t[l.id]||[0,0])[1],'Utile')}</div>
+<div class="vact"><label>${l.foto?'Cambia foto':'Aggiungi foto'}<input type="file" accept="image/*" data-limg="${l.id}" hidden></label><button class="del" data-rmling="${l.id}">Elimina</button></div></div>`).join('')||'<p class="mut">Nessun lingotto.</p>'}
+<p class="small" style="margin:8px 0 0">Oro puro × ${fin} + manifattura + utile, più IVA. Con la banconota il prezzo è senza IVA.</p>${ap('lingotti '+tp,'Applica Lingotti '+tp)}
+<div class="addf"><b style="display:block;margin-bottom:10px">Aggiungi lingotto ${tp}</b><div class="g2"><label class="f"><span>Grammi</span><input id="nl_g_${tp}" inputmode="decimal" placeholder="Es. 25"></label><label class="f"><span>Manifattura €/g</span><input id="nl_m_${tp}" inputmode="decimal" placeholder="0,00"></label><label class="f"><span>Utile €/g</span><input id="nl_u_${tp}" inputmode="decimal" placeholder="0,00"></label></div>
+<label class="f"><span>Foto (facoltativa)</span><input type="file" accept="image/*" data-newimg="l_${tp}" style="padding:10px;font-size:14px"></label><button class="btn out" data-addling="${tp}">+ Aggiungi lingotto ${tp}</button></div>`,'full')}).join('')}
 `;
 V.costi=()=>{const m=fmodo,ml=m==='cambio'?'Cambio merce':'Bonifico';return`<h1>Amministrazione costi</h1><p class="sub">Quanto pagano a te ogni voce e i colori della proposta P</p>
 ${blk('Metalli',`<p class="small" style="margin-top:0">Quanto pagano a te = quotazione piena × calo − trattenuta. Uguale per bonifico e cambio merce.</p>
 ${VOCI.filter(v=>v.g!=='mon').map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(v.n)}</b><span class="q num" id="fr_${v.id}">${eur(riv(v.id))}/${v.u==='g'?'g':'pz'}</span></div><div class="g2" style="margin-top:6px">${inp(`riv.${v.id}.0`,S.riv[v.id][0],'Calo (coefficiente)')}${inp(`riv.${v.id}.1`,S.riv[v.id][1],v.u==='g'?'Trattenuta €/g':'Trattenuta €/pezzo')}</div></div>`).join('')}
 ${ap('rivendita metalli','Applica Metalli')}`,'full')}
 ${blk('Monete',`<p class="small" style="margin-top:0">Quanto pagano a te = quotazione piena × oro fino × calo − trattenuta al pezzo.</p>
-${VOCI.filter(v=>v.g==='mon').map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(v.n)}</b><span class="q num" id="fr_${v.id}">${eur(riv(v.id))}/${v.u==='g'?'g':'pz'}</span></div><div class="g2" style="margin-top:6px">${inp(`riv.${v.id}.0`,S.riv[v.id][0],'Calo (coefficiente)')}${inp(`riv.${v.id}.1`,S.riv[v.id][1],v.u==='g'?'Trattenuta €/g':'Trattenuta €/pezzo')}</div><div class="small" style="text-transform:none;letter-spacing:0;font-weight:400;margin-top:4px">${String(v.fino).replace('.',',')} g di oro fino · <label class="lnk" style="display:inline;margin:0;padding:0;font-size:15px;cursor:pointer">Cambia foto<input type="file" accept="image/*" data-cimg="${v.id}" hidden></label> · <button class="lnk" style="display:inline;margin:0;padding:0;font-size:15px" data-rmcoin="${v.id}">Elimina moneta</button></div></div>`).join('')}
-${ap('rivendita monete','Applica Monete')}
-<div class="hr" style="margin:20px 0 14px"></div><b style="display:block;margin-bottom:10px">Aggiungi moneta</b>
-<div class="g2"><label class="f"><span>Nome</span><input id="ncN" autocomplete="off" placeholder="Es. Krugerrand"></label><label class="f"><span>Oro fino (g)</span><input id="ncF" inputmode="decimal" placeholder="0,000"></label></div>
-<label class="f"><span>Foto (facoltativa)</span><input type="file" id="ncP" accept="image/*" style="padding:10px;font-size:14px"></label>
-<button class="btn out" id="addCoin">+ Aggiungi moneta</button>`,'full')}
+${VOCI.filter(v=>v.g==='mon').map(v=>`<div class="voce"><div class="row" style="align-items:baseline"><b class="sp">${esc(v.n)}</b><span class="q num" id="fr_${v.id}">${eur(riv(v.id))}/${v.u==='g'?'g':'pz'}</span></div><div class="g2" style="margin-top:6px">${inp(`riv.${v.id}.0`,S.riv[v.id][0],'Calo (coefficiente)')}${inp(`riv.${v.id}.1`,S.riv[v.id][1],v.u==='g'?'Trattenuta €/g':'Trattenuta €/pezzo')}</div></div>`).join('')}
+${ap('rivendita monete','Applica Monete')}<p class="small" style="margin:10px 0 0">Per aggiungere o eliminare monete, carature e argento: Amministrazione acquisto.</p>`,'full')}
 ${blk('Semaforo proposte',`<p class="small" style="margin-top:0">Utile che resta = quanto lo pagano a te − quanto lo paghi al cliente. Verde da "Giallo sotto" in su, giallo tra le due soglie, rosso sotto "Rosso sotto".</p>
 ${[['oro','Oro (€/g)'],['arg','Argento (€/g)'],['mon','Monete (€/pezzo)']].map(([g,l])=>`<div class="voce"><b>${l}</b><div class="g2" style="margin-top:6px">${inp(`sem.${g}.0`,S.sem[g][0],'Giallo sotto')}${inp(`sem.${g}.1`,S.sem[g][1],'Rosso sotto')}</div></div>`).join('')}
 ${ap('semaforo','Applica semaforo')}`,'full')}
 `};
+const crSt={attiva:'Active',in_attesa:'Pending',sospesa:'Suspended',rifiutata:'Rejected'};
+const crRows=()=>{const q=crq.trim().toLowerCase(),L=CR.filter(a=>!q||(a.nome+' '+a.citta+' '+a.codice).toLowerCase().includes(q));
+ return L.length?L.map(a=>`<div class="crrow"><div class="top"><div class="sp"><h3>${esc(a.nome)}</h3><div class="small">${esc(a.citta)} · ${esc(a.cap)} · <b style="color:var(--gold)">${esc(a.codice)}</b></div>${a.referente?`<div class="small">${esc(a.referente)}</div>`:''}${a.email?`<div class="small">${esc(a.email)}</div>`:''}</div><span class="crst ${a.stato}">${crSt[a.stato]||a.stato}</span></div>
+<div class="crnum"><div><b>${a.utenti}</b>Users</div><div><b>${a.in_attesa}</b>Pending</div><div><b>${a.preventivi}</b>Quotes</div></div>
+<div class="row" style="flex-wrap:wrap;gap:8px;margin-top:10px">${a.stato==='attiva'?`<button class="btn sm" data-crin="${a.id}">Open app</button><button class="btn sm out" data-cract="${a.id}:sospendi">Suspend</button>`:a.stato==='in_attesa'?`<button class="btn sm" data-cract="${a.id}:attiva">Approve</button><button class="btn sm danger" data-cract="${a.id}:rifiuta">Reject</button><button class="btn sm out" data-crin="${a.id}">Open app</button>`:`<button class="btn sm out" data-cract="${a.id}:riattiva">Reactivate</button><button class="btn sm out" data-crin="${a.id}">Open app</button>`}</div></div>`).join(''):'<p class="mut" style="margin:0">No jewelers found.</p>'};
+V.creator=()=>{const p=CR.filter(a=>a.stato==='in_attesa').length;return`<h1>Creator Console</h1><p class="sub">All jewelers on CarlaOro${p?` · <b style="color:var(--gold)">${p} pending</b>`:''}</p>
+<label class="f"><span>Search</span><input id="crq" value="${esc(crq)}" placeholder="Name, city or code" autocomplete="off"></label>
+<div id="crl">${crRows()}</div>`};
 const sLab={in_attesa:'In attesa',attivo:'Attivo',rifiutato:'Rifiutato',revocato:'Revocato'};
 V.utenti=()=>{const att=S.users.map((u,i)=>[u,i]).filter(([u])=>u.s==='in_attesa'),ok=S.users.map((u,i)=>[u,i]).filter(([u])=>u.s==='attivo'),alt=S.users.map((u,i)=>[u,i]).filter(([u])=>u.s==='revocato'||u.s==='rifiutato');
  const ur=([u,i],btns)=>`<div class="urow"><b>${esc(u.n)}</b><div class="small">${esc(u.e)}</div><div class="small" style="color:var(--gold);font-weight:600">${u.r==='amministratore'?'Amministratore':'Collaboratore'}</div>${btns?`<div class="row" style="margin-top:10px;flex-wrap:wrap;gap:8px">${btns}</div>`:''}</div>`;
@@ -446,11 +474,11 @@ const upd=()=>{const qp=$('#qp');if(qp){qp.textContent=eur(puroAcq())+'/g';$('#q
  if(view==='valutazione'){const m=vmodo||S.cart.modo;$('#qo').textContent=eur(puroAcq())+'/g';$('#qa').textContent=eur(agAcq())+'/g';VOCI.forEach(v=>{const q=quot(m,v.id);$('#q_'+v.id).textContent=eur(q)+'/'+(v.u==='g'?'g':'pz');const n=nm($('#n_'+v.id).value);$('#v_'+v.id).textContent=n?eur(q*(v.u==='pz'?Math.round(n):n)):'—';
   const qty=v.u==='pz'?Math.round(n):n,pr=nm($('#pv_'+v.id).value),d=$('#pd_'+v.id);d.dataset.c='';v.code='';if(qty>0&&pr>0){const r=reqProp(v.id,qty,pr);if(r){d.dataset.c=r.colore;v.code=r.codice}}});
   ['oro','arg','mon'].forEach(g=>{const id=lastP[g],v=id&&VOCI.find(x=>x.id===id),el=$('#code_'+g);el.textContent=v&&v.code?v.code:''})}
- if(view==='lingotti'){const T=lt==='750'?T750:T999;$('#ltb').innerHTML=T.map(t=>{const g=lt==='750'?l750():l999(t);return`<div class="lrow"><img class="bimg" src="${lt==='999'?'bar_':'bar750_'}${t}.webp" alt="Lingotto ${t} g" data-zoombar="${lt}_${t}"><div class="sp"><b>Lingotto ${t} g</b><div class="small num">${eur(g)}/g</div></div><span class="tot num">${eur(g*t)}</span></div>`}).join('')}
- if(view==='vendadm')S.coins.forEach(c=>{const e=$('#fm_'+c.id);if(e)e.textContent=eur(coinPrice(c))});
+ if(view==='lingotti'){const L=LING.filter(l=>l.tipo===lt);$('#ltb').innerHTML=L.length?L.map(l=>{const g=lingP(l);return`<div class="lrow">${lingImg(l)}<div class="sp"><b>Lingotto ${fv(l.grammi)} g</b><div class="small num">${eur(g)}/g</div></div><span class="tot num">${eur(g*l.grammi)}</span></div>`}).join(''):'<p class="mut" style="margin:0">Nessun lingotto.</p>'}
+ if(view==='vendadm')(S.cadm||[]).forEach(c=>{const e=$('#fm_'+c.id);if(e&&c.on)e.textContent=eur(cadmPrice(c))});
  if(view==='costi')VOCI.forEach(v=>{$('#fr_'+v.id).textContent=eur(riv(v.id))+'/'+(v.u==='g'?'g':'pz')});
  if(view==='formule'){$('#fraw').textContent=eur(R.xau)+'/g';$('#fpur').textContent=eur(puroAcq())+'/g';$('#fag').textContent=eur(R.xag)+'/g';$('#fagr').textContent=eur(agAcq())+'/g';VOCI.forEach(v=>{$('#fq_'+v.id).textContent=eur(quot(fmodo,v.id))+'/'+(v.u==='g'?'g':'pz')})}
- if(view==='vendadm'){['oreficeria','fedi'].forEach(k=>{$('#fv_'+k).textContent=eur(vend(k).iva)+'/g';$('#fc_'+k).textContent=eur(vend(k).cash)+'/g'});$('#fl750').textContent=eur(l750v(false))+'/g';$('#fl750c').textContent=eur(l750v(true))+'/g';T999.forEach(t=>$('#fl999_'+t).textContent=eur(l999v(t,false))+'/g')}};
+ if(view==='vendadm'){['oreficeria','fedi'].forEach(k=>{$('#fv_'+k).textContent=eur(vend(k).iva)+'/g';$('#fc_'+k).textContent=eur(vend(k).cash)+'/g'});LING.forEach(l=>{const e=$('#fl_'+l.id);if(e)e.textContent=eur(l.iva)+'/g · '+eur(l.iva*l.grammi)})}};
 const hide=()=>{clearTimeout(hideT);const b=$('#vbig');if(b){$('#vtb').innerHTML='';b.textContent='••••,•• €';delete b.dataset.show;$('#vhint').textContent='Tocca per vedere';$('#veye').innerHTML=svg(I.eye,16)}};
 
 const TABS=[['vendita','Vendita oro',I.gem],['valutazione','Valutazione',I.bal],['carrello','Carrello',I.bag],['archivio','Archivio',I.book]];
@@ -458,47 +486,57 @@ const drawTab=()=>{const n=S.cart.righe.length;$('#tab').innerHTML=TABS.map(([k,
 const mi=(k,t,st,ic,cls='')=>`<button class="mi ${cls} ${view===k?'on':''}" data-go="${k}"><span class="ib">${svg(ic,19)}</span><span><div class="tt">${t}</div>${st?`<div class="st">${st}</div>`:''}</span><span class="ch">${svg(I.right,16)}</span></button>`;
 const drawSide=()=>{const n=S.cart.righe.length,ini=me.n.split(' ').map(w=>w[0]).join('').slice(0,2);
  $('#side').innerHTML=`<div class="top"><div class="wm">CARLA<b>ORO</b></div><button class="closeX" id="closeX" aria-label="Chiudi menu">×</button></div>
-<div class="prof"><span class="av">${esc(ini)}</span><div><b>${esc(me.n)}</b><div class="r">${me.r==='amministratore'?'Amministratore':'Collaboratore'}</div></div></div>
+<div class="prof"><span class="av">${esc(ini)}</span><div><b>${esc(me.n)}</b><div class="r">${me.creator?'Creator':me.r==='amministratore'?'Amministratore':'Collaboratore'}</div>${D&&D.azienda?`<div class="small" style="margin-top:2px">${esc(D.azienda.nome)}</div>`:''}</div></div>
 ${mi('vendita','Vendita oro','Prezzo al grammo',I.gem,'wide')}${mi('valutazione','Valutazione','Oro usato, argento e monete',I.bal,'wide')}${mi('carrello','Carrello',n?n+(n===1?' voce':' voci'):'Vuoto',I.bag,'wide')}${mi('archivio','Archivio','Preventivi',I.book,'wide')}
 ${mi('lingotti','Lingotti','Prezzi 750 e 999',I.box)}${mi('monete','Monete','Prezzi al pubblico',I.coin)}
 ${isAdm()?'<div class="sep">AMMINISTRAZIONE</div>'+mi('vendadm','Amministrazione vendita','Oreficeria, fedi, monete, lingotti',I.gem)+mi('formule','Amministrazione acquisto','Riduzioni e formule dell\'usato',I.sliders)+mi('costi','Amministrazione costi','Quanto pagano a te e semaforo',I.tag)+mi('utenti','Amministrazione utenti',(k=>k?(k===1?'1 richiesta in attesa':k+' richieste in attesa'):'')(S.users.filter(x=>x.s==='in_attesa').length),I.users)+mi('collab','Profili collaboratori','',I.card):''}
-<div class="sep">ACCOUNT</div>${mi('personale','Area personale','Profilo e preferenze',I.user)}
+${me.creator?'<div class="sep">CREATOR</div>'+mi('creator','Creator Console',(k=>k?k+' pending':'All jewelers')(CR.filter(a=>a.stato==='in_attesa').length),I.users):''}<div class="sep">ACCOUNT</div>${mi('personale','Area personale','Profilo e preferenze',I.user)}
 <div class="sp"></div><button class="mi" id="logout2"><span class="ib" style="background:none;color:var(--mut)">${svg(I.out,19)}</span><span class="tt" style="font-weight:500">Esci</span></button>`};
 const drawHead=()=>{const sub=!MAIN.includes(view);$('#menuBtn').innerHTML=svg(sub?I.back:I.dots,20);$('#menuBtn').setAttribute('aria-label',sub?'Indietro':'Apri menu');$('#menuBtn').dataset.back=sub?1:''};
 const HEAD=document.querySelector('header');
-const go0=k=>{if(['formule','vendadm','costi','utenti','collab'].includes(k)&&!isAdm())k='vendita';if(MAIN.includes(k))last=k;view=k;hide();$('#app').classList.remove('menu');$('#main').innerHTML='<div class="wrap">'+V[k]()+'</div>';$('#main').prepend(HEAD);if(k==='archivio')drawA();$('#main').scrollTop=0;document.querySelectorAll('main input').forEach(i=>{i.enterKeyHint='done'});drawTab();drawSide();drawHead();upd()};
+const go0=k=>{if(['formule','vendadm','costi','utenti','collab'].includes(k)&&!isAdm())k='vendita';if(k==='creator'&&!me.creator)k='vendita';if(MAIN.includes(k))last=k;view=k;hide();$('#app').classList.remove('menu');$('#main').innerHTML='<div class="wrap">'+(D&&D.vista?`<div class="vbar"><span class="sp">Viewing <b>${esc(D.azienda.nome)}</b> · ${esc(D.azienda.codice)}</span><button data-crout="1">Exit</button></div>`:'')+V[k]()+'</div>';$('#main').prepend(HEAD);if(k==='archivio')drawA();$('#main').scrollTop=0;document.querySelectorAll('main input').forEach(i=>{i.enterKeyHint='done'});drawTab();drawSide();drawHead();upd()};
 const go=k=>{const dirty=document.querySelector('.btn.dirty');if(dirty&&k!==view){modal(`<div class="bh">Modifiche non salvate</div><div class="bb"><p style="margin-top:0">Hai cambiato dei valori senza premere <b>Applica</b>. Se esci, le modifiche si perdono.</p><div class="g2"><button class="btn out" id="mno">Resta</button><button class="btn danger" data-leave="${k}">Esci senza salvare</button></div></div>`);return}go0(k)};
 const modal=h=>{$('#modalBody').innerHTML=h;$('#modal').classList.add('open')};const unmodal=()=>$('#modal').classList.remove('open');
-let lmode='in',lname='';
+let lmode='in',lname='',lnew=false;
 const eyeI='<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/>';
 const pwf=(id,lab,ac,ph)=>`<label class="f"><span>${lab}</span><span class="pw"><input id="${id}" type="password" autocomplete="${ac}" placeholder="${ph}"><button type="button" class="eyeb" data-eye="${id}" aria-label="Mostra password">${svg(eyeI,20)}</button></span></label>`;
+const azPick=lab=>selAz?`<div class="azsel"><div class="sp"><b>${esc(selAz.nome)}</b><small>${esc(selAz.citta)} · ${esc(selAz.codice)}</small></div><button data-azclear="1">Cambia</button></div>`:regNew?`<div class="azsel"><div class="sp"><b>Nuova gioielleria</b><small>Compila i dati qui sotto</small></div><button data-azclear="1">Cambia</button></div>`:`<label class="f azp"><span>${lab}</span><input id="azq" autocomplete="off" placeholder="Scrivi almeno 3 lettere"><div class="azl" id="azl" hidden></div></label>`;
 const drawLogin=()=>{const L=$('#lbox');const seg='';const tabs=`<div class="ltabs" role="tablist"><button data-lm="in" role="tab" aria-selected="${lmode==='in'}" class="${lmode==='in'?'on':''}">Accedi</button><button data-lm="reg" role="tab" aria-selected="${lmode==='reg'}" class="${lmode==='reg'?'on':''}">Registrati</button></div>`;const orn=`<div class="orn"><i></i>${svg('<path d="M7 6h10l3 4-8 9-8-9z"/><path d="M4 10h16"/>',14)}<i></i></div>`;
  let body='';
- if(lmode==='in')body=`${seg}<div class="lt">Bentornato</div>${orn}<p class="ls">Accedi con la tua email e la tua password</p>
-<label class="f"><span>Email</span><input id="le" type="email" inputmode="email" autocomplete="username" autocapitalize="off" placeholder="nome@esempio.it"></label>
+ if(lmode==='in')body=`${seg}<div class="lt">Bentornato</div>${orn}<p class="ls">Scegli la tua gioielleria, poi email e password</p>
+${azPick('Gioielleria')}<label class="f"><span>Email</span><input id="le" type="email" inputmode="email" autocomplete="username" autocapitalize="off" placeholder="nome@esempio.it"></label>
 ${pwf('lp','Password','current-password','La tua password')}<div class="lerr" id="lerr" hidden></div>
 <button class="lbtn" id="doLogin">Accedi</button><button class="lnk" id="forgot">Password dimenticata?</button>`;
- else if(lmode==='reg')body=`${seg}<div class="lt">Crea il tuo account</div>${orn}<p class="ls">La richiesta arriva all'amministratore,<br>che la autorizza</p>
+ else if(lmode==='reg')body=`${seg}<div class="lt">Crea il tuo account</div>${orn}<p class="ls">${regNew?'La gioielleria sarà attivata dopo la verifica,<br>e tu ne sarai l\'amministratore':'La richiesta arriva all\'amministratore<br>della gioielleria, che la autorizza'}</p>
+<div class="seg rs"><button data-rs="old" class="${regNew?'':'on'}">Scegli gioielleria</button><button data-rs="new" class="${regNew?'on':''}">Nuova gioielleria</button></div>
+${regNew?'':azPick('Gioielleria di appartenenza')}
+${regNew?`<b style="display:block;margin-bottom:10px">La gioielleria</b><label class="f"><span>Nome gioielleria</span><input id="an" autocapitalize="words" placeholder="Es. Gioielleria Rossi"></label><label class="f"><span>Città</span><input id="ac" autocapitalize="words"></label><label class="f"><span>CAP</span><input id="ap" inputmode="numeric" maxlength="5"></label><label class="f"><span>Email della gioielleria</span><input id="ae" type="email" inputmode="email" autocapitalize="off"><small style="display:block;margin-top:5px;opacity:.7;font-size:12px;line-height:1.35">Può essere uguale o diversa dalla tua email personale: sono due cose separate.</small></label><div class="hr" style="margin:6px 0 14px"></div><b style="display:block;margin-bottom:10px">Il tuo profilo</b>`:''}
 <div class="g2"><label class="f"><span>Nome</span><input id="rn" autocomplete="given-name" autocapitalize="words"></label><label class="f"><span>Cognome</span><input id="rc" autocomplete="family-name" autocapitalize="words"></label></div>
 <label class="f"><span>Email</span><input id="re" type="email" inputmode="email" autocomplete="email" autocapitalize="off" placeholder="nome@esempio.it"></label>
 ${pwf('rp','Password','new-password','Almeno 8 caratteri')}${pwf('rp2','Conferma password','new-password','Ripeti la password')}
 <div class="lerr" id="lerr" hidden></div><button class="lbtn" id="doReg">Invia richiesta</button>`;
  else body=`<div style="text-align:center"><div class="okc">${svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>',32)}</div><div class="lt">Richiesta inviata</div>${orn}
-<p class="ls" style="margin:6px 0 22px">Grazie ${esc(lname)}. Potrai accedere appena un amministratore avrà autorizzato il tuo account.</p><button class="lbtn ghost" data-lm="in">Torna all'accesso</button></div>`;
+<p class="ls" style="margin:6px 0 22px">Grazie ${esc(lname)}. ${lnew?'Conferma la tua email: la gioielleria sarà attiva dopo la verifica, e tu ne sarai l\'amministratore.':'Conferma la tua email: potrai accedere appena l\'amministratore della gioielleria avrà autorizzato il tuo account.'}</p><button class="lbtn ghost" data-lm="in">Torna all'accesso</button></div>`;
  L.innerHTML=`<img class="logo" src="logo.png" alt="CARLAORO">${lmode!=='sent'?tabs:''}<div class="lcard">${body}</div>
 <p class="foot">CarlaOro</p>`};
 const lerr=m=>{const e=$('#lerr');e.hidden=false;e.innerHTML=svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/>',18)+'<span></span>';e.lastChild.textContent=m};
 const emailOk=e=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-const showLogin=()=>{lmode='in';drawLogin();$('#login').hidden=false};
+const showLogin=()=>{lmode='in';regNew=false;try{selAz=JSON.parse(localStorage.getItem('carlaoro_az'))}catch(e){selAz=null}drawLogin();$('#login').hidden=false};
 const enter=()=>{$('#login').hidden=true;go0('vendita');const k=S.users.filter(x=>x.s==='in_attesa').length;if(me.r==='amministratore'&&k)toast(k===1?'1 nuova richiesta di accesso':k+' nuove richieste di accesso',['Vedi','utenti'])};
 const afterAuth=async()=>{const{data:{user}}=await sb.auth.getUser();if(!user){showLogin();return}
- const{data:p,error}=await sb.from('profili').select('*').eq('id',user.id).maybeSingle();
- if(error||!p){await sb.auth.signOut();showLogin();lerr('Profilo non trovato. Contatta l\'amministratore.');return}
- if(p.stato!=='attivo'||!['collaboratore','amministratore'].includes(p.ruolo)){await sb.auth.signOut();showLogin();lerr(p.stato==='in_attesa'?'Il tuo account è in attesa di autorizzazione da parte dell\'amministratore.':'Accesso non autorizzato. Contatta l\'amministratore.');return}
- me.id=p.id;me.n=((p.nome||'')+' '+(p.cognome||'')).trim()||p.email;me.r=p.ruolo;me.e=p.email||user.email;loadCart();
- try{await loadA();await loadD();await loadP()}catch(err){await sb.auth.signOut();showLogin();lerr('Impossibile caricare i dati: '+err.message);return}
+ let p=null;try{p=await rpc('c3_mio')}catch(e){}
+ const out=async m=>{await sb.auth.signOut();showLogin();lerr(m)};
+ if(!p)return out('Profilo non trovato. Contatta l\'amministratore.');
+ if(!p.creator){
+  if(selAz&&p.azienda_id!==selAz.id)return out('Questo account non appartiene a '+selAz.nome+'.');
+  if(p.az_stato==='in_attesa')return out('La tua gioielleria è in attesa di approvazione.');
+  if(p.az_stato&&p.az_stato!=='attiva')return out('La gioielleria non è attiva. Contatta l\'assistenza.');
+  if(p.stato!=='attivo'||!['collaboratore','amministratore'].includes(p.ruolo))return out(p.stato==='in_attesa'?'Il tuo account è in attesa di autorizzazione da parte dell\'amministratore.':'Accesso non autorizzato. Contatta l\'amministratore.');
+ }
+ me.id=p.id;me.n=((p.nome||'')+' '+(p.cognome||'')).trim()||p.email;me.r=p.ruolo;me.e=p.email||user.email;me.creator=!!p.creator;loadCart();
+ try{await loadA();await loadD();await loadP();await loadCR()}catch(err){return out('Impossibile caricare i dati: '+err.message)}
  enter()};
-const refresh=async()=>{if(!me.id)return;try{await loadA();await loadD();upd();if(view==='archivio'){await loadP();const s=document.querySelectorAll('[data-af]');if(s.length){go0('archivio')}}}catch(e){}};
+const refresh=async()=>{if(!me.id)return;try{await loadA();await loadD();if(view==='creator'){await loadCR();$('#crl').innerHTML=crRows()}upd();if(view==='archivio'){await loadP();const s=document.querySelectorAll('[data-af]');if(s.length){go0('archivio')}}}catch(e){}};
 const busy=(b,on)=>{if(!b)return;b.disabled=on;b.style.opacity=on?.6:''};
 let pendingImg='';
 const readImg=(file,cb)=>{if(!file)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const d=Math.min(im.width,im.height),cv=document.createElement('canvas');cv.width=cv.height=240;cv.getContext('2d').drawImage(im,(im.width-d)/2,(im.height-d)/2,d,d,0,0,240,240);let u;try{u=cv.toDataURL('image/webp',.85)}catch(e){u=cv.toDataURL('image/jpeg',.85)}cb(u)};im.src=fr.result};fr.readAsDataURL(file)};
@@ -506,7 +544,7 @@ const toast=(m,act)=>{const t=$('#toast');t.innerHTML='';const sp=document.creat
 const buzz=()=>{try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}};
 
 // ---------- eventi ----------
-document.addEventListener('click',async e=>{const t=e.target.closest('button,[data-open],#vbig,[data-zoom],[data-zoombar]');if(!t)return;const d=t.dataset;
+document.addEventListener('click',async e=>{const t=e.target.closest('button,[data-open],#vbig,[data-zoom],[data-zoombar]');if(!e.target.closest('.azp')){const l=$('#azl');if(l)l.hidden=true}if(!t)return;const d=t.dataset;
  if(d.x){const p=S.prev.find(x=>x.n===+d.x);modal(`<div class="bh">Eliminare il preventivo?</div><div class="bb"><b style="font-size:17px">${p.num} · ${esc(p.cliente)}</b><p class="small">L'eliminazione è definitiva, voci comprese.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-delp="${p.n}">Elimina</button></div></div>`);return}
  if(d.jump){const h=[...document.querySelectorAll('main .bh')].find(x=>x.textContent.trim().startsWith(d.jump));if(h)h.scrollIntoView({behavior:'smooth',block:'start'});return}
  if(d.go)return go(d.go);
@@ -524,24 +562,34 @@ document.addEventListener('click',async e=>{const t=e.target.closest('button,[da
  if(d.del!==undefined){S.cart.righe.splice(+d.del,1);save();go('carrello');return}
  if(t.id==='svuota'){S.cart.righe=[];save();go('carrello');toast('Carrello svuotato');return}
  if(t.id==='conf'){const n=$('#cn').value.trim(),c=$('#cc').value.trim();if(!n||!c){(!n?$('#cn'):$('#cc')).classList.add('err');return}
-  busy(t,true);try{const num=await rpc('cv2_conferma',{p_modalita:S.cart.modo,p_righe:S.cart.righe.map(x=>({voce:x.id,quantita:x.qty})),p_nome:n,p_cognome:c});
+  busy(t,true);try{const num=await rpc('c3_conferma',{p_modalita:S.cart.modo,p_righe:S.cart.righe.map(x=>({voce:x.id,quantita:x.qty})),p_nome:n,p_cognome:c});
   S.cart.righe=[];save();await loadP();afilt='in_attesa';const np=S.prev.find(p=>p.num===num);open=np?np.n:null;go('archivio');toast('Preventivo '+num+' confermato')}catch(err){busy(t,false);toast(err.message)}return}
  if(d.af){afilt=d.af;document.querySelectorAll('[data-af]').forEach(b=>b.classList.toggle('on',b===t));drawA();return}
  if(d.open){open=open===+d.open?null:+d.open;drawA();return}
- if(d.close){const p=S.prev.find(x=>x.n===+d.close);busy(t,true);try{await rpc('chiudi_preventivo',{p_id:p.n});await loadP();go('archivio');toast(p.num+' chiuso')}catch(err){busy(t,false);toast(err.message);await loadP().catch(()=>{});go('archivio')}return}
- if(d.delp){const p=S.prev.find(x=>x.n===+d.delp);busy(t,true);try{await rpc('elimina_preventivo',{p_id:p.n});unmodal();await loadP();go('archivio');toast(p.num+' eliminato')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
+ if(d.close){const p=S.prev.find(x=>x.n===+d.close);busy(t,true);try{await rpc('c3_chiudi',{p_id:p.n});await loadP();go('archivio');toast(p.num+' chiuso')}catch(err){busy(t,false);toast(err.message);await loadP().catch(()=>{});go('archivio')}return}
+ if(d.delp){const p=S.prev.find(x=>x.n===+d.delp);busy(t,true);try{await rpc('c3_elimina',{p_id:p.n});unmodal();await loadP();go('archivio');toast(p.num+' eliminato')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
  if(t.id==='mno')return unmodal();
- if(d.zoombar){const[zt,zg]=d.zoombar.split('_');modal(`<div class="bh">Lingotto ${zg} g · ${zt==='999'?'999,9':'750'}</div><div class="bb" style="text-align:center"><img class="zoombar" src="${zt==='999'?'bar_':'bar750_'}${zg}.webp" alt="Lingotto ${zg} g"><div style="height:12px"></div><button class="btn out" id="mno">Chiudi</button></div>`);return}
- if(d.zoom){const c=S.coins.find(x=>x.id===d.zoom);modal(`<div class="bh">${esc(c.n)}</div><div class="bb" style="text-align:center"><img class="zoomimg" src="${esc(c.img)}" alt="${esc(c.n)}"><p class="small">${String(c.fino).replace('.',',')} g di oro fino</p><button class="btn out" id="mno">Chiudi</button></div>`);return}
- if(t.id==='addCoin'){const n=$('#ncN').value.trim(),f=nm($('#ncF').value);if(!n){$('#ncN').classList.add('err');return}if(!(f>0)){$('#ncF').classList.add('err');return}
-  if(S.coins.some(c=>c.n.toLowerCase()===n.toLowerCase())){toast('Esiste già una moneta con questo nome');return}
-  busy(t,true);try{await rpc('cv2_salva',{p_sezione:'moneta_aggiungi',p:{nome:n,fino:f,foto:pendingImg||''}});pendingImg='';await loadA();await loadD();go0('costi');toast(n+' aggiunta: ora imposta calo, formule e ricarico')}catch(err){busy(t,false);toast(err.message)}return}
- if(d.rmcoin){const c=S.coins.find(x=>x.id===d.rmcoin);modal(`<div class="bh">Eliminare la moneta?</div><div class="bb"><b style="font-size:17px">${esc(c.n)}</b><p class="small">Sparisce da rivendita, formule, valutazione e vendita. I preventivi già confermati non cambiano.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-rmok="${c.id}">Elimina</button></div></div>`);return}
- if(d.rmok){const c=S.coins.find(x=>x.id===d.rmok);busy(t,true);try{await rpc('cv2_salva',{p_sezione:'moneta_elimina',p:{voce:c.id}});S.cart.righe=S.cart.righe.filter(r=>r.id!==c.id);save();unmodal();await loadA();await loadD();go0('costi');toast(c.n+' eliminata')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
+ if(d.zoombar){const l=LING.find(x=>x.id===d.zoombar);if(!l)return;modal(`<div class="bh">Lingotto ${fv(l.grammi)} g · ${l.tipo==='999'?'999,9':'750'}</div><div class="bb" style="text-align:center"><img class="zoombar" src="${esc(l.foto)}" alt="Lingotto ${fv(l.grammi)} g"><button class="btn out" id="mno" style="margin-top:16px">Chiudi</button></div>`);return}
+ if(d.zoom){const c=S.coins.find(x=>x.id===d.zoom)||(v=>v&&{n:v.n,img:v.img,fino:v.fino})(VOCI.find(x=>x.id===d.zoom));if(!c||!c.img)return;modal(`<div class="bh">${esc(c.n)}</div><div class="bb" style="text-align:center"><img class="zoomimg" src="${esc(c.img)}" alt="${esc(c.n)}"><p class="small">${String(c.fino).replace('.',',')} g di oro fino</p><button class="btn out" id="mno">Chiudi</button></div>`);return}
+ if(d.addvoce){const gv=d.addvoce,g=gv==='monv'?'mon':gv,n=$('#nv_n_'+gv).value.trim(),x=nm($('#nv_x_'+gv).value);if(!n){$('#nv_n_'+gv).classList.add('err');return}if(!(x>0)||(g!=='mon'&&x>1)){$('#nv_x_'+gv).classList.add('err');toast(g==='mon'?'Scrivi i grammi di oro fino':'Il titolo va da 0 a 1, es. 0,585');return}
+  busy(t,true);try{await rpc('c3_salva',{p_sezione:'voce_aggiungi',p:{metallo:GM[g],titolo:n,rif:g==='mon'?null:x,fino:g==='mon'?x:null,foto:newImg['v_'+gv]||''}});delete newImg['v_'+gv];await loadA();await loadD();go0(view);toast(n+(g==='mon'?' aggiunta ovunque: imposta i valori':' aggiunto: ora imposta formule e costi'))}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.rmvoce){const av=AV[d.rmvoce];if(!av)return;const mon=av.metallo==='moneta',pag=view==='vendadm'?'vendita':'acquisto',altra=false;modal(`<div class="bh">Eliminare?</div><div class="bb"><b style="font-size:17px">${esc(av.titolo)}</b><p class="small">${mon?'Sparisce dappertutto: valutazione, formule, costi e vendita monete.':'Sparisce da valutazione, formule e costi.'} I preventivi già confermati non cambiano.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-rmvok="${av.id}:${altra?pag:''}">Elimina</button></div></div>`);return}
+ if(d.rmvok){const[id,pag]=d.rmvok.split(':'),nm0=(AV[id]||{}).titolo||'',mo=(AV[id]||{}).metallo==='moneta';busy(t,true);try{await rpc('c3_salva',{p_sezione:'voce_elimina',p:{id}});S.cart.righe=S.cart.righe.filter(r=>r.id!==id);save();unmodal();await loadA();await loadD();go0(view);toast(nm0+' eliminat'+(mo?'a':'o'))}catch(err){busy(t,false);unmodal();toast(err.message)}return}
+ if(d.addling){const tp=d.addling,gr=nm($('#nl_g_'+tp).value),mn=nm($('#nl_m_'+tp).value)||0,ut=nm($('#nl_u_'+tp).value)||0;if(!(gr>0)){$('#nl_g_'+tp).classList.add('err');return}
+  busy(t,true);try{await rpc('c3_salva',{p_sezione:'lingotto_aggiungi',p:{tipo:tp,grammi:gr,man:mn,utile:ut,foto:newImg['l_'+tp]||''}});delete newImg['l_'+tp];await loadA();await loadD();go0(view);toast('Lingotto '+tp+' da '+fv(gr)+' g aggiunto')}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.rmling){const l=LING.find(x=>x.id===d.rmling);modal(`<div class="bh">Eliminare il lingotto?</div><div class="bb"><b style="font-size:17px">Lingotto ${l.tipo} da ${fv(l.grammi)} g</b><p class="small">Sparisce dalla pagina Lingotti.</p><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn danger" data-rmlok="${l.id}">Elimina</button></div></div>`);return}
+ if(d.rmlok){busy(t,true);try{await rpc('c3_salva',{p_sezione:'lingotto_elimina',p:{id:d.rmlok}});unmodal();await loadA();await loadD();go0(view);toast('Lingotto eliminato')}catch(err){busy(t,false);unmodal();toast(err.message)}return}
+ if(d.crin){busy(t,true);try{await rpc('c3_cr_vista',{p_id:d.crin});S.cart.righe=[];await loadA();await loadD();await loadP();go0('vendita');toast('Viewing '+D.azienda.nome)}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.crout){try{await rpc('c3_cr_vista',{p_id:null});loadCart();await loadA();await loadD();await loadP();await loadCR();go0('creator')}catch(err){toast(err.message)}return}
+ if(d.cract){const[id,az]=d.cract.split(':');busy(t,true);try{await rpc('c3_cr_azione',{p_id:id,p_azione:az});await loadCR();go0('creator');toast({attiva:'Approved',riattiva:'Reactivated',sospendi:'Suspended',rifiuta:'Rejected'}[az])}catch(err){busy(t,false);toast(err.message)}return}
+ if(d.azpick){const a=JSON.parse(decodeURIComponent(d.azpick));selAz=a;regNew=false;try{localStorage.setItem('carlaoro_az',JSON.stringify(a))}catch(e){}drawLogin();return}
+ if(d.aznew){selAz=null;regNew=true;drawLogin();return}
+ if(d.rs){regNew=d.rs==='new';if(regNew)selAz=null;drawLogin();return}
+ if(d.azclear){selAz=null;regNew=false;try{localStorage.removeItem('carlaoro_az')}catch(e){}drawLogin();setTimeout(()=>{const q=$('#azq');if(q)q.focus()},50);return}
  if(d.leave){unmodal();go0(d.leave);return}
  if(d.apply){const lab=t.textContent.trim().replace(/^Applica\s*/,'');const sec=t.closest('.grp')||t.closest('.blk');let ch=0;sec.querySelectorAll('[data-k]').forEach(el=>{const path=el.dataset.k.split('.');let o=S;for(let i=0;i<path.length-1;i++){if(o[path[i]]==null)o[path[i]]={};o=o[path[i]]}const v=nm(el.value);if(o[path.at(-1)]!==v){ch++;o[path.at(-1)]=v}el.value=fv(v)});
   const sv=sec.querySelector('.saved'),pl=payload(d.apply);if(!pl.length)return;busy(t,true);sv.hidden=false;sv.className='saved small';sv.textContent='Salvataggio in corso…';
-  try{for(const[s,p]of pl)await rpc('cv2_salva',{p_sezione:s,p});await loadA();await loadD();const y=$('#main').scrollTop;go0(view);$('#main').scrollTop=y;
+  try{for(const[s,p]of pl)await rpc('c3_salva',{p_sezione:s,p});await loadA();await loadD();const y=$('#main').scrollTop;go0(view);$('#main').scrollTop=y;
    const nb=[...document.querySelectorAll('[data-apply]')].find(b=>b.dataset.apply===d.apply),ns=nb&&(nb.closest('.grp')||nb.closest('.blk')).querySelector('.saved');if(ns){ns.hidden=false;ns.className='saved small ok';ns.textContent='✓ Salvato alle '+hhmm(Date.now())}
    toast(ch?'Salvato: '+lab:'Salvato (nessun valore cambiato)')}
   catch(err){busy(t,false);sv.className='saved small';sv.textContent='Non salvato: '+err.message;toast('Errore: '+err.message);try{await loadA()}catch(e){}}return}
@@ -550,37 +598,48 @@ document.addEventListener('click',async e=>{const t=e.target.closest('button,[da
  if(t.id==='mcash'){mcash=!mcash;t.classList.toggle('on',mcash);t.setAttribute('aria-pressed',mcash);upd();return}
  if(t.id==='lcash'){lcash=!lcash;t.classList.toggle('on',lcash);t.setAttribute('aria-pressed',lcash);upd();return}
  if(d.th!==undefined){if(d.th)document.documentElement.dataset.theme=d.th;else delete document.documentElement.dataset.theme;go('personale');return}
- if(t.id==='logout'||t.id==='logout2'){$('#app').classList.remove('menu');try{await sb.auth.signOut()}catch(e){}me.id='';me.n='';me.r='';A=null;D=null;S.prev=[];S.users=[];showLogin();return}
- if(d.lm){lmode=d.lm;drawLogin();return}
+ if(t.id==='logout'||t.id==='logout2'){$('#app').classList.remove('menu');try{await sb.auth.signOut()}catch(e){}me.id='';me.n='';me.r='';me.creator=false;CR=[];A=null;D=null;S.prev=[];S.users=[];showLogin();return}
+ if(d.lm){lmode=d.lm;if(regNew){regNew=false;try{selAz=JSON.parse(localStorage.getItem('carlaoro_az'))}catch(e){selAz=null}}drawLogin();return}
  if(d.eye){const i=$('#'+d.eye);i.type=i.type==='password'?'text':'password';t.style.color=i.type==='text'?'var(--gold)':'';return}
  if(t.id==='forgot'){const em=($('#le')&&$('#le').value.trim())||'';modal(`<div class="bh">Password dimenticata</div><div class="bb"><p style="margin-top:0">Scrivi la tua email: ti arriva un link per scegliere una nuova password.</p><label class="f"><span>Email</span><input id="fe" type="email" inputmode="email" autocapitalize="off" value="${esc(em)}"></label><div class="g2"><button class="btn out" id="mno">Annulla</button><button class="btn" id="fsend">Invia link</button></div></div>`);return}
  if(t.id==='fsend'){const em=$('#fe').value.trim().toLowerCase();if(!emailOk(em)){$('#fe').classList.add('err');return}busy(t,true);const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});unmodal();toast(error?'Invio non riuscito: '+error.message:'Se l\'email è registrata, ti arriva il link');return}
  if(t.id==='npsave'){const a=$('#np1').value,b=$('#np2').value;if(a.length<8){toast('Almeno 8 caratteri');return}if(a!==b){toast('Le due password non coincidono');return}busy(t,true);const{error}=await sb.auth.updateUser({password:a});if(error){busy(t,false);toast(error.message);return}unmodal();toast('Password aggiornata');history.replaceState(null,'',location.pathname);afterAuth();return}
- if(t.id==='doLogin'){const e=$('#le').value.trim().toLowerCase(),pw=$('#lp').value;if(!emailOk(e))return lerr('Scrivi un\'email valida.');if(!pw)return lerr('Scrivi la password.');
+ if(t.id==='doLogin'){const e=$('#le').value.trim().toLowerCase(),pw=$('#lp').value;if(!selAz)return lerr('Scegli prima la tua gioielleria.');if(!emailOk(e))return lerr('Scrivi un\'email valida.');if(!pw)return lerr('Scrivi la password.');
   busy(t,true);const{error}=await sb.auth.signInWithPassword({email:e,password:pw});busy(t,false);
   if(error){const m=error.message||'';return lerr(/invalid login/i.test(m)?'Email o password non corretti.':/not confirmed/i.test(m)?'Devi prima confermare l\'email: apri il link che ti è arrivato.':'Accesso non riuscito: '+m)}
   await afterAuth();return}
  if(t.id==='doReg'){const n=$('#rn').value.trim(),c=$('#rc').value.trim(),e=$('#re').value.trim().toLowerCase(),p1=$('#rp').value,p2=$('#rp2').value;
+  if(!selAz&&!regNew)return lerr('Scegli la tua gioielleria, oppure "Nuova gioielleria".');let azd={};
+  if(regNew){const an=$('#an').value.trim(),ac=$('#ac').value.trim(),apc=$('#ap').value.trim(),ae=$('#ae').value.trim().toLowerCase();
+   if(an.length<2)return lerr('Scrivi il nome della gioielleria.');if(ac.length<2)return lerr('Scrivi la città della gioielleria.');if(!/^\d{5}$/.test(apc))return lerr('Il CAP deve avere 5 cifre.');if(!emailOk(ae))return lerr('Scrivi l\'email della gioielleria.');
+   azd={nuova_azienda:{nome:an,citta:ac,cap:apc,email:ae}}}else azd={azienda_id:selAz.id};
   if(!n||!c)return lerr('Scrivi nome e cognome.');if(!emailOk(e))return lerr('Scrivi un\'email valida.');
   if(p1.length<8)return lerr('La password deve avere almeno 8 caratteri.');if(p1!==p2)return lerr('Le due password non coincidono.');
-  busy(t,true);const{data,error}=await sb.auth.signUp({email:e,password:p1,options:{data:{nome:n,cognome:c,ruolo_richiesto:'collaboratore'},emailRedirectTo:location.origin+location.pathname}});busy(t,false);
+  busy(t,true);const{data,error}=await sb.auth.signUp({email:e,password:p1,options:{data:{nome:n,cognome:c,...azd},emailRedirectTo:location.origin+location.pathname}});busy(t,false);
   if(error)return lerr(/already|registered/i.test(error.message)?'Esiste già un account con questa email.':'Registrazione non riuscita: '+error.message);
   if(data&&data.user&&Array.isArray(data.user.identities)&&!data.user.identities.length)return lerr('Esiste già un account con questa email.');
-  if(data&&data.session)await sb.auth.signOut();lname=n;lmode='sent';drawLogin();return}
- if(d.us||d.auth||d.role){busy(t,true);try{if(d.us){const[i,s]=d.us.split(':');const u=S.users[+i];await rpc('gestisci_utente',{p_id:u.id,p_azione:s==='attivo'?'autorizza':s==='rifiutato'?'rifiuta':'revoca'});toast(u.n+': '+sLab[s].toLowerCase())}
-  else if(d.auth){const u=S.users[+d.auth];await rpc('gestisci_utente',{p_id:u.id,p_azione:'autorizza'});await rpc('gestisci_utente',{p_id:u.id,p_azione:'promuovi'});toast('Accesso autorizzato: '+u.n+' (amministratore)')}
-  else{const[i,r]=d.role.split(':');const u=S.users[+i];if(r==='amministratore')await rpc('gestisci_utente',{p_id:u.id,p_azione:'promuovi'});else await rpc('cv2_salva',{p_sezione:'declassa',p:{id:u.id}});toast(u.n+' ora è '+r)}
+  if(data&&data.session)await sb.auth.signOut();lname=n;lnew=regNew;lmode='sent';drawLogin();return}
+ if(d.us||d.auth||d.role){busy(t,true);try{if(d.us){const[i,s]=d.us.split(':');const u=S.users[+i];await rpc('c3_utente',{p_id:u.id,p_azione:s==='attivo'?'autorizza':s==='rifiutato'?'rifiuta':'revoca'});toast(u.n+': '+sLab[s].toLowerCase())}
+  else if(d.auth){const u=S.users[+d.auth];await rpc('c3_utente',{p_id:u.id,p_azione:'autorizza'});await rpc('c3_utente',{p_id:u.id,p_azione:'promuovi'});toast('Accesso autorizzato: '+u.n+' (amministratore)')}
+  else{const[i,r]=d.role.split(':');const u=S.users[+i];await rpc('c3_utente',{p_id:u.id,p_azione:r==='amministratore'?'promuovi':'declassa'});toast(u.n+' ora è '+r)}
   await loadA();go0(view)}catch(err){busy(t,false);toast(err.message)}return}
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.closest('#login')&&e.target.tagName==='INPUT'){e.preventDefault();($('#doLogin')||$('#doReg'))?.click();return}if(e.key==='Enter'&&e.target.matches('main input')){e.target.blur();return}if((e.key==='Enter'||e.key===' ')&&e.target.id==='vbig'){e.preventDefault();e.target.click()}});
 $('#scrim').addEventListener('click',()=>$('#app').classList.remove('menu'));
 $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')unmodal()});
-document.addEventListener('input',e=>{const t=e.target;t.classList.remove('err');if(t.dataset.k){const sec=t.closest('.grp')||t.closest('.blk'),b=sec.querySelector('[data-apply]'),sv=sec.querySelector('.saved');b.classList.add('dirty');sv.hidden=false;sv.className='saved small';sv.textContent='Modifiche non ancora salvate';return}
+document.addEventListener('input',e=>{const t=e.target;t.classList.remove('err');
+ if(t.id==='crq'){crq=t.value;$('#crl').innerHTML=crRows();return}
+ if(t.id==='azq'){clearTimeout(azT);const q=t.value.trim(),l=$('#azl');if(q.length<3){l.hidden=true;return}
+  azT=setTimeout(async()=>{let r=[];try{r=await rpc('c3_cerca_aziende',{q})||[]}catch(er){}if($('#azq')!==t||t.value.trim()!==q)return;
+   l.innerHTML=r.map(a=>`<button data-azpick="${encodeURIComponent(JSON.stringify(a))}"><b>${esc(a.nome)}</b><small>${esc(a.citta)} · ${esc(a.codice)}</small></button>`).join('')+(r.length?'':'<button disabled><small>Nessuna gioielleria trovata</small></button>');l.hidden=false},250);return}if(t.dataset.k){const sec=t.closest('.grp')||t.closest('.blk'),b=sec.querySelector('[data-apply]'),sv=sec.querySelector('.saved');b.classList.add('dirty');sv.hidden=false;sv.className='saved small';sv.textContent='Modifiche non ancora salvate';return}
  if(t.id==='asrch'){aq=t.value;drawA();return}
  if(t.dataset.prop)lastP[t.dataset.g]=t.dataset.prop;
  if(t.id==='vg'||t.id==='vc'||t.dataset.val||t.dataset.prop||t.dataset.mq)upd()});
 
-document.addEventListener('change',e=>{const t=e.target;if(t.id==='ncP'){readImg(t.files[0],u=>{pendingImg=u;toast('Foto pronta')});return}if(t.dataset.cimg){const c=S.coins.find(x=>x.id===t.dataset.cimg);readImg(t.files[0],async u=>{try{await rpc('cv2_salva',{p_sezione:'moneta_foto',p:{voce:c.id,foto:u}});await loadD();go0('costi');toast('Foto di '+c.n+' aggiornata')}catch(err){toast(err.message)}})}});
+const newImg={};
+document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
+ if(d.newimg){readImg(t.files[0],u=>{newImg[d.newimg]=u;toast('Foto pronta')});return}
+ if(d.vimg||d.limg){const sez=d.vimg?'voce_foto':'lingotto_foto',id=d.vimg||d.limg;readImg(t.files[0],async u=>{try{await rpc('c3_salva',{p_sezione:sez,p:{id,foto:u}});await loadA();await loadD();const y=$('#main').scrollTop;go0(view);$('#main').scrollTop=y;toast('Foto aggiornata')}catch(err){toast(err.message)}})}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)hide()});
 
 // ---------- tastiera su web mobile ----------
@@ -595,13 +654,12 @@ let tick=0;setInterval(()=>{const now=Date.now();tick++;const qn=$('#qn');if(qn)
 const payload=l=>{
  if(l==='riduzione acquisti')return[['riduzione',{oro:S.rid}]];
  if(l==='riduzione argento')return[['riduzione_argento',{argento:S.ridAg}]];
- if(l.startsWith('formule ')){const g=l.split(' · ')[1];return[['formule',{modalita:fmodo,voci:VOCI.filter(v=>v.g===g&&S.coef[fmodo]&&S.coef[fmodo][v.id]).map(v=>({voce:v.id,c:S.coef[fmodo][v.id][0],t:S.coef[fmodo][v.id][1]}))}]]}
+ if(l.startsWith('formule ')){const g=l.split(' · ')[1];return[['formule',{modalita:fmodo,voci:VOCI.filter(v=>v.g===g&&S.coef[fmodo][v.id]).map(v=>({id:v.id,c:S.coef[fmodo][v.id][0],t:S.coef[fmodo][v.id][1]}))}]]}
  if(l==='vendita oreficeria'||l==='prezzo fedi'){const k=l==='prezzo fedi'?'fedi':'oreficeria';return[['vendita',{tipo:k,...S.vend[k]}]]}
- if(l==='vendita monete')return[['monete_vendita',{voci:S.coins.map(c=>({voce:c.id,ricarico:c.ric}))}]];
- if(l==='lingotti 750')return[['l750',S.ling.l750]];
- if(l==='lingotti 999'){const t=S.ling.l999.t;return[['l999',{iva:S.ling.l999.iva,mt:Object.fromEntries(T999.map(x=>[x,t[x][0]])),ut:Object.fromEntries(T999.map(x=>[x,t[x][1]]))}]]}
- if(l==='rivendita metalli'||l==='rivendita monete'){const mon=l==='rivendita monete';return[['rivendita',{voci:VOCI.filter(v=>(v.g==='mon')===mon&&S.riv[v.id]).map(v=>({voce:v.id,c:S.riv[v.id][0],t:S.riv[v.id][1]}))}]]}
- if(l==='semaforo')return[['semaforo',{oro:S.sem.oro,argento:S.sem.arg,sterline:S.sem.mon}]];
+ if(l==='vendita monete')return[['monete_vendita',{voci:(S.cadm||[]).filter(c=>c.on).map(c=>({id:c.id,ricarico:c.ric}))}]];
+ if(l==='lingotti 750'||l==='lingotti 999'){const tp=l.slice(-3),L=S.ling[tp];return[['lingotti',{tipo:tp,iva:L.iva,tagli:Object.entries(L.t).map(([id,x])=>({id,man:x[0],utile:x[1]}))}]]}
+ if(l==='rivendita metalli'||l==='rivendita monete'){const mon=l==='rivendita monete';return[['rivendita',{voci:VOCI.filter(v=>(v.g==='mon')===mon&&S.riv[v.id]).map(v=>({id:v.id,c:S.riv[v.id][0],t:S.riv[v.id][1]}))}]]}
+ if(l==='semaforo')return[['semaforo',{oro:S.sem.oro,argento:S.sem.arg,moneta:S.sem.mon}]];
  return[]};
 let npShown=false;const showNewPw=()=>{if(npShown)return;npShown=true;$('#splash').style.display='none';$('#login').hidden=true;modal(`<div class="bh">Nuova password</div><div class="bb">${pwf('np1','Nuova password','new-password','Almeno 8 caratteri')}${pwf('np2','Conferma password','new-password','Ripeti la password')}<button class="btn" id="npsave">Salva password</button></div>`)};
 sb.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY')setTimeout(showNewPw,300)});
